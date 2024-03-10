@@ -1400,7 +1400,8 @@
                 <visible>$PARAM[visible]</visible>
                 <control type="image">
                     <include>Texture_Shadow_Provider</include>
-                    <texture colordiffuse="main_fg_100">$PARAM[icon_diffuse]</texture>
+                    <!--PVR005: colordiffuse changed from main_fg_100 -->
+                    <texture colordiffuse="ff30adde">$PARAM[icon_diffuse]</texture>
                 </control>
                 <control type="image">
                     <aspectratio>keep</aspectratio>
@@ -2325,6 +2326,8 @@
         <definition>
             <include content="Info_FooterItemIcon">
                 <param name="icon">$PARAM[icon]</param>
+                <!-- PVR005: param icon-colordiffuse added -->
+                <param name="icon_colordiffuse">main_fg_100</param>
                 <param name="centered">false</param>
                 <param name="size">50</param>
                 <param name="bordersize">$PARAM[bordersize]</param>
