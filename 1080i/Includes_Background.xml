@@ -145,6 +145,8 @@
                 <include content="Background_Image" condition="Skin.String(Background.ArtworkStyle,Fanart)">
                     <param name="fadetime">$PARAM[fadetime]</param>
                 </include>
+                <!-- PVR006: No Blur for Detailed OR Basic (Full Screen) EPG -->
+                <visible>![Window.IsVisible(10702) + !Skin.HasSetting(views.usehalfpvrguide)]</visible>	
             </control>
         </definition>
     </include>
