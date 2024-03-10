@@ -564,7 +564,9 @@
                 <left>20</left>
             </include>
 
-            <include content="Object_InfoCircle_Text_Top">
+            <!-- PVR002: Object for PVR only -->
+            <!-- include content="Object_InfoCircle_Text_Top" -->
+            <include content="Object_InfoCircle_Text_Top_PVR">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
                 <label>$VAR[Label_PVRPrograms]</label>
@@ -574,7 +576,8 @@
                 <right>40</right>
             </include>
 
-            <include content="Object_InfoCircle_Text_Sub">
+            <!-- PVR002: Remove Genre -->
+            <!-- include content="Object_InfoCircle_Text_Sub">
                 <param name="id">1</param>
                 <include condition="$PARAM[selected]">Color_SelectedText</include>
                 <label>$INFO[ListItem.Genre]</label>
@@ -582,11 +585,12 @@
                 <selectedcolor>main_fg_70</selectedcolor>
                 <left>60</left>
                 <right>40</right>
-            </include>
+            </include -->
 
             <control type="image" id="1">
                 <right>30</right>
-                <centertop>50%</centertop>
+                <!-- PVR002: Reposition Indicator (was 50%) -->
+                <centertop>25%</centertop>
                 <aspectratio align="right">keep</aspectratio>
                 <height>32</height>
                 <texture>$VAR[Image_PVRGuide_Indicator]</texture>
