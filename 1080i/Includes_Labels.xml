@@ -18,6 +18,7 @@
         <value condition="!String.IsEmpty(Container(303).ListItemNoWrap(1).Label) + Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)">$INFO[Container(303).ListItemNoWrap(1).Label]</value>
         <value condition="Skin.String(Navigation.OnDown,Explore)">$LOCALIZE[31148]</value>
         <value condition="Skin.String(Navigation.OnDown,Menu)">$LOCALIZE[33063]</value>
+        <!-- MISC022: Remove "More Unavailable" when no more widgets -->
         <value>$LOCALIZE[31342]</value>
     </variable>
 
