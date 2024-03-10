@@ -326,7 +326,9 @@
                 <left>view_side</left>
             </include>
             <include content="Info_Viewline">
-                <param name="label">$INFO[Container.NumItems,, $LOCALIZE[19019]]</param>
+                <!-- PVR008: Use Program Start Date for Detailed EPG -->
+                <!-- PVR008: label changed from $INFO[Container.NumItems,, $LOCALIZE[19019]] -->
+                <param name="label">$VAR[LabelProgramStartDate]</param>
             </include>
             <include>View_Row_Header</include>
         </control>
