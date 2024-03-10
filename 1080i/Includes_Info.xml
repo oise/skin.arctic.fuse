@@ -937,6 +937,8 @@
                 <width>64</width>
                 <control type="image">
                     <texture colordiffuse="$PARAM[textcolor]" border="4">flags/quality/blank.png</texture>
+                    <!-- MISC016: Do not display "No Information Available" -->
+                    <visible>!Integer.IsEqual(Container(99951).NumItems,0) | $PARAM[is_web] | Window.IsVisible(12005)</visible>
                 </control>
                 <control type="group">
                     <width>37</width>
@@ -1033,6 +1035,8 @@
                     <visible>!$PARAM[is_hd]</visible>
                     <visible>!$PARAM[is_sd]</visible>
                     <visible>!$PARAM[is_web]</visible>
+                    <!-- MISC016: Do not display "No Information Available" -->
+                    <visible>!Integer.IsEqual(Container(99951).NumItems,0)</visible>
                 </control>
             </control>
 
@@ -1318,7 +1322,8 @@
                 <nested />
             </control>
 
-            <control type="grouplist">
+            <!-- MISC016: Do not display "No Information Available" -->
+            <!-- control type="grouplist">
                 <hitrect x="0" y="0" w="0" h="0" />
                 <height>80</height>
                 <orientation>horizontal</orientation>
@@ -1337,7 +1342,7 @@
 
                 <nested />
 
-            </control>
+            </control -->
 
         </definition>
     </include>
