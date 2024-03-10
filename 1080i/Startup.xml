@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window>
     <onload>ReplaceWindow(1198)</onload>
+    <!-- MISC020: Force Trakt sync on Start Up -->
+    <onload condition="System.AddonIsEnabled(script.trakt)">RunScript(script.trakt,action=sync,silent=true)</onload>
 </window>
