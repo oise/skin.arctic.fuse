@@ -2973,10 +2973,27 @@
     <include name="Info_KodiLogo">
         <param name="visible">true</param>
         <definition>
-            <include content="Settings_KodiVersion">
+            <!-- MISC017: Disable base Footer Kodi Logo -->
+            <!-- include content="Settings_KodiVersion">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="centerbottom">50%</param>
-            </include>
+            </include -->
+            <!-- MISC017: START Revert to previous version of Footer Kodi Logo -->
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <include>Info_KodiLogo_Image</include>
+                <control type="label">
+                    <left>80</left>
+                    <label>KODI</label>
+                    <centertop>50%</centertop>
+                    <width>auto</width>
+                    <height>20</height>
+                    <textcolor>main_fg_90</textcolor>
+                    <font>font_logo</font>
+                    <textoffsetx>0</textoffsetx>
+                </control>
+            </control>
+            <!-- MISC017: END Revert to previous version of Footer Kodi Logo -->
         </definition>
     </include>
 
