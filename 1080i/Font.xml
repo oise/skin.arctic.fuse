@@ -106,6 +106,14 @@
             <filename>RobotoCondensed-Bold.ttf</filename>
             <size>24</size>
         </font>
+        <!-- PVR005: START EPG Group Switcher - custom font for All Channels (also used for MISC002 and MISC015) -->
+        <font>
+            <name>font_epg_group_switcher</name>
+            <filename>RobotoCondensed-Bold.ttf</filename>
+            <style>uppercase</style>
+            <size>24</size>
+        </font>
+        <!-- PVR005: END EPG Group Switcher - custom font for All Channels (also used for MISC002 and MISC015) -->
         <font>
             <name>font_hint_bold</name>
             <filename>RobotoCondensed-Bold.ttf</filename>

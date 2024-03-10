@@ -2297,7 +2297,8 @@
     </include>
 
     <variable name="Info_KodiLogo_Color">
-        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">$VAR[ColorHighlight]</value>
+        <!-- PVR005: value changed from $VAR[ColorHighlight] -->
+        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">ff30adde</value>
         <value>main_fg_90</value>
     </variable>
 

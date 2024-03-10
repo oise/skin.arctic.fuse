@@ -623,6 +623,18 @@
             <selectedcolor>main_fg_90</selectedcolor>
         </control>
     </include>
+    
+    <!-- PVR005: EPG Group Switcher specific include -->
+    <include name="Object_InfoCircle_Text_Top_EPG_Group_Switcher">	
+        <control type="label" id="$PARAM[id]">
+            <height>10</height>
+            <centertop>25</centertop>
+            <nested />
+            <font>font_epg_group_switcher</font>
+            <textcolor>$VAR[Info_KodiLogo_Color]</textcolor>
+            <selectedcolor>main_fg_90</selectedcolor>
+        </control>
+    </include>
 
     <!-- PVR002: START Object for PVR only -->
     <include name="Object_InfoCircle_Text_Top_PVR">
