@@ -141,6 +141,13 @@
             <filename>RobotoCondensed-Regular.ttf</filename>
             <size>22</size>
         </font>
+        <!-- PVR010: START custom font for detailed EPG plotbox -->
+        <font>
+            <name>font_tiny_24</name>
+            <filename>RobotoCondensed-Regular.ttf</filename>
+            <size>24</size>
+        </font>
+        <!-- PVR010: START custom font for detailed EPG plotbox -->
         <font>
             <name>font_hint</name>
             <filename>RobotoCondensed-Regular.ttf</filename>
