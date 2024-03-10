@@ -19,7 +19,7 @@
         <value condition="Skin.String(Navigation.OnDown,Explore)">$LOCALIZE[31148]</value>
         <value condition="Skin.String(Navigation.OnDown,Menu)">$LOCALIZE[33063]</value>
         <!-- MISC022: Remove "More Unavailable" when no more widgets -->
-        <value>$LOCALIZE[31342]</value>
+        <value></value>
     </variable>
 
     <variable name="Label_SkinVariables_FilterPath">
