@@ -545,13 +545,16 @@
         <definition>
             <control type="group">
                 <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <param name="left">-20</param>
+                    <!-- MISC014: param changed from -20 -->
+                    <param name="left">-100</param>
                 </include>
                 <include content="Object_Right" condition="$PARAM[flipx]">
-                    <param name="right">-20</param>
+                    <!-- MISC014: param changed from -20 -->
+                    <param name="right">-100</param>
                 </include>
                 <control type="group">
-                    <centertop>50%</centertop>
+                    <!-- MISC014: analog clock disabled -->
+                    <!-- centertop>50%</centertop>
                     <height>50</height>
                     <width>50</width>
                     <include content="Object_Left" condition="!$PARAM[flipx]">
@@ -584,7 +587,7 @@
                             <height>8</height>
                             <texture colordiffuse="main_bg_100">common/circle.png</texture>
                         </control>
-                    </control>
+                    </control -->
 
                 </control>
                 <control type="group">
