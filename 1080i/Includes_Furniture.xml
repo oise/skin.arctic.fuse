@@ -56,7 +56,9 @@
                         <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]]">
                             <centertop>50%</centertop>
                         </include>
-                        <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)">
+                        <!-- PVR008: condition extended -->
+                        <!-- include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)" --> 
+                        <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock) | Window.IsVisible(10702)">
                             <param name="flipx">true</param>
                             <param name="topshadowcolor">main_bg_50</param>
                             <param name="bottomshadowcolor">main_bg_50</param>
