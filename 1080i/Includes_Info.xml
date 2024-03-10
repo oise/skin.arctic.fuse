@@ -752,7 +752,8 @@
 
                 <include content="Info_Viewline_Label">
                     <include content="Object_TextColor" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
-                        <param name="textcolor">$VAR[ColorHighlight]</param>
+                        <!-- MISC003: parameter changed from ColorHighlight -->
+                        <param name="textcolor">$VAR[ColorGradient]</param>
                     </include>
                     <label>$PARAM[label]</label>
                     <!-- PVR008: add  + !Window.IsVisible(10702) to visible tag-->

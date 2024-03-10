@@ -509,7 +509,24 @@
     </include>
 
     <variable name="Def_PlotDetails_Fallback">
+        <!-- MISC003: PVR Guide -->
+        <value condition="Window.IsVisible(10702)">No Information Available</value>
+        <!-- MISC003: LIVE TV - Classic (Widgets Only) Side Menu-->
+        <value condition="String.IsEqual(Container(303).ListItem(0).Label,LIVE TV)"></value>
+        <!-- MISC003: LIVE TV - Compound (Categories) Horizontal Menu -->
+        <value condition="String.IsEqual(Container(300).ListItem(0).Label,LIVE TV)"></value>
+        <!-- MISC003: VOD - Classic (Widgets Only) Side Menu-->
+        <value condition="String.IsEqual(Container(303).ListItem(0).Label,VOD)"></value>
+        <!-- MISC003: VOD - Compound (Categories) Horizontal Menu -->
+        <value condition="String.IsEqual(Container(300).ListItem(0).Label,VOD)"></value>
+        
         <value condition="$EXP[Exp_IsWindow_Music] | Window.IsVisible(1103)">$LOCALIZE[31156] $LOCALIZE[31157]</value>
+            
+        <!-- MISC003: MUSIC - Classic (Widgets Only) Side Menu-->
+        <value condition="String.IsEqual(Container(303).ListItem(0).Label,MUSIC)">$LOCALIZE[31156] $LOCALIZE[31157]</value>
+        <!-- MISC003: MUSIC - Compound (Categories) Horizontal Menu -->
+        <value condition="String.IsEqual(Container(300).ListItem(0).Label,MUSIC)">$LOCALIZE[31156] $LOCALIZE[31157]</value>
+
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktStats.Movies.Watched)) + !String.IsEmpty(Window(Home).Property(TMDbHelper.TraktStats.Shows.Watched))">$LOCALIZE[31147] $LOCALIZE[31146]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.TraktStats.Total.Minutes))">$LOCALIZE[31144] $LOCALIZE[31146]</value>
         <value condition="$EXP[Exp_IsWindow_TVShows]">$LOCALIZE[31172]</value>
