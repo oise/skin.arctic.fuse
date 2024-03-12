@@ -181,7 +181,7 @@
             </include>
 
             <!-- Bump -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + $PARAM[menu]">ActivateWindow(1171)</ondown>
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + $PARAM[menu]">ActivateWindow(shutdownmenu)</ondown>
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + $PARAM[home]">ActivateWindow(Home)</ondown>
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + $PARAM[bump]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</ondown>
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + $PARAM[bump]">$PARAM[bump_id]</ondown>
@@ -362,14 +362,6 @@
 
             <ondown condition="$PARAM[condition]">ActivateWindow(1181)</ondown>
         </definition>
-    </include>
-
-    <include name="Action_View_Filter_OnDown">
-        <ondown condition="Skin.String(Navigation.OnDown,Bump)">SetProperty(List.ViewContainer,19)</ondown>
-        <ondown condition="Skin.String(Navigation.OnDown,Bump)">330</ondown>
-        <ondown condition="Skin.String(Navigation.OnDown,Menu)">ActivateWindow(1171)</ondown>
-        <ondown condition="Skin.String(Navigation.OnDown,Explore) + $EXP[Exp_FilterWall_IsActive]">Runscript(script.skinvariables,$VAR[MediaWall_ScriptTypeDef],use_rules,id=$VAR[Action_View_ContentID],win_prop=WallSlideOut,focus_id=$VAR[Action_View_ContentID],clear_prop_one=MediaFilterBase,clear_prop_two=MediaFilterWall,last_action=SetFocus(67))</ondown>
-        <ondown condition="Skin.String(Navigation.OnDown,Explore) + ![$EXP[Exp_FilterWall_IsActive]]">SetFocus(67)</ondown>
     </include>
 
     <variable name="Action_Var_ToMediaFilter_Vert">
