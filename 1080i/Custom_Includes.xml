@@ -68,7 +68,7 @@
  
 	<expression name="Live_Football_NoMatch">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,799) + [String.EndsWith(ListItem.ChannelName,":") | String.EndsWith(ListItem.ChannelName,"-") | [Integer.IsGreater(ListItem.ChannelNumberLabel,520) + String.StartsWith(ListItem.ChannelName,"EPL ") + ![String.EndsWith(ListItem.ChannelName,"0") | !String.EndsWith(ListItem.ChannelName,"5")]]]</expression>
  
-    <expression name="Live_Football_Club_Channel">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,592)] | [Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,658) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,669)]</expression>
+    <expression name="Live_Football_Club_Channel">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,592)] | [Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,668) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,679)]</expression>
 
 	<!-- PVR001: Variable for Channel Icon -->
 	<variable name="ImagePVREPGIcon">
