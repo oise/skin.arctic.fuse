@@ -24,7 +24,8 @@
     <include name="Search_View_Widgets_Grouplist">
         <control type="grouplist" id="6000">
             <top>500</top>
-            <onup>SetFocus(303,9999,absolute)</onup>
+            <include>Action_Search_Movement_OnUp</include>
+            <!-- <onup>SetFocus(303,9999,absolute)</onup> -->
             <ondown>5099</ondown>
             <orientation>vertical</orientation>
             <control type="group" id="6100">
@@ -86,10 +87,7 @@
         <control type="group">
             <left>view_menu</left>
             <width>40</width>
-            <visible>!Skin.String(Home.SideMenuCollapse,Always)</visible>
-            <visible>!Skin.String(Home.SideMenuCollapse,Library)</visible>
-            <visible>!Skin.String(Home.SideMenuCollapse,Topbar)</visible>
-            <visible>!Skin.HasSetting(Home.SideMenu.DisableSearchOptions)</visible>
+            <visible>$EXP[Exp_HomeMenu_SearchOptions_DontHide]</visible>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <control type="group">
                 <top>view_pad</top>
