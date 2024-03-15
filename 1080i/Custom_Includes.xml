@@ -151,7 +151,7 @@
 		<value>$INFO[ListItem.StartDate]</value>
 	</variable>
 	
-	<!-- PVR010: Expressions and variable for PVR Plot (TextPVREPGProgramPlot) -->
+	<!-- PVR010: Expressions and variable for PVR Program Title and Plot -->
 	<variable name="TextPVREPGProgramPlot">
 		<value condition="$EXP[Standard_Channel]">$VAR[Label_Plot]</value>
 		<value condition="$EXP[247_Channel]">All Day, Every Day</value>
@@ -166,6 +166,11 @@
 		<value condition="$EXP[Live_Football_FHNatho]">$INFO[ListItem.ChannelName]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
+    
+    <variable name="TextPVRPlotboxHeader">
+        <value condition="!$EXP[Live_Football_Anova] + !$EXP[Live_Football_FHNatho]">$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</value>
+        <value>$VAR[TextPVREPGProgramInfo]</value>
+    </variable>
 	
 	<!--MISC019: Expressions and Variables for Custom Episode Type Banner-->
 	<expression name="Info_Line_Episode_Banner_Exists">String.IsEqual(Container(99950).ListItem.Property(episode_type),series_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_premiere) | String.IsEqual(Container(99950).ListItem.Property(episode_type),series_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),season_finale) | String.IsEqual(Container(99950).ListItem.Property(episode_type),mid_season_finale)</expression>

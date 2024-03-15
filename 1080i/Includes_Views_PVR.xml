@@ -179,7 +179,7 @@
                         <font>font_tiny_bold</font>                         
                         <textcolor>main_fg_90</textcolor>
                         <shadowcolor>main_bg_12</shadowcolor>
-                        <label>$VAR[TextPVREPGProgramInfo] : $INFO[ListItem.StartTime,,]$INFO[ListItem.EndTime, - ,]</label>
+                        <label>$VAR[TextPVRPlotboxHeader]</label>
                         <visible>!String.IsEqual(ListItem.Title,ListITem.ChannelName)</visible>
                         <visible>!Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
                     </control>
