@@ -162,7 +162,7 @@
 	<variable name="TextPVREPGProgramInfo">
 		<value condition="$EXP[Standard_Channel]">$INFO[ListItem.Label]</value>
 		<value condition="$EXP[247_Channel]">$INFO[ListItem.ChannelName] ... All Day, Every Day</value>		
-        <value condition="$EXP[Live_Football_Anova] + $EXP[Live_Football_Club_Channel]">$INFO[ListItem.ChannelName]</value>
+        <value condition="$EXP[Live_Football_Anova] + !$EXP[Live_Football_Club_Channel]">$INFO[ListItem.ChannelName]</value>
 		<value condition="$EXP[Live_Football_FHNatho]">$INFO[ListItem.ChannelName]</value>
 		<value>$INFO[ListItem.Label]</value>
 	</variable>
