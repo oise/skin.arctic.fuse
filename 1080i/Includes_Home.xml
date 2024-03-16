@@ -74,7 +74,7 @@
                     <include content="Home_Menu_List_ItemLayout" condition="!Skin.HasSetting(Hub.Home.DisableSubmenu)">
                         <param name="id">$PARAM[id]</param>
                         <param name="hidden_button">Home_Menu_List_HiddenButton_Alt</param>
-                        <param name="hidden_button_enabled">Window.IsVisible(Home)</param>
+                        <param name="hidden_button_enabled">[Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)]</param>
                     </include>
 
                     <include>$PARAM[items_include]</include>
@@ -99,7 +99,7 @@
             <visible allowhiddenfocus="true">false</visible>
             <animation effect="fade" start="0" end="0" time="100" reversible="false">Focus</animation>
             <onfocus condition="!String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">ClearProperty(TMDbHelper.WidgetContainer.UpdateLock,1198)</onfocus>
-            <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">SetProperty(List.ViewContainer,300)</onfocus>
+            <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">SetProperty(List.ViewContainer,311)</onfocus>
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">ClearProperty(List.ViewContainer.Left)</onfocus>
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">SetProperty(TMDbHelper.WidgetContainer,301)</onfocus>
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock)) + Skin.HasSetting(Slide.WidgetContainer)">SetProperty(Slide.WidgetContainer,True)</onfocus>
