@@ -30,7 +30,6 @@
     <property name="guid">{item_guid}</property>
     <property name="widgets_setfocus">SetFocus(400)</property>
     <property name="expression">none</property>
-    <onclick>System.LogOff</onclick>
     <onclick>ActivateWindow(1195)</onclick>
     <visible>Window.IsVisible(Home)</visible>
     <visible>!Skin.HasSetting(SideMenu.EnableMenuButton)</visible>
@@ -77,11 +76,11 @@
     <label>$LOCALIZE[137]</label>
     <icon>special://skin/extras/icons/search.png</icon>
     <property name="showlabel">True</property>
-    <property name="path">SetFocus(9501)</property>
+    <property name="path">SetFocus(67)</property>
     <property name="guid">{item_guid}</property>
     <property name="widgets_setfocus">SetFocus(6000)</property>
     <property name="expression">none</property>
-    <onclick>SetFocus(9501)</onclick>
+    <onclick>SetFocus(67)</onclick>
     <visible>Window.IsVisible(1105)</visible>
 </item>
 <item>
@@ -94,4 +93,17 @@
     <property name="expression">none</property>
     <onclick>SetFocus(64)</onclick>
     <visible>Window.IsMedia</visible>
+    <visible>!Skin.String(Navigation.OnDown,Options)</visible>
+</item>
+<item>
+    <label>$LOCALIZE[137]</label>
+    <icon>special://skin/extras/icons/search.png</icon>
+    <property name="showlabel">True</property>
+    <property name="path">ActivateWindow(1105)</property>
+    <property name="guid">{item_guid}</property>
+    <property name="widgets_setfocus">SetFocus(400)</property>
+    <property name="expression">none</property>
+    <onclick>ActivateWindow(1105)</onclick>
+    <onclick>SetFocus(67)</onclick>
+    <visible>[Window.IsMedia + Skin.String(Navigation.OnDown,Options)] | [$EXP[Exp_Window_IsHub] + Skin.HasSetting(SideMenu.EnableMenuButton)]</visible>
 </item>
