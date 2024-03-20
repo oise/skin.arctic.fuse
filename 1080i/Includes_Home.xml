@@ -41,6 +41,9 @@
                     <onup condition="$EXP[Exp_HomeMenu_SearchOptions_DontHide] + [Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)]">$PARAM[id]</onup>
 
                     <onup condition="!$EXP[Exp_HomeMenu_SearchOptions_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)] + Skin.String(Navigation.OnUp,Search)">ActivateWindow(1105)</onup>
+
+                    <onup condition="!$EXP[Exp_HomeMenu_SearchOptions_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)] + !Skin.String(Navigation.OnUp,Search)">SetProperty(List.ViewContainer.Prev,$INFO[Window.Property(List.ViewContainer)])</onup>
+
                     <onup condition="!$EXP[Exp_HomeMenu_SearchOptions_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)] + !Skin.String(Navigation.OnUp,Search)">SetProperty(List.ViewContainer,$PARAM[id])</onup>
                     <onup condition="!$EXP[Exp_HomeMenu_SearchOptions_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library)] + !Skin.String(Navigation.OnUp,Search)">SetFocus(333)</onup>
 
@@ -57,8 +60,14 @@
                     <onfocus condition="Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.FirstSet))">ClearProperty($INFO[Container(303).ListItem.Property(widgets_tmdbh_id)],1198)</onfocus>
                     <onfocus condition="Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.FirstSet))">SetProperty(TMDbHelper.WidgetContainer,$INFO[ListItem.Property(widgets_first_id)])</onfocus>
 
+
                     <onfocus condition="Window.IsVisible(Home)">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,True,1198)</onfocus>
                     <onfocus condition="Window.IsVisible(Home)">SetProperty(TMDbHelper.WidgetContainer.FirstSet,True,1198)</onfocus>
+
+                    <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">SetProperty(List.ViewContainer,$INFO[Window.Property(List.ViewContainer.Prev)])</onfocus>
+                    <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">ClearProperty(List.ViewContainer.Prev)</onfocus>
+                    <onfocus condition="String.IsEmpty(Window.Property(List.ViewContainer.Prev)) + String.IsEmpty(Window.Property(List.ViewContainer)) + Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library) + !Skin.HasSetting(Hub.Home.DisableSubmenu)">SetProperty(List.ViewContainer,311)</onfocus>
+                    <onfocus condition="String.IsEmpty(Window.Property(List.ViewContainer.Prev)) + String.IsEmpty(Window.Property(List.ViewContainer)) + Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Library) + !Skin.HasSetting(Hub.Home.DisableSubmenu)">ClearProperty(Slide.WidgetContainer)</onfocus>
 
                     <include content="Action_HomeMenu_OnRightLeft">
                         <param name="onlist">$PARAM[onlist]</param>
@@ -102,8 +111,11 @@
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">SetProperty(List.ViewContainer,311)</onfocus>
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">ClearProperty(List.ViewContainer.Left)</onfocus>
             <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">SetProperty(TMDbHelper.WidgetContainer,301)</onfocus>
-            <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock)) + Skin.HasSetting(Slide.WidgetContainer)">SetProperty(Slide.WidgetContainer,True)</onfocus>
-            <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock)) + !Skin.HasSetting(Slide.WidgetContainer)">ClearProperty(Slide.WidgetContainer)</onfocus>
+            <onfocus condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock))">ClearProperty(Slide.WidgetContainer)</onfocus>
+
+            <include content="List_ButtonMenu_Row_HiddenButton_Home_OnFocus">
+                <param name="prefix">Item.$INFO[Container(300).ListItem.Property(item)]302.</param>
+            </include>
         </control>
     </include>
 
