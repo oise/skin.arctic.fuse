@@ -148,14 +148,16 @@
         <param name="L03" />
         <param name="L04" />
         <param name="L05" />
+        <param name="L06" />
         <param name="C01" />
         <param name="C02" />
         <param name="C03" />
         <param name="C04" />
         <param name="C05" />
+        <param name="C06" />
         <param name="altvisible">false</param>
         <definition>
-            <visible>[$PARAM[L01]$PARAM[L02]$PARAM[L03]$PARAM[L04]$PARAM[L05] | [$PARAM[altvisible]]] | [String.IsEmpty($PARAM[container]ListItem.DBType) + [$PARAM[C01]$PARAM[C02]$PARAM[C03]$PARAM[C04]$PARAM[C05]]]</visible>
+            <visible>[$PARAM[L01]$PARAM[L02]$PARAM[L03]$PARAM[L04]$PARAM[L05]$PARAM[L06] | [$PARAM[altvisible]]] | [String.IsEmpty($PARAM[container]ListItem.DBType) + [$PARAM[C01]$PARAM[C02]$PARAM[C03]$PARAM[C04]$PARAM[C05]$PARAM[C06]]]</visible>
         </definition>
     </include>
     <include name="Info_Line_Visible_01">
@@ -225,6 +227,26 @@
                 <param name="C03"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_03])</param>
                 <param name="C04"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_04])</param>
                 <param name="C05"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_05])</param>
+            </include>
+        </definition>
+    </include>
+    <include name="Info_Line_Visible_06">
+        <definition>
+            <include content="_Info_Line_Visible">
+                <param name="altvisible">$PARAM[altvisible]</param>
+                <param name="container">$PARAM[container]</param>
+                <param name="L01">String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_01])</param>
+                <param name="L02"> | String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_02])</param>
+                <param name="L03"> | String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_03])</param>
+                <param name="L04"> | String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_04])</param>
+                <param name="L05"> | String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_05])</param>
+                <param name="L06"> | String.IsEqual($PARAM[container]ListItem.DBType,$PARAM[dbtype_06])</param>
+                <param name="C01">String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_01])</param>
+                <param name="C02"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_02])</param>
+                <param name="C03"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_03])</param>
+                <param name="C04"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_04])</param>
+                <param name="C05"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_05])</param>
+                <param name="C06"> | String.IsEqual(Container(99950).ListItem.DBType,$PARAM[dbtype_06])</param>
             </include>
         </definition>
     </include>
@@ -736,116 +758,79 @@
         </control>
     </include>
 
+    <variable name="Info_Viewline_ItemsIcon">
+        <value condition="Container.Filtered | !String.IsEmpty(Control.GetLabel(19).index(1))">special://skin/extras/icons/filter-small.png</value>
+        <value condition="System.Setting(hidewatched)">special://skin/extras/icons/watched-hide.png</value>
+        <value>special://skin/extras/icons/layer-group.png</value>
+    </variable>
+
     <include name="Info_Viewline">
         <param name="label">$VAR[Label_Section_Main]</param>
         <param name="primary_visible">[true]</param>
-        <param name="sort_descending">Container.SortDirection(Descending)</param>
-        <param name="sort_condition">false</param>
         <param name="item_condition">false</param>
-        <param name="item_count">$INFO[Container.NumItems]</param>
-        <param name="item_updating">Container.IsUpdating</param>
+        <param name="item_count">$VAR[Label_Info_ViewLine_NumItems]</param>
+        <param name="item_updating">[[Container.IsUpdating + ![$EXP[Exp_View_502] | $EXP[Exp_View_512] | $EXP[Exp_View_522]]] | [$EXP[Exp_View_502] + Container(503).IsUpdating] | [$EXP[Exp_View_512] + Container(513).IsUpdating] | [$EXP[Exp_View_522] + Container(523).IsUpdating]]</param>
         <param name="library_condition">false</param>
-        <param name="custom_condition">false</param>
         <definition>
 
-
-            <control type="grouplist">
-
-                <include content="Info_Viewline_Label">
-                    <include content="Object_TextColor" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
-                        <!-- MISC003: parameter changed from ColorHighlight -->
-                        <param name="textcolor">$VAR[ColorGradient]</param>
-                    </include>
-                    <label>$PARAM[label]</label>
-                    <!-- PVR008: add  + !Window.IsVisible(10702) to visible tag-->
-                    <visible>$PARAM[primary_visible] + !Window.IsVisible(10702)</visible>
-                </include>
-                
-                <!-- PVR008: START display Program Start Date for Detailed EPG -->
-                <include content="Info_Viewline_Label">                   
-                    <label>$PARAM[label]</label>
-                    <font>font_tiny_bold</font>
-                    <textcolor>main_fg_70</textcolor>
-                    <shadowcolor>main_bg_12</shadowcolor>
-                    <top>-8</top>
-                    <visible>$PARAM[primary_visible] + Window.IsVisible(10702)</visible>                    
-                </include>
-                <!-- PVR008: END display Program Start Date for Detailed EPG -->
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[sort_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <param name="icon_enabled">special://skin/extras/icons/arrow-down-wide-short.png</param>
-                    <param name="icon_disabled">special://skin/extras/icons/arrow-up-wide-short.png</param>
-                    <param name="enabled">$PARAM[sort_descending]</param>
-                </include>
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[library_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <param name="icon_enabled">special://skin/extras/icons/watched-hide.png</param>
-                    <param name="icon_disabled">special://skin/extras/icons/watched-show.png</param>
-                    <param name="enabled">System.Setting(hidewatched)</param>
-                </include>
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[library_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <param name="icon_enabled">special://skin/extras/icons/filter-circle-check.png</param>
-                    <param name="icon_disabled">special://skin/extras/icons/filter-circle-xmark.png</param>
-                    <param name="enabled">[Container.Filtered | !String.IsEmpty(Control.GetLabel(19).index(1))]</param>
-                </include>
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <param name="icon_enabled">special://skin/extras/icons/rotate.png</param>
-                    <param name="icon_disabled">special://skin/extras/icons/rotate.png</param>
-                    <visible>$PARAM[item_updating]</visible>
-                </include>
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <param name="icon_enabled">special://skin/extras/icons/layer-group.png</param>
-                    <param name="icon_disabled">special://skin/extras/icons/layer-group.png</param>
-                </include>
-
-                <include content="Info_Viewline_Label" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
-                    <font>font_mini</font>
-                    <height>38</height>
-                    <left>-10</left>
-                    <label>$PARAM[item_count]</label>
-                </include>
-
-                <include content="Info_Viewline_Icon" condition="$PARAM[custom_condition]">
-                    <param name="icon_enabled">$PARAM[custom_icon]</param>
-                    <param name="icon_disabled">$PARAM[custom_icon]</param>
-                </include>
-
+            <control type="group">
                 <nested />
-
-                <orientation>horizontal</orientation>
                 <top>520</top>
                 <height>40</height>
                 <left>view_side</left>
-                <itemgap>12</itemgap>
-            </control>
+                <control type="grouplist">
 
-            <include content="Object_Control" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
-                <param name="control">grouplist</param>
+                    <include content="Info_Viewline_Label">
+                        <include content="Object_TextColor" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
+                            <param name="textcolor">$VAR[ColorHighlight]</param>
+                        </include>
+                        <label>$PARAM[label]</label>
+                        <visible>$PARAM[primary_visible]</visible>
+                    </include>
 
-                <control type="label">
-                    <aligny>center</aligny>
-                    <textcolor>$VAR[ColorGradient]</textcolor>
-                    <font>font_main_black</font>
-                    <label>$PARAM[label]</label>
-                    <width>auto</width>
-                    <height>35</height>
-                    <visible>$PARAM[primary_visible]</visible>
-                    <animation effect="fade" end="33" condition="true">Conditional</animation>
-                    <!-- PVR008: add visible tag -->
-                    <visible>!Window.IsVisible(10702)</visible>
+                    <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
+                        <param name="icon_enabled">special://skin/extras/icons/rotate.png</param>
+                        <param name="icon_disabled">special://skin/extras/icons/rotate.png</param>
+                        <visible>$PARAM[item_updating]</visible>
+                    </include>
+
+                    <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + ![$PARAM[library_condition]] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
+                        <param name="icon_enabled">special://skin/extras/icons/layer-group.png</param>
+                        <param name="icon_disabled">special://skin/extras/icons/layer-group.png</param>
+                    </include>
+
+                    <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + $PARAM[library_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
+                        <param name="icon_enabled">$VAR[Info_Viewline_ItemsIcon]</param>
+                        <param name="icon_disabled">$VAR[Info_Viewline_ItemsIcon]</param>
+                    </include>
+
+                    <include content="Info_Viewline_Label" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineDisableIcons)">
+                        <font>font_mini</font>
+                        <height>38</height>
+                        <left>-10</left>
+                        <label>$PARAM[item_count]</label>
+                    </include>
+
+                    <orientation>horizontal</orientation>
+                    <itemgap>12</itemgap>
                 </control>
 
-                <nested />
-
-                <orientation>horizontal</orientation>
-                <top>520</top>
-                <height>40</height>
-                <left>view_side</left>
-                <itemgap>12</itemgap>
-            </include>
+                <include content="Object_Control" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
+                    <param name="control">grouplist</param>
+                    <control type="label">
+                        <aligny>center</aligny>
+                        <textcolor>$VAR[ColorGradient]</textcolor>
+                        <font>font_main_black</font>
+                        <label>$PARAM[label]</label>
+                        <width>auto</width>
+                        <height>35</height>
+                        <visible>$PARAM[primary_visible]</visible>
+                        <animation effect="fade" end="33" condition="true">Conditional</animation>
+                    </control>
+                    <orientation>horizontal</orientation>
+                    <itemgap>12</itemgap>
+                </include>
+            </control>
         </definition>
     </include>
 
@@ -956,8 +941,6 @@
                 <width>64</width>
                 <control type="image">
                     <texture colordiffuse="$PARAM[textcolor]" border="4">flags/quality/blank.png</texture>
-                    <!-- MISC016: Do not display "No Information Available" -->
-                    <visible>!Integer.IsEqual(Container(99951).NumItems,0) | $PARAM[is_web] | Window.IsVisible(12005)</visible>
                 </control>
                 <control type="group">
                     <width>37</width>
@@ -1054,8 +1037,6 @@
                     <visible>!$PARAM[is_hd]</visible>
                     <visible>!$PARAM[is_sd]</visible>
                     <visible>!$PARAM[is_web]</visible>
-                    <!-- MISC016: Do not display "No Information Available" -->
-                    <visible>!Integer.IsEqual(Container(99951).NumItems,0)</visible>
                 </control>
             </control>
 
@@ -1130,19 +1111,6 @@
                     <param name="textcolor">$PARAM[colordiffuse]_90</param>
                 </include>
 
-                <!-- MISC019: START Custom Infoline Episode Banners -->
-                <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_02">
-                        <param name="container">$PARAM[container]</param>
-                        <param name="dbtype_01">episode</param>
-                    </include>
-                    <param name="items_01">true</param>
-                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
-                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param>
-                    <param name="textcolor">$VAR[Info_Line_Episode_Banner_Color]</param>
-                </include>
-                <!-- MISC019: END Custom Infoline Episode Banners -->
-
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
                     <include content="Info_Line_Visible_02">
@@ -1162,13 +1130,14 @@
                     <param name="textcolor">$PARAM[colordiffuse]_90</param>
                 </include>
                 <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_05">
+                    <include content="Info_Line_Visible_06">
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
                         <param name="dbtype_03">set</param>
                         <param name="dbtype_04">album</param>
                         <param name="dbtype_05">song</param>
+                        <param name="dbtype_06">season</param>
                     </include>
                     <param name="items_03">true</param>
                     <param name="label_01">$INFO[Container(99950).ListItem.Property(Set.Years)]</param>
@@ -1182,10 +1151,11 @@
 
                 <!-- MPAA -->
                 <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_02" condition="Skin.HasSetting(InfoLine.EndTime)">
+                    <include content="Info_Line_Visible_03" condition="Skin.HasSetting(InfoLine.EndTime)">
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
+                        <param name="dbtype_03">season</param>
                     </include>
                     <param name="items_02">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.MPAA]</param>
@@ -1197,10 +1167,11 @@
 
                 <!-- Genres -->
                 <include content="Info_Line_Items" condition="!Skin.HasSetting(InfoLine.EndTime)">
-                    <include content="Info_Line_Visible_02">
+                    <include content="Info_Line_Visible_03">
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
+                        <param name="dbtype_03">season</param>
                     </include>
                     <param name="items_03">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.Property(Genre.1.Name)]</param>
@@ -1236,13 +1207,14 @@
 
                 <!-- Duration Info -->
                 <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_04">
+                    <include content="Info_Line_Visible_05">
                         <param name="altvisible">!String.IsEmpty($PARAM[container]ListItem.ChannelNumberLabel)</param>
                         <param name="container">$PARAM[container]</param>
                         <param name="dbtype_01">movie</param>
                         <param name="dbtype_02">tvshow</param>
                         <param name="dbtype_03">video</param>
                         <param name="dbtype_04">episode</param>
+                        <param name="dbtype_05">season</param>
                     </include>
                     <param name="items_06">true</param>
                     <param name="label_01">$INFO[$PARAM[container]ListItem.Duration(h),, $LOCALIZE[31074] ]$INFO[$PARAM[container]ListItem.Duration(m),, $LOCALIZE[31073]]</param>
@@ -1354,8 +1326,7 @@
                 <nested />
             </control>
 
-            <!-- MISC016: Do not display "No Information Available" -->
-            <!-- control type="grouplist">
+            <control type="grouplist">
                 <hitrect x="0" y="0" w="0" h="0" />
                 <height>80</height>
                 <orientation>horizontal</orientation>
@@ -1374,7 +1345,7 @@
 
                 <nested />
 
-            </control -->
+            </control>
 
         </definition>
     </include>
@@ -2316,8 +2287,7 @@
     </include>
 
     <variable name="Info_KodiLogo_Color">
-        <!-- PVR005: value changed from $VAR[ColorHighlight] -->
-        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">ff30adde</value>
+        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">$VAR[ColorHighlight]</value>
         <value>main_fg_90</value>
     </variable>
 
@@ -2329,8 +2299,6 @@
         <definition>
             <include content="Info_FooterItemIcon">
                 <param name="icon">$PARAM[icon]</param>
-                <!-- PVR005: param icon-colordiffuse added -->
-                <param name="icon_colordiffuse">ff30adde</param>
                 <param name="centered">false</param>
                 <param name="size">50</param>
                 <param name="bordersize">$PARAM[bordersize]</param>
@@ -2976,27 +2944,10 @@
     <include name="Info_KodiLogo">
         <param name="visible">true</param>
         <definition>
-            <!-- MISC017: Disable base Footer Kodi Logo -->
-            <!-- include content="Settings_KodiVersion">
+            <include content="Settings_KodiVersion">
                 <param name="visible">$PARAM[visible]</param>
                 <param name="centerbottom">50%</param>
-            </include -->
-            <!-- MISC017: START Revert to previous version of Footer Kodi Logo -->
-            <control type="group">
-                <visible>$PARAM[visible]</visible>
-                <include>Info_KodiLogo_Image</include>
-                <control type="label">
-                    <left>80</left>
-                    <label>KODI</label>
-                    <centertop>50%</centertop>
-                    <width>auto</width>
-                    <height>20</height>
-                    <textcolor>main_fg_90</textcolor>
-                    <font>font_logo</font>
-                    <textoffsetx>0</textoffsetx>
-                </control>
-            </control>
-            <!-- MISC017: END Revert to previous version of Footer Kodi Logo -->
+            </include>
         </definition>
     </include>
 
