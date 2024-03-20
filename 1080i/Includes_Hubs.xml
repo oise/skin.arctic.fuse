@@ -118,7 +118,7 @@
                 <label>$LOCALIZE[31427] [LOWERCASE]$LOCALIZE[31103][/LOWERCASE]...</label>
             </control>
             <control type="group">
-                <centertop>700</centertop>
+                <centertop>750</centertop>
                 <height>80</height>
                 <include content="Object_BusySpinner">
                     <param name="colordiffuse">main_fg</param>
@@ -389,17 +389,6 @@
                 <param name="delay">200</param>
             </include>
             <visible>$PARAM[visible]</visible>
-            <!-- <include content="Animation_Fade_In">
-                <param name="type">Visible</param>
-                <param name="delay">100</param>
-                <param name="condition">Window.Next()</param>
-            </include>
-            <include content="Animation_Fade_In">
-                <param name="type">Visible</param>
-                <param name="delay">0</param>
-                <param name="condition">!Window.Next()</param>
-            </include>
-            <visible>$PARAM[visible] | !Window.Next()</visible> -->
             <control type="group">
                 <include content="Animation_ConditionalFade">
                     <param name="condition">Window.IsVisible(1171)</param>
