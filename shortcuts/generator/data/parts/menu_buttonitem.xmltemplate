@@ -23,7 +23,7 @@
     <visible>!Skin.HasSetting(SideMenu.DisableSearchButton)</visible>
 </item>
 
-<!-- MISC012: Include "Home" -->
+<!-- MISC023: START Include "Home" -->
 <item>
     <label>Home</label>
     <icon>special://skin/extras/icons/home.png</icon>
@@ -35,6 +35,7 @@
     <onclick>ActivateWindow(Home)</onclick>
     <visible>Skin.HasSetting(Hub.Home.DisableSubmenu)</visible>
 </item>
+<!-- MISC023: END Include "Home" -->
 
 <!-- Close / Profiles / Quit -->
 <item>
