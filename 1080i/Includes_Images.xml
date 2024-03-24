@@ -14,6 +14,11 @@
         <value>special://skin/extras/icons/eye2.png</value>
     </variable>
 
+    <variable name="Image_NextMedia_Icon">
+        <value condition="$EXP[Exp_View_56] | $EXP[Exp_View_506] | $EXP[Exp_View_516]">special://skin/extras/icons/arrow-right.png</value>
+        <value>special://skin/extras/icons/arrow-down.png</value>
+    </variable>
+
     <variable name="Image_SkinVariables_FilterName">
         <value condition="String.StartsWith(Container(22001).ListItem.Property(sidemenu_guid),guid-)">$INFO[Container(29313).Listitem.Icon]</value>
         <value>special://skin/extras/icons/world.png</value>
@@ -219,9 +224,10 @@
 
     <variable name="Image_ProfileThumb">
         <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser.Icon))">$INFO[Skin.String(SkinVariables.SkinUser.Icon)]</value>
-        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser.Name))">$INFO[Window(Home).Property(System.ProfileNumber),special://skin/extras/profiles/Mountains (,).jpg]</value>
+        <value condition="!String.IsEmpty(Skin.String(SkinVariables.SkinUser.Name)) + !String.IsEmpty(Window(Home).Property(System.ProfileNumber))">$INFO[Window(Home).Property(System.ProfileNumber),special://skin/extras/profiles/Mountains (,).jpg]</value>
         <value condition="!String.IsEqual(System.ProfileThumb,DefaultUser.png) + !String.IsEmpty(System.ProfileThumb)">$INFO[System.ProfileThumb]</value>
-        <value>$INFO[Window(Home).Property(System.ProfileNumber),special://skin/extras/profiles/Mountains (,).jpg]</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(System.ProfileNumber))">$INFO[Window(Home).Property(System.ProfileNumber),special://skin/extras/profiles/Mountains (,).jpg]</value>
+        <value>special://skin/extras/profiles/Mountains (1).jpg</value>
     </variable>
 
     <variable name="Image_Scrollbar_NumItems">

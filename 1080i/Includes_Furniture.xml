@@ -19,7 +19,7 @@
         <param name="label">[CAPITALIZE]$VAR[Label_Header_Main][/CAPITALIZE]</param>
         <param name="enabled">true</param>
         <param name="clock">Skin.HasSetting(Furniture.EnableClock.TopLeft)</param>
-        <param name="textcolor">main_fg_100</param>
+        <param name="textcolor">main_fg_90</param>
         <param name="textcolor_sublabel">main_fg_70</param>
         <param name="shadowcolor_sublabel">main_bg_12</param>
         <definition>
@@ -70,19 +70,6 @@
         </definition>
     </include>
 
-    <include name="Furniture_Bottom_WidgetGroups_BlankItem">
-        <control type="group">
-            <left>-10</left>
-            <top>52</top>
-            <height>40</height>
-            <width>40</width>
-            <control type="image">
-                <bordersize>-8</bordersize>
-                <texture colordiffuse="main_fg_100" flipy="false">special://skin/extras/icons/arrow-down.png</texture>
-            </control>
-        </control>
-    </include>
-
     <include name="Furniture_Bottom_WidgetGroups">
         <param name="label">$VAR[Label_NextWidget]</param>
         <definition>
@@ -97,12 +84,11 @@
                             <include content="Info_Viewline">
                                 <param name="library_condition">false</param>
                                 <param name="label">$PARAM[label]</param>
+                                <param name="custom_condition">true</param>
+                                <param name="custom_icon">special://skin/extras/icons/arrow-down.png</param>
                                 <top>0</top>
                                 <left>0</left>
                             </include>
-                        </control>
-                        <control type="group">
-                            <include>Furniture_Bottom_WidgetGroups_BlankItem</include>
                         </control>
                     </control>
                 </include>
@@ -242,7 +228,7 @@
 
     <include name="Furniture_DateLabel">
         <param name="label">$INFO[System.Date] [COLOR=main_fg_30]•[/COLOR] $INFO[System.Time]</param>
-        <param name="font">font_tiny_bold</param>
+        <param name="font">font_tiny</param>
         <definition>
             <control type="label">
                 <aligny>center</aligny>
@@ -537,7 +523,6 @@
         <param name="bottomlabel">$INFO[System.Date]</param>
         <param name="topcolor">main_fg_90</param>
         <param name="bottomcolor">main_fg_70</param>
-        <param name="minify">False</param>
         <param name="topfont">font_mini_black</param>
         <param name="bottomfont">font_tiny</param>
         <param name="centerfont">font_mini</param>
@@ -598,27 +583,7 @@
                     <include content="Object_Right" condition="$PARAM[flipx]">
                         <param name="right">100</param>
                     </include>
-                    <control type="label">
-                        <height>10</height>
-                        <centertop>50%</centertop>
-                        <label>$PARAM[toplabel]</label>
-                        <include content="Object_Align" condition="!$PARAM[flipx]">
-                            <param name="align">left</param>
-                        </include>
-                        <include content="Object_Align" condition="$PARAM[flipx]">
-                            <param name="align">right</param>
-                        </include>
-                        <font>$PARAM[centerfont]</font>
-                        <textcolor>$PARAM[bottomcolor]</textcolor>
-                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
-                        <visible>[$PARAM[minify]]</visible>
-                        <include content="Animation_Fade_Out">
-                            <param name="type">Hidden</param>
-                        </include>
-                    </control>
-                    <control type="label">
-                        <height>10</height>
-                        <top>22</top>
+                    <include content="Object_InfoCircle_Text_Top">
                         <label>$PARAM[toplabel]</label>
                         <include content="Object_Align" condition="!$PARAM[flipx]">
                             <param name="align">left</param>
@@ -629,14 +594,8 @@
                         <font>$PARAM[topfont]</font>
                         <textcolor>$PARAM[topcolor]</textcolor>
                         <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
-                        <visible>![$PARAM[minify]]</visible>
-                        <include content="Animation_Fade_In">
-                            <param name="type">Visible</param>
-                        </include>
-                    </control>
-                    <control type="label">
-                        <height>10</height>
-                        <bottom>22</bottom>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
                         <label>$PARAM[bottomlabel]</label>
                         <include content="Object_Align" condition="!$PARAM[flipx]">
                             <param name="align">left</param>
@@ -647,11 +606,8 @@
                         <font>$PARAM[bottomfont]</font>
                         <textcolor>$PARAM[bottomcolor]</textcolor>
                         <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
-                        <visible>![$PARAM[minify]]</visible>
-                        <include content="Animation_Fade_In">
-                            <param name="type">Visible</param>
-                        </include>
-                    </control>
+                    </include>
+
                 </control>
             </control>
         </definition>

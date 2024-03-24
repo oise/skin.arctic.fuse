@@ -162,53 +162,28 @@
                             <onclick condition="!Skin.String(Home.SideMenuCollapse,Library) + !Skin.String(Home.SideMenuCollapse,Always)">Skin.SetString(Home.SideMenuCollapse,Library)</onclick>
                             <visible>Container(3).HasFocus(1)</visible>
                         </include>
-                        <include content="Settings_Button" description="">
-                            <param name="id">1005</param>
+                        <include content="Settings_Button" description="Disable Search Button">
+                            <param name="id">1012</param>
                             <param name="dialog">false</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31416] > $LOCALIZE[31151]</label>
-                            <onclick condition="Skin.HasSetting(Home.SideMenu.DisableSearchOptions)">Skin.Reset(Home.SideMenu.DisableSearchOptions)</onclick>
-                            <onclick condition="!Skin.HasSetting(Home.SideMenu.DisableSearchOptions)">RunScript(script.skinvariables,run_dialog=yesno,heading=$LOCALIZE[31152],yeslabel=$LOCALIZE[1210],nolabel=$LOCALIZE[222],defaultbutton=10,message=[UPPERCASE][COLOR=red][B]$LOCALIZE[14117]: [/B][/COLOR][/UPPERCASE]$LOCALIZE[31153][CR]$LOCALIZE[31155],"executebuiltin=Skin.SetBool(Home.SideMenu.DisableSearchOptions)")</onclick>
-                            <selected>!Skin.HasSetting(Home.SideMenu.DisableSearchOptions)</selected>
-                            <visible>!Skin.String(Home.SideMenuCollapse,Topbar)</visible>
+                            <label>$LOCALIZE[31416] > $LOCALIZE[13014] > $LOCALIZE[137]</label>
+                            <onclick>Skin.ToggleSetting(SideMenu.DisableSearchButton)</onclick>
+                            <onclick>ReloadSkin()</onclick>
+                            <onclick>AlarmClock(refocusblura,SetFocus(3,0,absolute),00:00,silent)</onclick>
+                            <onclick>AlarmClock(refocusblurb,SetFocus(1012),00:00,silent)</onclick>
+                            <selected>!Skin.HasSetting(SideMenu.DisableSearchButton)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
                         </include>
                         <include content="Settings_Button" description="Home group indicator">
                             <param name="id">1006</param>
                             <param name="dialog">false</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31416] > $LOCALIZE[31347]</label>
+                            <label>$LOCALIZE[31416] > $LOCALIZE[10000] > $LOCALIZE[31347]</label>
                             <onclick>Skin.ToggleSetting(Home.SideMenu.DisableIndicator)</onclick>
                             <selected>!Skin.HasSetting(Home.SideMenu.DisableIndicator)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
                             <visible>Skin.String(Home.SideMenuCollapse,Library)</visible>
                         </include>
-
-
-                        <include content="Settings_Button" description="Expand side menu labels on focus">
-                            <param name="id">1007</param>
-                            <param name="dialog">false</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31416] > $LOCALIZE[31304]</label>
-                            <onclick>Skin.ToggleSetting(SideMenu.ExpandLabels)</onclick>
-                            <selected>Skin.HasSetting(SideMenu.ExpandLabels)</selected>
-                            <visible>Container(3).HasFocus(1)</visible>
-                            <visible>Skin.String(Home.SideMenuCollapse,Library)</visible>
-                        </include>
-
-                        <include content="Settings_Button" description="Expand side menu labels on focus">
-                            <param name="id">1012</param>
-                            <param name="dialog">false</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31416] > $LOCALIZE[31349]</label>
-                            <onclick>Skin.ToggleSetting(SideMenu.EnableMenuButton)</onclick>
-                            <onclick>ReloadSkin()</onclick>
-                            <onclick>AlarmClock(refocusblura,SetFocus(3,0,absolute),00:00,silent)</onclick>
-                            <onclick>AlarmClock(refocusblurb,SetFocus(1012),00:00,silent)</onclick>
-                            <selected>Skin.HasSetting(SideMenu.EnableMenuButton)</selected>
-                            <visible>Container(3).HasFocus(1)</visible>
-                        </include>
-
 
                         <include content="Settings_Label" description="SideMenu Label">
                             <param name="id">1008</param>
@@ -221,7 +196,7 @@
                             <param name="id">1009</param>
                             <param name="dialog">false</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31103] > $LOCALIZE[31083]</label>
+                            <label>$LOCALIZE[31351] > $LOCALIZE[31103] > $LOCALIZE[31083]</label>
                             <onclick>Skin.ToggleSetting(Hubs.WidgetSelector)</onclick>
                             <selected>Skin.HasSetting(Hubs.WidgetSelector)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
@@ -231,21 +206,12 @@
                             <param name="id">1010</param>
                             <param name="dialog">false</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31150] > $LOCALIZE[31305]</label>
+                            <label>$LOCALIZE[31351] > $LOCALIZE[31150] > $LOCALIZE[31305]</label>
                             <onclick>Skin.ToggleSetting(Slide.WidgetContainer)</onclick>
                             <selected>Skin.HasSetting(Slide.WidgetContainer)</selected>
                             <visible>Container(3).HasFocus(1)</visible>
                         </include>
 
-                        <include content="Settings_Button" description="Categories focus second position">
-                            <param name="id">1011</param>
-                            <param name="dialog">false</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31150] > $LOCALIZE[31306]</label>
-                            <onclick>Skin.ToggleSetting(Categories.UseSecondPositionFocus)</onclick>
-                            <selected>Skin.HasSetting(Categories.UseSecondPositionFocus)</selected>
-                            <visible>Container(3).HasFocus(1)</visible>
-                        </include>
 
                         <!-- Appearance -->
                         <include content="Settings_Label" description="LooknFeel Label">
@@ -521,26 +487,6 @@
                             <label>$LOCALIZE[31324]</label>
                             <visible>Container(3).HasFocus(4)</visible>
                         </include>
-
-                        <include content="Settings_Button" description="OnUp">
-                            <param name="id">4022</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31324] > $LOCALIZE[31007]</label>
-                            <label2>$INFO[Skin.String(Navigation.OnUp)]</label2>
-                            <visible>Container(3).HasFocus(4)</visible>
-                            <onclick condition="Skin.String(Navigation.OnUp,Search)">Skin.SetString(Navigation.OnUp,Bump)</onclick>
-                            <onclick condition="!Skin.String(Navigation.OnUp,Search)">Skin.SetString(Navigation.OnUp,Search)</onclick>
-                        </include>
-                        <include content="Settings_Button" description="OnDown">
-                            <param name="id">4023</param>
-                            <param name="control">button</param>
-                            <label>$LOCALIZE[31324] > $LOCALIZE[31008]</label>
-                            <label2>$INFO[Skin.String(Navigation.OnDown)]</label2>
-                            <visible>Container(3).HasFocus(4)</visible>
-                            <onclick condition="Skin.String(Navigation.OnDown,Explore)">Skin.SetString(Navigation.OnDown,Options)</onclick>
-                            <onclick condition="Skin.String(Navigation.OnDown,Options)">Skin.SetString(Navigation.OnDown,Bump)</onclick>
-                            <onclick condition="!Skin.String(Navigation.OnDown,Explore) + !Skin.String(Navigation.OnDown,Options)">Skin.SetString(Navigation.OnDown,Explore)</onclick>
-                        </include>
                         <include content="Settings_Button" description="OnLeftRight">
                             <param name="id">4024</param>
                             <param name="control">button</param>
@@ -562,6 +508,7 @@
                             <onclick condition="Skin.String(Navigation.OnBack,Previous)">Skin.SetString(Navigation.OnBack,Parent)</onclick>
                             <onclick condition="Skin.String(Navigation.OnBack,Parent) | String.IsEmpty(Skin.String(Navigation.OnBack))">Skin.SetString(Navigation.OnBack,Menu)</onclick>
                         </include>
+
                         <include content="Settings_Button" description="Hubs OnDown">
                             <param name="id">4030</param>
                             <param name="control">button</param>
@@ -570,6 +517,16 @@
                             <visible>Container(3).HasFocus(4)</visible>
                             <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[31324] > $LOCALIZE[31351] > $LOCALIZE[31008],separator=||,list=Options||Explore||Add-ons||Next Aired Library||Next Aired Trakt,"executebuiltin_0=Skin.Reset(Navigation.Hubs.OnDown)","executebuiltin_1=Skin.SetString(Navigation.Hubs.OnDown,ActivateWindow(1182))","executebuiltin_2=Skin.SetString(Navigation.Hubs.OnDown,ActivateWindow(1132))","executebuiltin_3=Skin.SetString(Navigation.Hubs.OnDown,ActivateWindow(1131))","executebuiltin_4=Skin.SetString(Navigation.Hubs.OnDown,ActivateWindow(1130))")</onclick>
                         </include>
+
+                        <include content="Settings_Button" description="OnDown">
+                            <param name="id">4023</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31324] > $LOCALIZE[14022] > $LOCALIZE[31008]</label>
+                            <label2>$INFO[Skin.String(Navigation.Library.OnDown)]</label2>
+                            <visible>Container(3).HasFocus(4)</visible>
+                            <onclick>RunScript(script.skinvariables,run_dialog=select,heading=$LOCALIZE[31324] > $LOCALIZE[14022] > $LOCALIZE[31008],separator=||,list=$LOCALIZE[33063]||$LOCALIZE[31148]||$LOCALIZE[587],"executebuiltin_0=Skin.SetString(Navigation.Library.OnDown,Options)","executebuiltin_1=Skin.SetString(Navigation.Library.OnDown,Explore)","executebuiltin_2=Skin.SetString(Navigation.Library.OnDown,Filter)")</onclick>
+                        </include>
+
                         <include content="Settings_Button" description="Library Filter Wall">
                             <param name="id">4029</param>
                             <param name="control">radiobutton</param>
@@ -617,10 +574,18 @@
                             <label>$LOCALIZE[31239]</label>
                             <visible>Container(3).HasFocus(5)</visible>
                         </include>
+                        <include content="Settings_Button" description="Footer: Enable on widgets">
+                            <param name="id">5012</param>
+                            <param name="control">button</param>
+                            <label>$LOCALIZE[31127]</label>
+                            <label2>$VAR[Label_Settings_LeftFooterVisibility]</label2>
+                            <visible>Container(3).HasFocus(5)</visible>
+                            <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Settings_LeftFooterVisibility_Preselect],heading=$LOCALIZE[31127],separator=||,list=$LOCALIZE[14116]||$LOCALIZE[14116] + $LOCALIZE[14022]||$LOCALIZE[14116] + $LOCALIZE[14022] + $LOCALIZE[31103],"executebuiltin_0=Skin.Reset(Furniture.BottomLeft.Enable)","executebuiltin_1=Skin.SetString(Furniture.BottomLeft.Enable,Library)","executebuiltin_2=Skin.SetString(Furniture.BottomLeft.Enable,Always)")</onclick>
+                        </include>
                         <include content="Settings_Button" description="Codecs and Providers">
                             <param name="id">5006</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31205]</label>
+                            <label> - $LOCALIZE[31205]</label>
                             <selected>Skin.HasSetting(Furniture.ProvidersCodecs)</selected>
                             <visible>Container(3).HasFocus(5)</visible>
                             <onclick>Skin.ToggleSetting(Furniture.ProvidersCodecs)</onclick>
@@ -628,7 +593,7 @@
                         <include content="Settings_Button" description="Play counts and dates">
                             <param name="id">5007</param>
                             <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31291]</label>
+                            <label> - $LOCALIZE[31291]</label>
                             <selected>!Skin.HasSetting(Furniture.DisablePlayCounts)</selected>
                             <visible>Container(3).HasFocus(5)</visible>
                             <onclick>Skin.ToggleSetting(Furniture.DisablePlayCounts)</onclick>
@@ -639,7 +604,7 @@
                             <label>$LOCALIZE[31107]</label>
                             <label2>$VAR[Label_Setting_RightFooter]</label2>
                             <visible>Container(3).HasFocus(5)</visible>
-                            <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_RightFooter_Preselect],heading=$LOCALIZE[31107],separator=||,list=$LOCALIZE[31042]||$LOCALIZE[31279]||$LOCALIZE[231],"executebuiltin_0=Skin.Reset(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock.TopLeft)||Skin.SetBool(Furniture.EnableClock)","executebuiltin_1=Skin.Reset(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock)","executebuiltin_2=Skin.SetBool(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock)")</onclick>
+                            <onclick>RunScript(script.skinvariables,run_dialog=select,preselect=$VAR[Label_Setting_RightFooter_Preselect],heading=$LOCALIZE[31107],separator=||,list=$LOCALIZE[31042]||$LOCALIZE[31279]||$LOCALIZE[231],"executebuiltin_0=Skin.Reset(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock.TopLeft)||Skin.SetBool(Furniture.EnableClock)||ReloadSkin()||sleep=0.4||SetFocus(3,4)||sleep=0.4||SetFocus(5002)","executebuiltin_1=Skin.Reset(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock)||ReloadSkin()||sleep=0.4||SetFocus(3,4)||sleep=0.4||SetFocus(5002)","executebuiltin_2=Skin.SetBool(Furniture.BottomRight.Disable)||Skin.Reset(Furniture.EnableClock)||ReloadSkin()||sleep=0.4||SetFocus(3,4)||sleep=0.4||SetFocus(5002)")</onclick>
                         </include>
                         <include content="Settings_Button" description="Footer: Right: MPAA Classification Country">
                             <param name="id">5003</param>
@@ -662,14 +627,6 @@
                             <onclick>Skin.ToggleSetting(Furniture.DisableNowPlaying)</onclick>
                             <selected>!Skin.HasSetting(Furniture.DisableNowPlaying)</selected>
                             <visible>!Skin.HasSetting(Furniture.BottomRight.Disable)</visible>
-                        </include>
-                        <include content="Settings_Button" description="Footer: Enable on widgets">
-                            <param name="id">5012</param>
-                            <param name="control">radiobutton</param>
-                            <label>$LOCALIZE[31103] ([LOWERCASE]$LOCALIZE[31343][/LOWERCASE])</label>
-                            <visible>Container(3).HasFocus(5)</visible>
-                            <onclick>Skin.ToggleSetting(Hubs.EnableWidgetsFooter)</onclick>
-                            <selected>Skin.HasSetting(Hubs.EnableWidgetsFooter)</selected>
                         </include>
 
                         <include content="Settings_Label" description="Viewline">
@@ -797,11 +754,7 @@
                             <label>$LOCALIZE[31487]</label>
                             <label2>$VAR[Label_Settings_TrailerStyle]</label2>
                             <visible>Container(3).HasFocus(6)</visible>
-                            <onclick condition="Skin.HasSetting(Trailers.PlayInDialog)">Skin.Reset(Trailers.PlayFullscreen)</onclick>
-                            <onclick condition="Skin.HasSetting(Trailers.PlayInDialog)">Skin.SetBool(Trailers.PlayFullscreen)</onclick>
-                            <onclick condition="Skin.HasSetting(Trailers.PlayFullscreen)">Skin.Reset(Trailers.PlayFullscreen)</onclick>
-                            <onclick condition="Skin.HasSetting(Trailers.PlayFullscreen)">Skin.Reset(Trailers.PlayInDialog)</onclick>
-                            <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + !Skin.HasSetting(Trailers.PlayInDialog)">Skin.SetBool(Trailers.PlayInDialog)</onclick>
+                            <onclick>Skin.ToggleSetting(Trailers.PlayFullscreen)</onclick>
                         </include>
                         <include content="Settings_Button" description="Play trailer auto spotlight">
                             <param name="id">6011</param>

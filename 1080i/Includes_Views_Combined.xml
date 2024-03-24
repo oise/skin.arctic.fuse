@@ -86,6 +86,7 @@
                 <include content="Action_View_Movement_OnUp">
                     <param name="id">$PARAM[id]2</param>
                 </include> -->
+                <pagecontrol>65</pagecontrol>
 
                 <onright condition="!Container($PARAM[id]3).IsUpdating">$PARAM[id]3</onright>
                 <onfocus>SetProperty(TMDbHelper.WidgetContainer,$PARAM[id]3)</onfocus>
@@ -247,9 +248,9 @@
     </include>
     <include name="View_Combined_List_Horz">
         <control type="group">
-            <!-- <include content="Animation_ConditionalFade">
-                <param name="condition">[$EXP[Exp_InfoDialogs] | $EXP[Exp_MediaFilter_IsActive] | $EXP[Exp_FilterWall_IsActive] | $EXP[Exp_ScrollbarVisible_H]]</param>
-            </include> -->
+            <include content="Animation_ConditionalFade">
+                <param name="condition">[$EXP[Exp_InfoDialogs] | $EXP[Exp_MediaFilter_IsActive] | $EXP[Exp_FilterWall_IsActive] | $EXP[Exp_ScrollbarVisible_H] | Window.IsVisible(1171)]</param>
+            </include>
 
             <visible>![[Container.Scrolling + $EXP[Exp_FurnitureFooter_Left_IsVisible]] | !String.IsEmpty(Window.Property(MediaFilterBase)) | !String.IsEmpty(Window.Property(MediaFilterWall))]</visible>
 
@@ -283,6 +284,7 @@
                 </include>
                 <top>920</top>
                 <onup>$PARAM[id]3</onup>
+                <pagecontrol>65</pagecontrol>
                 <include content="Action_View_Movement_OnDown">
                     <param name="to_scrollbar">false</param>
                     <param name="id">$PARAM[id]2</param>

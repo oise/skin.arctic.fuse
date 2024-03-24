@@ -14,6 +14,12 @@
         <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">$LOCALIZE[31218]</value>
     </variable>
 
+    <variable name="Label_NextMedia">
+        <value condition="Skin.String(Navigation.Library.OnDown,Explore)">$LOCALIZE[31148]</value>
+        <value condition="Skin.String(Navigation.Library.OnDown,Filter)">$LOCALIZE[587]</value>
+        <value>$LOCALIZE[33063]</value>
+    </variable>
+
     <variable name="Label_NextWidget">
         <value condition="!String.IsEmpty(Container(303).ListItemNoWrap(1).Label) + Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)">$INFO[Container(303).ListItemNoWrap(1).Label]</value>
         <value condition="Skin.String(Navigation.Hubs.OnDown,ActivateWindow(1181))">$LOCALIZE[31148]</value>
@@ -46,15 +52,6 @@
         <value>$LOCALIZE[31314]</value>
     </variable>
 
-    <variable name="Label_Scrollbar_Hint">
-        <value condition="$EXP[Exp_ScrollbarVisible_V]">$LOCALIZE[31288]</value>
-        <value condition="$EXP[Exp_ScrollbarVisible_H]">$LOCALIZE[31284]</value>
-        <value condition="Skin.String(Navigation.OnDown,Explore)">$LOCALIZE[31276]</value>
-        <!-- <value condition="![$EXP[Exp_ScrollbarVisible_H]]">$LOCALIZE[31273]</value>
-        <value condition="Skin.String(Navigation.OnDown,Explore)">$LOCALIZE[31276]</value>
-        <value>$LOCALIZE[31277]</value> -->
-    </variable>
-
     <variable name="Label_Settings_InfoText_Top">
         <value condition="System.HasVisibleModalDialog | ControlGroup(30030).HasFocus() | ControlGroup(30000).HasFocus() | ControlGroup(30040).HasFocus() | ControlGroup(30700).HasFocus() | Control.HasFocus(60)">$LOCALIZE[14116]</value>
         <value condition="Window.IsVisible(SettingsCategory.xml) + [ControlGroup(3).HasFocus() | ControlGroup(5).HasFocus()]">$INFO[System.CurrentControl]</value>
@@ -66,6 +63,17 @@
         <value condition="Skin.String(Home.SideMenuCollapse,Always)">$LOCALIZE[34122]</value>
         <value condition="Skin.String(Home.SideMenuCollapse,Library)">$LOCALIZE[14022]</value>
         <value condition="Skin.String(Home.SideMenuCollapse,Topbar)">$LOCALIZE[31352] ($LOCALIZE[31068])</value>
+    </variable>
+
+    <variable name="Label_Settings_LeftFooterVisibility">
+        <value condition="Skin.String(Furniture.BottomLeft.Enable,Always)">$LOCALIZE[14116] + $LOCALIZE[14022] + $LOCALIZE[31103]</value>
+        <value condition="Skin.String(Furniture.BottomLeft.Enable,Library)">$LOCALIZE[14116] + $LOCALIZE[14022]</value>
+        <value>$LOCALIZE[14116]</value>
+    </variable>
+    <variable name="Label_Settings_LeftFooterVisibility_Preselect">
+        <value condition="Skin.String(Furniture.BottomLeft.Enable,Always)">2</value>
+        <value condition="Skin.String(Furniture.BottomLeft.Enable,Library)">1</value>
+        <value>0</value>
     </variable>
 
     <variable name="Label_Settings_InfoText_Sub">
@@ -181,6 +189,7 @@
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=searchmenu)">$LOCALIZE[137] > $LOCALIZE[31103]</value>
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=powermainmenu)">$LOCALIZE[31126] > $LOCALIZE[31515]</value>
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=powersidemenu)">$LOCALIZE[31126] > $LOCALIZE[31362]</value>
+        <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=options-tray)">$LOCALIZE[31372]</value>
         <value>FIXME</value>
     </variable>
 
@@ -262,7 +271,7 @@
 
     <variable name="Label_Settings_TrailerStyle">
         <value condition="Skin.HasSetting(Trailers.PlayFullscreen)">$LOCALIZE[35232]</value>
-        <value condition="Skin.HasSetting(Trailers.PlayInDialog)">$LOCALIZE[31486]</value>
+        <value condition="!Skin.HasSetting(Background.EnableVideo)">$LOCALIZE[31486]</value>
         <value>$LOCALIZE[33068]</value>
     </variable>
 
@@ -1200,7 +1209,7 @@
         <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[1036]</value>
         <value condition="$EXP[Exp_Window_IsHub] + !String.IsEmpty(Window.Property(Hub.Header))">$INFO[Window.Property(Hub.Header)]</value>
         <value condition="!String.IsEmpty(Skin.String(Home.Label))">$INFO[Skin.String(Home.Label)]</value>
-        <value condition="Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Label) + !Skin.String(Home.SideMenuCollapse,Always)">$INFO[Container(303).ListItem.Label]</value>
+        <value condition="Window.IsVisible(Home) + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + Skin.String(Home.SideMenuCollapse,Library)">$LOCALIZE[10000]$INFO[Container(303).ListItem.Label, [COLOR=main_fg_30]»[/COLOR] ,]</value>
         <value>$LOCALIZE[10000]</value>
     </variable>
 
@@ -1256,6 +1265,7 @@
         <value condition="Window.IsVisible(filemanager)">$LOCALIZE[10003]</value>
         <value condition="Window.IsVisible(eventlog)">[CAPITALIZE]$LOCALIZE[10050][/CAPITALIZE]</value>
         <value condition="Window.IsVisible(musicplaylisteditor)">[CAPITALIZE]$LOCALIZE[10503][/CAPITALIZE]</value>
+        <value condition="Window.IsVisible(settings)">$LOCALIZE[5]</value>
     </variable>
 
     <variable name="Label_SearchContent">

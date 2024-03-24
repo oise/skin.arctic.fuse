@@ -201,12 +201,12 @@
 
             <!-- Side Fade -->
             <include>Home_Fade</include>
-            <include>Hub_Widgets_Group_Furniture</include>
 
             <!-- Furniture -->
             <control type="group">
                 <visible>!$EXP[Exp_InfoDialogs]</visible>
                 <include>Animation_View_WindowChange</include>
+                <include>Hub_Widgets_Group_Furniture</include>
                 <include>Animation_Group_Bumper</include>
                 <include condition="![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">Furniture_Top</include>
                 <include condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)">Hub_TopBar_Categories</include>
@@ -269,12 +269,20 @@
                 <include content="Animation_Fade_Out">
                     <param name="type">Hidden</param>
                 </include>
-                <include content="Action_Widget_Top">
+
+                <onup>SetProperty(List.ViewContainer,$NUMBER[370])</onup>
+                <onup>SetFocus(333)</onup>
+                <ondown>SetFocus(303,0,absolute)</ondown>
+
+                <oninfo>ActivateWindow(1170)</oninfo>
+                <onback condition="Window.IsVisible(Home)">SetFocus(308)</onback>
+
+                <!-- <include content="Action_Widget_Top">
                     <param name="id">370</param>
-                </include>
-                <ondown condition="!Integer.IsEqual(Container(301).NumItems,0)">311</ondown>
+                </include> -->
+                <!-- <ondown condition="!Integer.IsEqual(Container(301).NumItems,0)">311</ondown>
                 <ondown condition="Integer.IsEqual(Container(301).NumItems,0) + !Integer.IsEqual(Container(300).NumItems,0)">300</ondown>
-                <ondown condition="Integer.IsEqual(Container(301).NumItems,0) + Integer.IsEqual(Container(300).NumItems,0)">$INFO[Container(370).ListItem.Property(widgets_setfocus)]</ondown>
+                <ondown condition="Integer.IsEqual(Container(301).NumItems,0) + Integer.IsEqual(Container(300).NumItems,0)">$INFO[Container(370).ListItem.Property(widgets_setfocus)]</ondown> -->
                 <top>20</top>
                 <left>120</left>
                 <height>200</height>
@@ -380,34 +388,31 @@
         </control>
     </include>
 
-    <include name="_Hub_Widgets_Group_Furniture">
-        <control type="group">
-            <include content="Animation_ConditionalFade" condition="$PARAM[include_conditionalfade]">
-                <param name="condition">$EXP[Exp_InfoDialogs]</param>
-            </include>
-            <include content="Animation_Fade_In">
-                <param name="type">Visible</param>
-                <param name="delay">200</param>
-            </include>
-            <visible>$PARAM[visible]</visible>
-            <control type="group">
-                <include content="Animation_ConditionalFade">
-                    <param name="condition">Window.IsVisible(1171)</param>
-                </include>
-                <include condition="!Skin.HasSetting(Hubs.WidgetSelector)">Furniture_Bottom_Left</include>
-            </control>
-            <include>Furniture_Bottom_Right</include>
-        </control>
-    </include>
-
     <include name="Hub_Widgets_Group_Furniture">
         <param name="visible">[!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer)) + !String.IsEmpty(Window.Property(Slide.WidgetContainer))]</param>
         <param name="include_conditionalfade">true</param>
         <definition>
-            <include content="_Hub_Widgets_Group_Furniture" condition="Skin.HasSetting(Hubs.EnableWidgetsFooter)">
-                <param name="visible">$PARAM[visible]</param>
-                <param name="include_conditionalfade">$PARAM[include_conditionalfade]</param>
-            </include>
+            <control type="group">
+                <include content="Animation_ConditionalFade" condition="$PARAM[include_conditionalfade]">
+                    <param name="condition">$EXP[Exp_InfoDialogs]</param>
+                </include>
+
+                <control type="group">
+                    <include content="Animation_Fade_In">
+                        <param name="type">Visible</param>
+                        <param name="delay">200</param>
+                    </include>
+                    <visible>$PARAM[visible]</visible>
+                    <include content="Animation_ConditionalFade">
+                        <param name="condition">Window.IsVisible(1171)</param>
+                    </include>
+                    <include condition="$EXP[Exp_Footer_BottomLeft_IsVisible]">Furniture_Bottom_Left</include>
+                </control>
+
+                <include>Furniture_Bottom_Right</include>
+
+            </control>
+
         </definition>
     </include>
 
@@ -444,7 +449,7 @@
                 </include>
 
                 <onup condition="$EXP[Exp_Hubs_Spotlight_HasItems]">311</onup>
-                <onup condition="!$EXP[Exp_Hubs_Spotlight_HasItems] + [Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">370</onup>
+                <onup condition="!$EXP[Exp_Hubs_Spotlight_HasItems] + [Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">SetFocus(303,9999,absolute)</onup>
                 <include content="Action_Widget_Top">
                     <param name="id">300</param>
                     <param name="condition">!$EXP[Exp_Hubs_Spotlight_HasItems] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]</param>
@@ -588,7 +593,7 @@
         <include content="Action_Widget_Top" condition="![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">
             <param name="id">$PARAM[id]</param>
         </include>
-        <onup condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)">370</onup>
+        <onup condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)">SetFocus(303,9999,absolute)</onup>
         <!-- <animation effect="slide" end="0,hub_widgets_nocategories_s" condition="true">Conditional</animation> -->
     </include>
 </includes>

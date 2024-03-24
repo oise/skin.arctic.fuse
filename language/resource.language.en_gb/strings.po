@@ -1755,8 +1755,18 @@ msgctxt "#31369"
 msgid "Video file"
 msgstr ""
 
+#: /1080i/Custom_1172_Dialog_SideMenu.xml
+msgctxt "#31370"
+msgid "Switch profile"
+msgstr ""
+
 msgctxt "#31371"
 msgid "Sorted by"
+msgstr ""
+
+#: /1080i/Includes_Items.xml
+msgctxt "#31372"
+msgid "Options tray"
 msgstr ""
 
 msgctxt "#31375"

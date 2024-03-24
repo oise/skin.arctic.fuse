@@ -30,8 +30,8 @@
     </variable>
 
     <variable name="Action_Search_ContentID">
-        <value condition="Container(5099).ListItem.Property(listid),50)">50</value>
-        <value condition="Container(5099).ListItem.Property(listid),51)">51</value>
+        <value condition="Integer.IsEqual(Container(5099).ListItem.Property(listid),50)">50</value>
+        <value condition="Integer.IsEqual(Container(5099).ListItem.Property(listid),51)">51</value>
         <value>52</value>
     </variable>
 
@@ -66,6 +66,7 @@
     </variable>
 
     <include name="Action_Media_Onload">
+        <onload condition="String.IsEmpty(Skin.String(Navigation.Library.OnDown))">Skin.SetString(Navigation.Library.OnDown,Options)</onload>
         <onload>RunScript(script.skinvariables,action=buildviews)</onload>
         <onload>ClearProperty(MediaFilterBase)</onload>
         <onunload>ClearProperty(MediaFilterBase)</onunload>
@@ -149,25 +150,34 @@
         <onclick condition="String.IsEmpty(Container($PARAM[id]).ListItem.Property(target))">$INFO[Container($PARAM[id]).ListItem.Property(path)]</onclick>
     </include>
 
+
+    <variable name="Action_Hubs_MenuID">
+        <value condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)">370</value>
+        <value>303</value>
+    </variable>
+
     <include name="Action_Widget_OnBack">
         <param name="enable">True</param>
         <definition>
-            <onback condition="$PARAM[enable] + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)">$PARAM[grouplistid]</onback>
-            <onback condition="$PARAM[enable] + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)">SetFocus($PARAM[id],0,absolute)</onback>
 
-            <onback condition="$PARAM[enable] + [Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) | Skin.String(Navigation.OnBack,Parent)]">$PARAM[grouplistid]</onback>
-            <onback condition="$PARAM[enable] + [Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) | Skin.String(Navigation.OnBack,Parent)] + !Control.HasFocus($PARAM[topwidgetid])">AlarmClock(refocus1,SetFocus($PARAM[topwidgetid]),00:00,silent)</onback>
-            <onback condition="$PARAM[enable] + [Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) | Skin.String(Navigation.OnBack,Parent)]">AlarmClock(refocus2,$PARAM[refocus],00:00,silent)</onback>
+            <!-- Previous: Return to First Item -->
+            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Previous) + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)">$PARAM[grouplistid]</onback>
+            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Previous) + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)">SetFocus($PARAM[id],0,absolute)</onback>
 
-            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu) + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">303</onback>
-            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu) + [Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">370</onback>
+            <!-- Parent: Return to Top Focus (Previous on First Item = Parent Back) -->
+            <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">$PARAM[grouplistid]</onback>
+            <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)] + !Control.HasFocus($PARAM[topwidgetid])">AlarmClock(refocus1,SetFocus($PARAM[topwidgetid]),00:00,silent)</onback>
+            <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">AlarmClock(refocus2,$PARAM[refocus],00:00,silent)</onback>
+
+            <!-- Menu: Go to Menu -->
+            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">$PARAM[grouplistid]</onback>
+            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">AlarmClock(refocus2,SetFocus($VAR[Action_Hubs_MenuID]),00:00,silent)</onback>
 
         </definition>
     </include>
 
     <include name="Action_Widget_Top">
-        <param name="bump">!Skin.String(Navigation.OnUp,Search)</param>
-        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItemNoWrap(-1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
+        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + Skin.String(Home.SideMenuCollapse,Library) + !String.IsEmpty(Container(303).ListItemNoWrap(-1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
         <param name="condition">true</param>
         <definition>
 
@@ -181,12 +191,9 @@
             <onup condition="$PARAM[condition] + ![$PARAM[move]] + ![!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
             <onup condition="$PARAM[condition] + ![$PARAM[move]] + ![!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">SetFocus(303,9999,absolute)</onup>
 
-            <!-- Go to search -->
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)] + ![$PARAM[bump]]">ActivateWindow(1105)</onup>
-
             <!-- Bump -->
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)] + $PARAM[bump]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)] + $PARAM[bump]">333</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">333</onup>
 
         </definition>
     </include>
@@ -194,10 +201,8 @@
     <include name="Action_Widget_End">
         <param name="condition">true</param>
         <param name="bump_id">330</param>
-        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItemNoWrap(1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
+        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + Skin.String(Home.SideMenuCollapse,Library) + !String.IsEmpty(Container(303).ListItemNoWrap(1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
         <definition>
-
-
             <!-- EndRow Hack: Bump focus back up to widget first -->
             <ondown condition="$PARAM[condition] + !String.IsEmpty(Window.Property(EndRow.HasFocus))">Action(Up)</ondown>
 
@@ -211,7 +216,7 @@
             <!-- Bump -->
             <!-- <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hubs.OnDown))">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</ondown>
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hubs.OnDown))">$PARAM[bump_id]</ondown> -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hubs.OnDown))">ActivateWindow(1133)</ondown>
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hubs.OnDown))">ActivateWindow(1171)</ondown>
 
             <!-- Explore -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Hubs.OnDown,ActivateWindow(1182))">ClearProperty(Hubs.ExtendedWidgetGUID,Home)</ondown>
@@ -275,7 +280,8 @@
             <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(List.ViewContainer)</onback>
             <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(List.ViewContainer.Left)</onback>
             <onback condition="!$EXP[Exp_Window_IsHub]">ClearProperty(TMDbHelper.WidgetContainer)</onback>
-            <onback condition="$EXP[Exp_FilterWall_IsActive]">68</onback>
+            <onback>ClearProperty(MediaFilterBase)</onback>
+            <onback>ClearProperty(MediaFilterWall)</onback>
 
         </definition>
     </include>
@@ -405,29 +411,22 @@
     </variable>
 
     <include name="Action_View_Movement_OnUp">
-        <!-- <onup condition="Skin.String(Navigation.OnUp,Search)">ActivateWindow(1105)</onup> -->
-        <!-- <onup condition="!Skin.String(Navigation.OnUp,Search)">SetProperty(List.ViewContainer,50)</onup>
-        <onup condition="!Skin.String(Navigation.OnUp,Search)">SetFocus(333)</onup> -->
-        <!-- <onup condition="!Skin.String(Navigation.OnUp,Search)">SetFocus(303,9999,absolute)</onup> -->
         <onup>SetFocus(303,9999,absolute)</onup>
     </include>
 
     <include name="Action_View_Movement_OnDown">
         <param name="condition">true</param>
-        <param name="bump_id">330</param>
-        <param name="bump">[!Skin.String(Navigation.OnDown,Explore) + !Skin.String(Navigation.OnDown,Options)]</param>
         <definition>
             <!-- Explore -->
             <include content="Action_View_Explore_OnDown">
-                <param name="condition">[$PARAM[condition] + Skin.String(Navigation.OnDown,Explore)]</param>
+                <param name="condition">[$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Explore)]</param>
             </include>
 
-            <!-- Bump -->
-            <ondown condition="$PARAM[condition] + $PARAM[bump]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</ondown>
-            <ondown condition="$PARAM[condition] + $PARAM[bump]">$PARAM[bump_id]</ondown>
+            <!-- Filter -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Filter)">SetFocus(64)</ondown>
 
             <!-- Options -->
-            <ondown condition="$PARAM[condition] + Skin.String(Navigation.OnDown,Options)">SetFocus(64)</ondown>
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Options)">ActivateWindow(1171)</ondown>
         </definition>
     </include>
 
@@ -576,10 +575,10 @@
         <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + String.IsEmpty($PARAM[trailer]) + !String.IsEmpty($PARAM[trailer_fallback])">SetProperty(Trailer,$ESCINFO[$PARAM[trailer_fallback]],1123)</onclick>
         <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + !String.IsEmpty($PARAM[trailer])">SetProperty(Trailer,$ESCINFO[$PARAM[trailer]],1123)</onclick>
 
-        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + !Skin.HasSetting(Trailers.PlayInDialog) + String.IsEmpty($PARAM[trailer]) + !String.IsEmpty($PARAM[trailer_fallback])">PlayMedia($ESCINFO[$PARAM[trailer_fallback]],False,1)</onclick>
-        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + !Skin.HasSetting(Trailers.PlayInDialog) + !String.IsEmpty($PARAM[trailer])">PlayMedia($ESCINFO[$PARAM[trailer]],False,1)</onclick>
+        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + Skin.HasSetting(Background.EnableVideo) + String.IsEmpty($PARAM[trailer]) + !String.IsEmpty($PARAM[trailer_fallback])">PlayMedia($ESCINFO[$PARAM[trailer_fallback]],False,1)</onclick>
+        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + Skin.HasSetting(Background.EnableVideo) + !String.IsEmpty($PARAM[trailer])">PlayMedia($ESCINFO[$PARAM[trailer]],False,1)</onclick>
 
-        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + Skin.HasSetting(Trailers.PlayInDialog) + [!String.IsEmpty($PARAM[trailer]) | !String.IsEmpty($PARAM[trailer_fallback])]">ActivateWindow(1123)</onclick>
+        <onclick condition="!Skin.HasSetting(Trailers.PlayFullscreen) + !Skin.HasSetting(Background.EnableVideo) + [!String.IsEmpty($PARAM[trailer]) | !String.IsEmpty($PARAM[trailer_fallback])]">ActivateWindow(1123)</onclick>
 
         <onclick condition="Skin.HasSetting(Trailers.PlayFullscreen) + [!String.IsEmpty($PARAM[trailer]) | !String.IsEmpty($PARAM[trailer_fallback])]">Dialog.Close(all,force)</onclick>
         <onclick condition="Skin.HasSetting(Trailers.PlayFullscreen) + String.IsEmpty($PARAM[trailer]) + !String.IsEmpty($PARAM[trailer_fallback])">PlayMedia($ESCINFO[$PARAM[trailer_fallback]])</onclick>
