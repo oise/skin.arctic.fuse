@@ -22,6 +22,20 @@
     <visible>!Window.IsVisible(1105)</visible>
     <visible>!Skin.HasSetting(SideMenu.DisableSearchButton)</visible>
 </item>
+
+<!-- MISC012: Include "Home" -->
+<item>
+    <label>Home</label>
+    <icon>special://skin/extras/icons/home.png</icon>
+    <property name="showlabel">True</property>
+    <property name="path">ActivateWindow(Home)</property>
+    <property name="guid">{item_guid}</property>
+    <property name="widgets_setfocus">SetFocus(400)</property>
+    <property name="expression">none</property>
+    <onclick>ActivateWindow(Home)</onclick>
+    <visible>Skin.HasSetting(Hub.Home.DisableSubmenu)</visible>
+</item>
+
 <!-- Close / Profiles / Quit -->
 <item>
     <label>$LOCALIZE[15067]</label>
@@ -36,6 +50,7 @@
     <visible>!Window.IsVisible(1105)</visible>
     <visible>Skin.HasSetting(SideMenu.DisableSearchButton)</visible>
 </item>
+
 <item>
     <label>$LOCALIZE[31053]</label>
     <icon>special://skin/extras/icons/address-card.png</icon>
@@ -50,6 +65,7 @@
     <visible>!Skin.HasSetting(SkinUserLogin.Disabled)</visible>
     <visible>Skin.HasSetting(SideMenu.DisableSearchButton) | Skin.String(Home.SideMenuCollapse,Topbar)</visible>
 </item>
+
 <item>
     <label>$LOCALIZE[20126]</label>
     <icon>special://skin/extras/icons/address-card.png</icon>
