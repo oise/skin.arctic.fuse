@@ -53,7 +53,8 @@
 
                     <control type="group">
                         <visible>Skin.HasSetting(Furniture.DisableNowPlaying) | !Player.HasMedia</visible>
-                        <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]]">
+                        <!-- MISC024: Studio not shown on Home Page widgets (add  + !Window.IsVisible(Home) to condition -->
+                        <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]] + !Window.IsVisible(Home)">
                             <centertop>50%</centertop>
                         </include>
                         <!-- PVR008: condition extended -->
