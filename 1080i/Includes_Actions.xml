@@ -426,7 +426,13 @@
             </include>
 
             <!-- Filter -->
-            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Filter)">SetFocus(64)</ondown>
+            <!-- MISC026: disable original "ondown"
+            <!--ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Filter)">SetFocus(64)</ondown -->
+            
+            <!-- MISC026: Only Filter for media content -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Filter) + !String.IsEmpty(Container.Content)">SetFocus(64)</ondown>
+            <!-- MISC026: Otherwise Bump -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Filter) + String.IsEmpty(Container.Content)">330</ondown>
 
             <!-- Options -->
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Library.OnDown,Options)">ActivateWindow(1171)</ondown>
