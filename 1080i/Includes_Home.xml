@@ -7,8 +7,7 @@
             <include content="Object_ContentNested" condition="$PARAM[condition]">
                 <include>skinvariables-sidemenu-staticitems</include>
             </include>
-            <!-- MISC010: add "+ !Window.IsVisible(10702)" to condition -->
-            <include content="Object_ContentNested" condition="![$PARAM[condition]] + !Window.IsVisible(10702)">
+            <include content="Object_ContentNested" condition="![$PARAM[condition]]">
                 <include>skinvariables-sidemenu-staticbutton</include>
             </include>
         </definition>
