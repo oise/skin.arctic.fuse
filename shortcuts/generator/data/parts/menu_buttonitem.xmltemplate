@@ -21,6 +21,8 @@
     <onclick>ActivateWindow(1105)</onclick>
     <visible>!Window.IsVisible(1105)</visible>
     <visible>!Skin.HasSetting(SideMenu.DisableSearchButton)</visible>
+    <!-- PVR011: Remove Seach from EPG Side Menu -->
+    <visible>!Window.IsVisible(10702)</visible>
 </item>
 
 <!-- MISC023: START Include "Home" -->
