@@ -40,6 +40,24 @@
                             <param name="visible">!Skin.HasSetting(Furniture.EnableClock) + [Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml) | $PARAM[clock]]</param>
                         </include>
                     </control>
+                    <!-- MISC013B: START Alternative always display Top right clock (DISABLED) -->
+                    <!-- control type="group">
+                        <control type="image">
+                            <texture colordiffuse="$VAR[ColorBackground]" border="20">common/dialog.png</texture>                       
+                            <left>1500</left>                   
+                            <height>60</height>
+                            <!--top>-18</top -->
+                            <!-- right>-15</right>
+                        </control>
+                        <include content="Furniture_Clock">
+                            <param name="flipx">true</param>
+                            <param name="topshadowcolor">main_bg_50</param>
+                            <param name="bottomshadowcolor">main_bg_50</param>
+                        </include>                  
+                        <visible>[Window.IsVisible(Home)]</visible>
+                    </control -->
+                    <!-- MISC013B: END Alternative always display Top right clock (DISABLED) -->
+                    
                 </include>
             </include>
         </definition>
