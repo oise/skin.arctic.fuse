@@ -219,9 +219,13 @@
             <ondown condition="$PARAM[condition] + $PARAM[move] + Skin.HasSetting(Hub.Home.WidgetSelector)">$INFO[Container(303).ListItem(1).Property(widgets_setfocus_bottom)]</ondown>
             <ondown condition="$PARAM[condition] + $PARAM[move]">SetProperty(WidgetGroup.Movement,Down)</ondown>
             <ondown condition="$PARAM[condition] + $PARAM[move]">Control.Move(303,1)</ondown>
+            
+            <!-- MISC025: Force Bump at End of Widgets -->
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Global.OnDown))">$PARAM[bump_id]</ondown>
 
             <!-- Options -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
+            <!-- MISC025: add comments to disable Options -->
+            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown -->
 
             <!-- Search -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Search)">ActivateWindow(1185)</ondown>
@@ -435,8 +439,14 @@
                 <param name="condition">[$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Explore)]</param>
             </include>
 
-            <!-- Filter -->
-            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown>
+            <!-- Filter --> 
+            <!-- MISC026: disable original "ondown"
+            <!--ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown -->
+            
+            <!-- MISC026: Only Filter for media content -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + !String.IsEmpty(Container.Content)">SetFocus(64)</ondown>
+            <!-- MISC026: Otherwise Bump -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + String.IsEmpty(Container.Content)">330</ondown>
 
             <!-- Options -->
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
