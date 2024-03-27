@@ -15,8 +15,7 @@
                 <right>view_pad</right>
                 <visible>$PARAM[visible]</visible>
 
-                <!-- MISC003: add  + !Window.IsVisible(Home) to remove Widget Name from Home Page with Stacked Widgets -->
-                <include content="Info_Viewline" condition="$PARAM[labelvisible] + ![$PARAM[usewidgetlabel]] + ![Window.IsVisible(Home) + Skin.HasSetting(Hubs.WidgetSelector)]">
+                <include content="Info_Viewline" condition="$PARAM[labelvisible] + ![$PARAM[usewidgetlabel]]">
                     <param name="label">$PARAM[label]</param>
                     <param name="item_condition">true</param>
                     <param name="item_count">$INFO[Container($PARAM[id]).NumItems]</param>
@@ -31,8 +30,6 @@
                     <param name="item_condition">true</param>
                     <param name="item_count">$INFO[Container($PARAM[id]).NumItems]</param>
                     <param name="item_updating">[Container($PARAM[id]).IsUpdating | $PARAM[busy_visible]]</param>
-                    <!-- MISC003: add  text_color parameter -->
-                    <param name="text_color">$VAR[ColorGradient]</param>
                     <top>20</top>
                     <left>0</left>
                     <visible>!Integer.IsEqual(Container($PARAM[id]).NumItems,0) | Container($PARAM[id]).IsUpdating | $PARAM[busy_visible]</visible>
@@ -672,12 +669,9 @@
                 <param name="visible">true</param>
                 <param name="slide">true</param>
                 <param name="backing">true</param>
-                <!-- MISC002: font changed from font_mini -->
-                <param name="font">font_epg_group_switcher</param>
-                <!-- MISC002: color_fo changed from main_fg_30 -->
-                <param name="color_fo">$VAR[Info_KodiLogo_Color]</param>
-                <!-- MISC002: color_nf changed from main_fg_30 -->
-                <param name="color_nf">main_fg_70</param>
+                <param name="font">font_mini</param>
+                <param name="color_fo">main_fg_30</param>
+                <param name="color_nf">main_fg_30</param>
                 <param name="hidden_button">List_ButtonMenu_Row_HiddenButton_ERow</param>
                 <param name="hidden_button_prefix">$PARAM[hidden_button_prefix]</param>
                 <param name="hitrect_x">-40</param>
