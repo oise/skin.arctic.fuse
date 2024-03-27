@@ -20,7 +20,7 @@
     </variable>
 
     <variable name="Image_Search_FilterClear">
-        <value condition="Skin.HasSetting(Search.EnableDiscover)">special://skin/extras/icons/filter-small.png</value>
+        <value condition="!Skin.HasSetting(Search.DisableDiscover)">special://skin/extras/icons/filter-small.png</value>
         <value>special://skin/extras/icons/triangle-exclamation.png</value>
     </variable>
 
@@ -369,11 +369,6 @@
     <variable name="Image_FullscreenWidget_PlayButton">
         <value condition="Container(301).ListItem.IsFolder">special://skin/extras/icons/folder.png</value>
         <value>special://skin/extras/icons/play2.png</value>
-    </variable>
-
-    <variable name="Image_FullscreenWidget_InfoButton">
-        <value condition="Skin.String(Movement.Spotlight.OnInfo,Menu)">special://skin/extras/icons/indent.png</value>
-        <value>special://skin/extras/icons/info2.png</value>
     </variable>
 
     <variable name="Image_DialogInfo_PlayButton">

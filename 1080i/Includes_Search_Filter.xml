@@ -37,9 +37,9 @@
             <label>$LOCALIZE[456]</label>
             <label2>$VAR[Label_Setting_SearchStyle]</label2>
             <onfocus>ClearProperty(SearchDiscover.FilterLabel)</onfocus>
-            <onclick>Skin.ToggleSetting(Search.EnableDiscover)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">SetProperty(TMDBHelper.WidgetContainer,52)</onclick>
-            <onclick condition="Skin.HasSetting(Search.EnableDiscover)">SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onclick>
+            <onclick>Skin.ToggleSetting(Search.DisableDiscover)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">SetProperty(TMDBHelper.WidgetContainer,52)</onclick>
+            <onclick condition="!Skin.HasSetting(Search.DisableDiscover)">SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onclick>
             <onfocus>SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onfocus>
             <onunfocus>SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onunfocus>
         </include>
@@ -56,29 +56,29 @@
             <onfocus>SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onfocus>
             <onunfocus>SetProperty(TMDBHelper.WidgetContainer,$INFO[Container(5099).ListItem.Property(listid)])</onunfocus>
 
-            <onclick condition="Skin.HasSetting(Search.EnableDiscover)">SetFocus(8000)</onclick>
+            <onclick condition="!Skin.HasSetting(Search.DisableDiscover)">SetFocus(8000)</onclick>
 
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">SetFocus(9099)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9099)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchTerm)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.SortLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.FilmSort)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.ShowSort)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.GenreLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.GenreID)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.ProviderLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.ProviderID)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.PeopleLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.PeopleID)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.YearHigh)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.YearLow)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.RatingLow)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.StudioLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.DirectorLabel)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.SortBy)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">ClearProperty(SearchDiscover.SortOrder)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">Skin.Reset(SearchDiscover.VoteLow)</onclick>
-            <onclick condition="!Skin.HasSetting(Search.EnableDiscover)">Skin.Reset(SearchDiscover.ItemLimit)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">SetFocus(9099)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=9099)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchTerm)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.SortLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.FilmSort)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.ShowSort)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.GenreLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.GenreID)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.ProviderLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.ProviderID)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.PeopleLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.PeopleID)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.YearHigh)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.YearLow)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.RatingLow)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.StudioLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.DirectorLabel)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.SortBy)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">ClearProperty(SearchDiscover.SortOrder)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">Skin.Reset(SearchDiscover.VoteLow)</onclick>
+            <onclick condition="Skin.HasSetting(Search.DisableDiscover)">Skin.Reset(SearchDiscover.ItemLimit)</onclick>
         </include>
 
     </include>
@@ -141,7 +141,8 @@
                         <onup>SetFocus(5098,99999,absolute)</onup>
                         <!-- <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
                         <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
-                        <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback> -->
+                        <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
+                        <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback> -->
                     </control>
 
 
@@ -157,6 +158,7 @@
                         <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
                         <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
                         <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
+                        <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback>
                     </control>
 
                     <control type="image">
@@ -184,37 +186,11 @@
                         <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
                         <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
                         <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
+                        <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback>
                         <onclick>SetFocus(5099,$INFO[Container(5098).ListItem.CurrentItem],absolute)</onclick>
                         <onclick condition="!Integer.IsEqual(Container(5098).NumItems,Container(5098).ListItem.CurrentItem)">Action(Left)</onclick>
                         <onclick>SetFocus(5098)</onclick>
                         <content>
-                            <!-- <item>
-                                <label>$LOCALIZE[31382]</label>
-                                <property name="target">videos</property>
-                                <property name="guid">guid-libraryall</property>
-                                <property name="listid">$NUMBER[52]</property>
-                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
-                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
-                            </item> -->
-                            <item>
-                                <label>$LOCALIZE[342]</label>
-                                <property name="target">videos</property>
-                                <property name="guid">guid-librarymovies</property>
-                                <property name="listid">$NUMBER[52]</property>
-                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
-                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
-                            </item>
-                            <item>
-                                <label>$LOCALIZE[20343]</label>
-                                <property name="target">videos</property>
-                                <property name="guid">guid-librarytvshows</property>
-                                <property name="listid">$NUMBER[52]</property>
-                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
-                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
-                            </item>
                             <item>
                                 <label>$LOCALIZE[342] (TMDb)</label>
                                 <property name="target">videos</property>
@@ -223,7 +199,7 @@
                                 <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
                                 <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
                                 <property name="discover">true</property>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[20343] (TMDb)</label>
@@ -233,7 +209,34 @@
                                 <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
                                 <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
                                 <property name="discover">true</property>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
+                            </item>
+                            <!-- <item>
+                                <label>$LOCALIZE[31382]</label>
+                                <property name="target">videos</property>
+                                <property name="guid">guid-libraryall</property>
+                                <property name="listid">$NUMBER[52]</property>
+                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
+                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
+                            </item> -->
+                            <item>
+                                <label>$LOCALIZE[342] ($LOCALIZE[14022])</label>
+                                <property name="target">videos</property>
+                                <property name="guid">guid-librarymovies</property>
+                                <property name="listid">$NUMBER[52]</property>
+                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
+                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
+                            </item>
+                            <item>
+                                <label>$LOCALIZE[20343] ($LOCALIZE[14022])</label>
+                                <property name="target">videos</property>
+                                <property name="guid">guid-librarytvshows</property>
+                                <property name="listid">$NUMBER[52]</property>
+                                <property name="onfocus_one">SetProperty(TMDbHelper.WidgetContainer,52)</property>
+                                <property name="main_guid">$INFO[Container(5099).ListItem.Property(guid)]</property>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <include>skinvariables-searchmenu-rowitems</include>
                         </content>
@@ -255,7 +258,7 @@
     <include name="Search_Filter_Selector">
         <control type="group">
             <include>Dimension_DialogSideMenu</include>
-            <include>Animation_Right_Delay</include>
+            <include>Animation_Right</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <visible>Control.HasFocus(8900) | Control.HasFocus(8000)</visible>
 
@@ -317,7 +320,7 @@
                                 <onclick>SetProperty(SearchDiscover.FilterLabel,Genre)</onclick>
                                 <onclick>SetFocus(8900)</onclick>
                                 <visible>String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[572]</label>
@@ -325,7 +328,7 @@
                                 <onclick>SetProperty(SearchDiscover.FilterLabel,Studio)</onclick>
                                 <onclick>SetFocus(8900)</onclick>
                                 <visible>String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[20339]</label>
@@ -333,7 +336,7 @@
                                 <onclick>SetProperty(SearchDiscover.FilterLabel,Director)</onclick>
                                 <onclick>SetFocus(8900)</onclick>
                                 <visible>String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[345]</label>
@@ -343,7 +346,7 @@
                                 <onclick>ClearProperty(SearchDiscover.YearHigh)</onclick>
                                 <onclick>ActivateWindow(1155)</onclick>
                                 <visible>String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[563]</label>
@@ -351,7 +354,7 @@
                                 <onclick>ClearProperty(SearchDiscover.RatingLow,1105)</onclick>
                                 <onclick>ActivateWindow(1156)</onclick>
                                 <visible>String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
 
                             <!-- TMDb Discover -->
@@ -360,14 +363,14 @@
                                 <label2>$INFO[Window.Property(SearchDiscover.GenreLabel)]</label2>
                                 <onclick>ActivateWindow(1151)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[15225]</label>
                                 <label2>$INFO[Window.Property(SearchDiscover.ProviderLabel)]</label2>
                                 <onclick>ActivateWindow(1152)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[31051]</label>
@@ -375,14 +378,14 @@
                                 <onclick>SetProperty(SearchDiscover.PersonSearch,People)</onclick>
                                 <onclick>ActivateWindow(1153)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[31179]</label>
                                 <label2>$INFO[Window.Property(SearchDiscover.KeywordLabel)]</label2>
                                 <onclick>ActivateWindow(1157)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[345]</label>
@@ -392,7 +395,7 @@
                                 <onclick>ClearProperty(SearchDiscover.YearHigh)</onclick>
                                 <onclick>ActivateWindow(1155)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                             <item>
                                 <label>$LOCALIZE[563]</label>
@@ -400,7 +403,7 @@
                                 <onclick>ClearProperty(SearchDiscover.RatingLow,1105)</onclick>
                                 <onclick>ActivateWindow(1156)</onclick>
                                 <visible>!String.IsEmpty(Container(5099).ListItem.Property(discover))</visible>
-                                <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+                                <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
                             </item>
                         </content>
                     </include>
@@ -424,8 +427,8 @@
         </control>
         <control type="group">
             <include>Dimension_DialogSideMenu</include>
-            <include>Animation_Right_Delay</include>
-            <visible>Skin.HasSetting(Search.EnableDiscover)</visible>
+            <include>Animation_Right</include>
+            <visible>!Skin.HasSetting(Search.DisableDiscover)</visible>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
             <visible>[Control.HasFocus(8900) | Control.HasFocus(89999)]</visible>
 

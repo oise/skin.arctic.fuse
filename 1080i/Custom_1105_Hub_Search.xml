@@ -5,15 +5,14 @@
 
     <include>Action_Blur_Onload</include>
 
-    <onload>Skin.Reset(Search.EnableDiscover)</onload>
+    <onload condition="String.IsEmpty(Window.Property(DiscoverReturn))">Skin.Reset(Search.DisableDiscover)</onload>
+    <onload condition="String.IsEmpty(Window.Property(DiscoverReturn)) + !String.IsEmpty(Window(Home).Property(CustomSearchTerm))">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=67,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
+    <onload condition="String.IsEmpty(Window.Property(DiscoverReturn)) + String.IsEmpty(Window(Home).Property(CustomSearchTerm))">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=67),00:01,silent)</onload>
+    <onload>ClearProperty(DiscoverReturn)</onload>
+    <onload>ClearProperty(CustomSearchTerm,Home)</onload>
 
-    <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm))">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=67,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:00,silent)</onload>
-    <onload condition="String.IsEmpty(Window(Home).Property(CustomSearchTerm))">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=67),00:00,silent)</onload>
-
-    <onunload>ClearProperty(CustomSearchTerm,Home)</onunload>
     <onunload condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">RunScript(script.skinvariables,add_skinstring_history=SearchHistory,value=$INFO[Control.GetLabel(9099).index(1)])</onunload>
     <onunload>ClearProperty(SearchTerm,1105)</onunload>
-
     <onunload>ClearProperty(MediaFilterBase,1105)</onunload>
     <onunload>ClearProperty(MediaFilterWall,1105)</onunload>
 
@@ -30,7 +29,7 @@
             <param name="groupid">5099</param>
         </include>
         <include content="Furniture_Top">
-            <param name="label">$VAR[Label_Setting_SearchStyle][CAPITALIZE]$INFO[Control.GetLabel(9099).index(1),: ,][/CAPITALIZE]</param>
+            <param name="label">$VAR[Label_Setting_SearchStyle][CAPITALIZE]$INFO[Control.GetLabel(9099).index(1), [COLOR=main_fg_30]»[/COLOR] ,][/CAPITALIZE]</param>
             <include>Animation_Group_Bumper</include>
             <include>Animation_View_WindowChange</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
