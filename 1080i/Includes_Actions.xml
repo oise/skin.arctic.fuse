@@ -221,13 +221,20 @@
             <ondown condition="$PARAM[condition] + $PARAM[move]">Control.Move(303,1)</ondown>
 
             <!-- Options -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
-
+            <!-- MISC025: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown -->
+            <!-- MISC025: force "bump" if setting = "Options" -->
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Options)">$PARAM[bump_id]</ondown>
+            
             <!-- Search -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Search)">ActivateWindow(1185)</ondown>
 
             <!-- Filter -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown>
+            <!-- MISC025: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown -->
+            <!-- MISC025: force "bump" if setting = "Filter" -->
+            
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Filter)">$PARAM[bump_id]</ondown>
 
             <!-- Add-ons -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + Skin.String(Navigation.Global.OnDown,Add-ons)">ActivateWindow(1132)</ondown>
