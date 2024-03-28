@@ -40,23 +40,23 @@
                             <param name="visible">!Skin.HasSetting(Furniture.EnableClock) + [Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml) | $PARAM[clock]]</param>
                         </include>
                     </control>
-                    <!-- MISC013B: START Alternative always display Top right clock (DISABLED) -->
-                    <!-- control type="group">
+                    <!-- MISC027: START Home page Top right clock -->
+                    <control type="group">
                         <control type="image">
-                            <texture colordiffuse="$VAR[ColorBackground]" border="20">common/dialog.png</texture>                       
-                            <left>1500</left>                   
-                            <height>60</height>
-                            <!--top>-18</top -->
-                            <!-- right>-15</right>
+                            <texture>shadows/shadowspot.png</texture>                       
+                            <left>1375</left>                   
+                            <height>230</height> 
+                            <top>-75</top>                            
+                            <width>560</width>
                         </control>
                         <include content="Furniture_Clock">
                             <param name="flipx">true</param>
                             <param name="topshadowcolor">main_bg_50</param>
                             <param name="bottomshadowcolor">main_bg_50</param>
                         </include>                  
-                        <visible>[Window.IsVisible(Home)]</visible>
-                    </control -->
-                    <!-- MISC013B: END Alternative always display Top right clock (DISABLED) -->
+                        <visible>Window.IsVisible(Home) + Skin.HasSetting(Furniture.EnableClock)</visible>
+                    </control>
+                    <!-- MISC027: END Home page Top right clock -->
                     
                 </include>
             </include>
@@ -75,9 +75,10 @@
                         <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]] + !Window.IsVisible(Home)">
                             <centertop>50%</centertop>
                         </include>
-                        <!-- PVR008: condition extended -->
+                        <!-- PVR008: condition extended with " | Window.IsVisible(10702)" -->
+                        <!-- MISC027: condition extended with " + !Window.IsVisible(Home)" -->
                         <!-- include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)" --> 
-                        <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock) | Window.IsVisible(10702)">
+                        <include content="Furniture_Clock" condition="[Skin.HasSetting(Furniture.EnableClock) + !Window.IsVisible(Home)] | Window.IsVisible(10702)">
                             <param name="flipx">true</param>
                             <param name="topshadowcolor">main_bg_50</param>
                             <param name="bottomshadowcolor">main_bg_50</param>
