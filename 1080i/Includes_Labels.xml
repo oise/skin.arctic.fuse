@@ -898,6 +898,11 @@
     </variable>
 
     <variable name="Label_PVRPrograms">
+        <!-- PVR002: START Custom PVR Program Information -->
+        <value condition="$EXP[247_Channel]">$INFO[ListItem.ChannelName] ... All Day, Every Day</value>
+        <value condition="$EXP[Live_Football_Anova] + !$EXP[Live_Football_Club_Channel]">$INFO[ListItem.ChannelName]</value>
+        <value condition="$EXP[Live_Football_FHNatho]">$INFO[ListItem.ChannelName]</value>
+        <!-- PVR002: END Custom PVR Program Information -->
         <value condition="!String.IsEmpty(ListItem.Title)">$INFO[ListItem.Title]</value>
         <value condition="!String.IsEmpty(ListItem.Label)">$INFO[ListItem.Label]</value>
         <value condition="!String.IsEmpty(ListItem.ChannelName)">$INFO[ListItem.ChannelName]</value>
@@ -1197,9 +1202,18 @@
         <value condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">$LOCALIZE[587]</value>
         <value condition="Window.IsMedia + !String.IsEmpty(Control.GetLabel(19).index(1))">$LOCALIZE[587]: $INFO[Control.GetLabel(19).index(1)]</value>
         <!-- <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + !String.IsEmpty(Container.PluginName)">$INFO[System.AddonTitle(Container.PluginName)]</value> -->
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + [Container.Content(addons) | !String.IsEmpty(Container.PluginName)]">$LOCALIZE[24000]</value>
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + Container.Content(files)">$LOCALIZE[744]</value>
-        <value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)]">$LOCALIZE[14022]</value>
+        <!-- MISC008: custom "Addons" header -->
+        <!-- value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + [Container.Content(addons) | !String.IsEmpty(Container.PluginName)]">$LOCALIZE[24000]</value -->
+        <value condition="Window.IsVisible(10025) + [Container.Content(addons) | !String.IsEmpty(Container.PluginName)]">Video Addons</value>
+        <value condition="Window.IsVisible(10502) + [Container.Content(addons) | !String.IsEmpty(Container.PluginName)]">Music Addons</value>
+        <!-- MISC008: custom "Files" header -->
+        <!-- value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)] + Container.Content(files)">$LOCALIZE[744]</value -->		
+        <value condition="Window.IsVisible(10025) + Container.Content(files)">Video Files</value>
+        <value condition="Window.IsVisible(10502) + Container.Content(files)">Music Files</value>
+        <!-- MISC008: Custom "Library" header -->
+        <!-- value condition="[Window.IsVisible(10025) | Window.IsVisible(10502)]">$LOCALIZE[14022]</value -->
+        <value condition="Window.IsVisible(10025)">Video Library</value>
+        <value condition="Window.IsVisible(10502)">Music Library</value>
         <value condition="Window.IsVisible(tvchannels)">$LOCALIZE[10700]</value>
         <value condition="Window.IsVisible(tvguide)">$LOCALIZE[10702]</value>
         <value condition="Window.IsVisible(1130)">$LOCALIZE[31019]</value>
