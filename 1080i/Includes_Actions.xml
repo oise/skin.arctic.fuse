@@ -223,13 +223,19 @@
             <ondown condition="$PARAM[condition] + $PARAM[move]">Control.Move(303,1)</ondown>
 
             <!-- Options -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
+            <!-- MISC025: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown -->
+            <!-- MISC025: force "bump" if setting = "Options" -->
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">SetFocus(330)</ondown>
 
             <!-- Search -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + [[String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Search)] | Skin.String(Navigation.Hub.$PARAM[window_id].OnDown,Search)]">ActivateWindow(1185)</ondown>
 
             <!-- Filter -->
-            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown>
+            <!-- MISC025: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown -->
+            <!-- MISC025: force "bump" if setting = "Filter" -->
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(330)</ondown>
 
             <!-- Add-ons -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Add-ons)">ActivateWindow(1132)</ondown>
@@ -438,7 +444,12 @@
             </include>
 
             <!-- Filter -->
-            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown>
+            <!-- MISC026: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown -->
+            <!-- MISC026: Only Filter for media content -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + !String.IsEmpty(Container.Content)">SetFocus(64)</ondown>
+            <!-- MISC026: Otherwise Bump -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + String.IsEmpty(Container.Content)">SetFocus(330)</ondown>
 
             <!-- Options -->
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
