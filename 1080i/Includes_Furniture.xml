@@ -46,7 +46,7 @@
                             <texture>shadows/shadowspot.png</texture>                       
                             <left>1225</left>                   
                             <height>230</height> 
-                            <top>-75</top>
+                            <top>-85</top>
                             <right>-15</right>                               
                             <width>605</width>
                         </control>
