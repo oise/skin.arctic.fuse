@@ -8,8 +8,17 @@
     <onunload>ClearProperty(Options.Menu.Header,Home)</onunload>
     <controls>
 
-        <include content="Object_Hidden_List">
+        <include content="Object_Hidden_List" condition="![Skin.String(Home.SideMenuCollapse,Topbar) + Window.IsVisible(Home)]">
             <param name="id">303</param>
+            <content>
+                <item>
+                    <label>$INFO[Window(Home).Property(Options.Menu.Header)]</label>
+                    <property name="guid">$INFO[Window(Home).Property(Options.Menu.GUID)]</property>
+                </item>
+            </content>
+        </include>
+        <include content="Object_Hidden_List" condition="[Skin.String(Home.SideMenuCollapse,Topbar) + Window.IsVisible(Home)]">
+            <param name="id">370</param>
             <content>
                 <item>
                     <label>$INFO[Window(Home).Property(Options.Menu.Header)]</label>
@@ -44,13 +53,13 @@
                     <include content="Dialog_Body_Group">
                         <param name="id">7000</param>
 
-                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[2])">
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[2]) + String.IsEmpty(Window(Home).Property(Options.Menu.GUID))">
                             <param name="layout_include">ButtonMenu_Layout_Two</param>
                         </include>
-                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[3])">
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[3]) + String.IsEmpty(Window(Home).Property(Options.Menu.GUID))">
                             <param name="layout_include">ButtonMenu_Layout_Three</param>
                         </include>
-                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[4])">
+                        <include content="ButtonMenu_Layout" condition="Skin.String(OptionsTiles.Layout,$NUMBER[4]) + String.IsEmpty(Window(Home).Property(Options.Menu.GUID))">
                             <param name="layout_include">ButtonMenu_Layout_Four</param>
                         </include>
 
@@ -60,6 +69,7 @@
                             <right>20</right>
                             <height>1</height>
                             <texture colordiffuse="dialog_fg_12">common/white.png</texture>
+                            <visible>String.IsEmpty(Window(Home).Property(Options.Menu.GUID))</visible>
                         </control>
 
                         <include content="Object_Control" condition="String.IsEmpty(Window(Home).Property(Options.Menu.GUID))">
@@ -71,6 +81,7 @@
                             <onup>7020</onup>
                             <ondown>6000</ondown>
                             <onleft>Close</onleft>
+                            <oninfo>Close</oninfo>
                             <onright>-</onright>
                             <include>skinvariables-powermainmenu-staticitems</include>
                         </include>
@@ -78,11 +89,12 @@
                         <include content="List_DialogSelect" condition="!String.IsEmpty(Window(Home).Property(Options.Menu.GUID))">
                             <param name="id">8000</param>
                             <param name="itemlayout_include">Layout_MenuList</param>
-                            <top>320</top>
+                            <!-- <top>320</top> -->
                             <bottom>80</bottom>
                             <onup>7020</onup>
                             <ondown>6000</ondown>
                             <onleft>Close</onleft>
+                            <oninfo>Close</oninfo>
                             <onright>-</onright>
                             <content>
                                 <include condition="Window.IsVisible(Home)">skinvariables-homemenu-staticitems</include>
