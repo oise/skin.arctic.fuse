@@ -23,6 +23,21 @@
     <property name="expression">none</property>
     <onclick>ActivateWindow(1172)</onclick>
     <visible>![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]</visible>
+    <visible>!Skin.HasSetting(SideMenu.EnableOptionsButton)</visible>
+</item>
+
+<!-- Options -->
+<item>
+    <label>$LOCALIZE[33063]</label>
+    <icon>special://skin/extras/icons/bars.png</icon>
+    <property name="showlabel">True</property>
+    <property name="path">ActivateWindow(1170)</property>
+    <property name="guid">{item_guid}</property>
+    <property name="widgets_setfocus">SetFocus(400)</property>
+    <property name="expression">none</property>
+    <onclick>ActivateWindow(1170)</onclick>
+    <visible>![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]</visible>
+    <visible>Skin.HasSetting(SideMenu.EnableOptionsButton)</visible>
 </item>
 
 <!-- View: Discover -->
@@ -36,6 +51,8 @@
     <property name="expression">none</property>
     <onclick>SetFocus(67)</onclick>
     <visible>Window.IsVisible(1105)</visible>
+    <!-- PVR011: Remove Discover from EPG Side Menu -->
+    <visible>!Window.IsVisible(10702)</visible>
 </item>
 
 <!-- View: PVR -->
@@ -156,32 +173,4 @@
     <visible>Window.IsVisible(Home)</visible>
     <visible>![System.HasLoginScreen | !Skin.HasSetting(SkinUserLogin.Disabled)]</visible>
     <visible>Skin.HasSetting(SideMenu.DisableSearchButton) | Skin.String(Home.SideMenuCollapse,Topbar)</visible>
-</item>
-
-<!-- Menu -->
-<item>
-    <label>$LOCALIZE[33061]</label>
-    <icon>special://skin/extras/icons/bars-progress.png</icon>
-    <property name="showlabel">True</property>
-    <property name="path">ActivateWindow(1172)</property>
-    <property name="guid">{item_guid}</property>
-    <property name="widgets_setfocus">SetFocus(400)</property>
-    <property name="expression">none</property>
-    <onclick>ActivateWindow(1172)</onclick>
-    <visible>![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]</visible>
-    <visible>!Skin.HasSetting(SideMenu.EnableOptionsButton)</visible>
-</item>
-
-<!-- Options -->
-<item>
-    <label>$LOCALIZE[33063]</label>
-    <icon>special://skin/extras/icons/bars.png</icon>
-    <property name="showlabel">True</property>
-    <property name="path">ActivateWindow(1170)</property>
-    <property name="guid">{item_guid}</property>
-    <property name="widgets_setfocus">SetFocus(400)</property>
-    <property name="expression">none</property>
-    <onclick>ActivateWindow(1170)</onclick>
-    <visible>![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]</visible>
-    <visible>Skin.HasSetting(SideMenu.EnableOptionsButton)</visible>
 </item>
