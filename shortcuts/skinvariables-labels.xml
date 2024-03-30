@@ -28,7 +28,7 @@
         <value condition="!String.IsEmpty({listitem}.Property(Artist_Description))">$INFO[{listitem}.Property(Artist_Description)]</value>
         <value condition="!String.IsEmpty({listitem}.AddonDescription)">$INFO[{listitem}.AddonDescription]</value>
         <!-- MISC019: Episode Title in Bold and Episode Type removed from Plot ($VAR[Label_Plot_Episode_Type{cid}{lid},,: ]) -->   
-        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">[B]$INFO[{listitem}.Title][/B]$INFO[{listitem}.Plot, ~ ,]</value>
+        <value condition="String.IsEqual({listitem}.DBType,episode) + !String.IsEmpty({listitem}.Plot)">[COLOR=main_fg_100][B]$INFO[{listitem}.Title][/B][/COLOR]$INFO[{listitem}.Plot, ~ ,]</value>
         <value condition="!String.IsEmpty({listitem}.Plot)">$INFO[{listitem}.Plot]</value>
         <value condition="!String.IsEmpty({listitem}.Property(biography))">$INFO[{listitem}.Property(biography)]</value>
         <value condition="!String.IsEmpty(Window.Property(TMDbHelper.WidgetContainer))">$VAR[Label_WidgetPlot]</value>
