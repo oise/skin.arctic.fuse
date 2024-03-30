@@ -55,8 +55,8 @@
 	<expression name="Live_FAC_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"EFL") + String.Contains(ListItem.ChannelName,"(FA)")</expression>
 	<expression name="Live_UEFA_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"UEFA ")</expression>
     <expression name="Live_SPL_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"SPL")</expression>
+	<expression name="Live_SPFLC_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"Scottish Championship ")</expression>
     <!-- expression name="Live_NL_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"NATIONAL LEAGUE")</expression -->
-	<!-- expression name="Live_SPFLC_Anova">$EXP[Live_Football_Anova] + String.StartsWith(ListItem.ChannelName,"Scottish Championship ")</expression -->
 
     <expression name="Live_Football_FHNatho">Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,701) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,799)</expression>
 	<expression name="Live_EPL_FHNatho">$EXP[Live_Football_FHNatho] + String.Contains(ListItem.ChannelName,"LIVE EPL ")</expression>
@@ -84,7 +84,8 @@
         <!-- value condition="$EXP[Live_NL_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE NATIONAL LEAGUE.png</value -->
 		<value condition="$EXP[Live_UEFA_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE UEFA.png</value>
         <value condition="$EXP[Live_SPL_Anova] | $EXP[Live_SPL_FHNatho]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL PREMIERSHIP.png</value>
-		<value>$INFO[ListItem.Icon]</value>
+		<value condition="$EXP[Live_SPFLC_Anova]">special://userdata/customisations\PVR\PVR Logo Pack\LIVE SPFL CHAMPIONSHIP.png</value>
+        <value>$INFO[ListItem.Icon]</value>
 	</variable>
 
 	<!-- PVR006: Customised Variable Definition for EPG-->
