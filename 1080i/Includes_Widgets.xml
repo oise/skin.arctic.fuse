@@ -80,7 +80,7 @@
                     <param name="condition">$PARAM[conditional_fade]</param>
                 </include>
                 <include content="Animation_Widget_FadeOut" condition="$PARAM[widgetfade_include]">
-                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + [!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) | String.IsEmpty(Window.Property(Slide.WidgetContainer))]</param>
                 </include>
             </include>
             <include content="$PARAM[include]">
@@ -114,7 +114,7 @@
                 <onfocus>SetProperty(Slide.WidgetContainer,True)</onfocus>
 
                 <include content="Animation_Widget_FadeOut" condition="$PARAM[widgetfade_include]">
-                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer))</param>
+                    <param name="condition">!Control.HasFocus($PARAM[id]) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),$PARAM[id]) + [!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) | String.IsEmpty(Window.Property(Slide.WidgetContainer))]</param>
                 </include>
 
                 <include content="Animation_ConditionalFade">
@@ -125,7 +125,7 @@
             <include content="Object_Control" condition="$PARAM[shortstack_enabled]">
                 <param name="id">$PARAM[shortstack_id]</param>
                 <param name="control">group</param>
-                <height>-120</height>
+                <height>-80</height>
                 <visible>$PARAM[shortstack_visible]</visible>
                 <visible>Control.IsVisible($PARAM[id])</visible>
             </include>

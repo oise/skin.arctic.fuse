@@ -64,8 +64,7 @@
         <value condition="Skin.String(Navigation.Global.OnDown,Search)">1</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Explore)">2</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Filter)">3</value>
-        <value condition="Skin.String(Navigation.Global.OnDown,Add-ons)">4</value>
-        <value condition="Skin.String(Navigation.Global.OnDown,Bump)">5</value>
+        <value condition="Skin.String(Navigation.Global.OnDown,Bump)">4</value>
     </variable>
 
     <variable name="Path_Shortcut_Hub_Prefix">
@@ -87,6 +86,22 @@
     <variable name="Path_SearchFilter_Node">
         <value condition="[String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Genre) + String.IsEmpty(Window.Property(SearchDiscover.GenreLabel))] | [String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Studio) + String.IsEmpty(Window.Property(SearchDiscover.StudioLabel))] | [String.IsEqual(Window.Property(SearchDiscover.FilterLabel),Director) + String.IsEmpty(Window.Property(SearchDiscover.DirectorLabel))]">plugin://script.skinvariables/?info=get_container_labels&amp;containers=52&amp;infolabel=$INFO[Window.Property(SearchDiscover.FilterLabel)]&amp;numitems=$INFO[Container(52).NumItems]</value>
         <value>plugin://script.skinvariables/?info=get_container_labels&amp;containers=52&amp;infolabel=$INFO[Window.Property(SearchDiscover.FilterLabel)]&amp;numitems=$INFO[Container(52).NumItems]</value>
+    </variable>
+
+    <variable name="Path_Spotlight_Default_ViewContainer">
+        <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path))">311</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Container(303).ListItem.Property(spotlight_path))">311</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Container(370).ListItem.Property(spotlight_path))">311</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Path))">311</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Path))">311</value>
+        <value>300</value>
     </variable>
 
     <variable name="Path_Spotlight_SlideShow_Content">
@@ -215,10 +230,11 @@
     </variable>
 
     <variable name="Path_SearchTerm">
-        <value condition="Control.HasFocus(9099)">$INFO[Control.GetLabel(9099).index(1)]</value>
+        <!-- <value condition="Control.HasFocus(9099)">$INFO[Control.GetLabel(9099).index(1)]</value>
         <value condition="!String.IsEmpty(Window.Property(SearchTerm))">$INFO[Window.Property(SearchTerm)]</value>
+        <value condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">$INFO[Control.GetLabel(9099).index(1)]</value> -->
+        <!-- <value>•••</value> -->
         <value condition="!String.IsEmpty(Control.GetLabel(9099).index(1))">$INFO[Control.GetLabel(9099).index(1)]</value>
-        <value>•••</value>
     </variable>
 
     <variable name="Path_Search_Filter">

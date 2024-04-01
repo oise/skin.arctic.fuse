@@ -23,7 +23,6 @@
         <value condition="Skin.String(Navigation.Global.OnDown,Explore)">$LOCALIZE[31148]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Options)">$LOCALIZE[33063]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Search) + !Skin.String(Navigation.Global.OnUp,Search)">$LOCALIZE[137]</value>
-        <value condition="Skin.String(Navigation.Global.OnDown,Add-ons)">$LOCALIZE[24001]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Filter) + !Window.IsMedia + !Window.IsVisible(1105)">$LOCALIZE[31066]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Filter)">$LOCALIZE[587]</value>
         <value>$VAR[Label_NextBump]</value>
@@ -62,6 +61,12 @@
         <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-) + !Container(29303).IsUpdating + !String.IsEmpty(Container(29303).Listitem.Label)">$INFO[Container(29303).Listitem.Label]</value>
         <value condition="String.StartsWith(Window(Home).Property(Shortcuts.Category),guid-)">$INFO[Window(Home).Property(Shortcuts.Category)]</value>
         <value>$LOCALIZE[593] [LOWERCASE]$LOCALIZE[31150][/LOWERCASE]</value>
+    </variable>
+
+    <variable name="Label_Shortcut_StackedParent">
+        <value condition="Integer.IsEqual(Container(22001).ListItem.Property(widget_parent),1)">$INFO[Container(22001).ListItemNoWrap(-2).Label]</value>
+        <value condition="Integer.IsEqual(Container(22001).ListItem.Property(widget_parent),2)">$INFO[Container(22001).ListItemNoWrap(-3).Label]</value>
+        <value>$INFO[Container(22001).ListItemNoWrap(-1).Label]</value>
     </variable>
 
     <variable name="Label_SkinVariables_FilterName">
@@ -118,6 +123,16 @@
     <variable name="Label_Settings_KeyboardSize">
         <value condition="Skin.HasSetting(Keyboard.FullSized)">$LOCALIZE[31439]</value>
         <value>$LOCALIZE[1438]</value>
+    </variable>
+
+    <variable name="Label_Settings_NavigationMenuLeft">
+        <value condition="!Skin.HasSetting(Navigation.DisableOptionsOnLeft)">$LOCALIZE[33063]</value>
+        <value>$INFO[Skin.String(Navigation.OnLeftRight)]</value>
+    </variable>
+
+    <variable name="Label_Settings_NavigationHomeBack">
+        <value condition="!Skin.HasSetting(Navigation.DisableOptionsOnBack)">$LOCALIZE[33063]</value>
+        <value>$LOCALIZE[231]</value>
     </variable>
 
     <variable name="Label_DialogInfo_TraktRating">
@@ -217,6 +232,7 @@
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=powermainmenu)">$LOCALIZE[31126] > $LOCALIZE[31515]</value>
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=powersidemenu)">$LOCALIZE[31126] > $LOCALIZE[31362]</value>
         <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=options-tray)">$LOCALIZE[31372]</value>
+        <value condition="String.IsEqual(Window(Home).Property(Shortcuts.EditMenu),menu=homemenu-extendedwidgets)">$LOCALIZE[10000] $LOCALIZE[31026] > $LOCALIZE[31392]</value>
         <value>FIXME</value>
     </variable>
 
@@ -494,7 +510,7 @@
     </variable>
 
     <variable name="Label_Player_Plot">
-        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Plot)">$INFO[VideoPlayer.Title,[B][COLOR=panel_fg_100],[/COLOR][/B] ~ ]$INFO[VideoPlayer.Plot]</value>
+        <value condition="VideoPlayer.Content(episodes) + !String.IsEmpty(VideoPlayer.Plot)">$INFO[VideoPlayer.Title,, ~ ]$INFO[VideoPlayer.Plot]</value>
         <value>$INFO[VideoPlayer.Plot]</value>
     </variable>
 
@@ -1034,35 +1050,11 @@
         <value condition="!String.IsEmpty(ListItem.Property(Artist_Type))">$INFO[ListItem.Property(Artist_Type)]</value>
     </variable>
 
-    <variable name="Label_ListTrackNumber">
-        <value condition="String.IsEqual(ListItem.DBType,album)">$INFO[ListItem.Year]</value>
-        <value>$INFO[ListItem.TrackNumber]$INFO[ListItem.DiscNumber,     [COLOR=main_fg_30],[/COLOR]]</value>
-    </variable>
-
-    <variable name="Label_ListArtist">
-        <value condition="String.IsEqual(Container.FolderName,$LOCALIZE[15102])">$INFO[ListItem.Album]</value>
-        <value>$INFO[ListItem.Artist]</value>
-    </variable>
-
-    <variable name="Label_ListEpisode">
-        <value condition="!String.IsEmpty(ListItem.Label2)">$INFO[ListItem.Label2]</value>
-        <value condition="!String.IsEmpty(ListItem.Duration)">$INFO[ListItem.Premiered,,  [COLOR=main_fg_70]•[/COLOR]  ]$INFO[ListItem.Duration]</value>
-        <value condition="!String.IsEmpty(ListItem.Premiered)">$INFO[ListItem.Premiered]</value>
-    </variable>
-
-    <variable name="Label_ListPlot">
-        <value condition="!String.IsEmpty(ListItem.Property(Artist_Description))">$INFO[ListItem.Property(Artist_Description)]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(Album_Description))">$INFO[ListItem.Property(Album_Description)]</value>
-        <value condition="!String.IsEmpty(ListItem.AddonDescription)">$INFO[ListItem.AddonDescription]</value>
-        <value condition="String.IsEqual(ListItem.DBType,episode) + !String.IsEmpty(ListItem.Plot)">[B]$INFO[ListItem.Title,[COLOR=main_fg_100], ~ [/COLOR]][/B]$INFO[ListItem.Plot]</value>
-        <value condition="!String.IsEmpty(ListItem.Plot)">$INFO[ListItem.Plot]</value>
-    </variable>
-
     <variable name="Label_WidgetPlot">
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_artist_description))">$INFO[Container(99950).ListItem.Property(base_artist_description)]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_album_description))">$INFO[Container(99950).ListItem.Property(base_album_description)]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_addon_description))">$INFO[Container(99950).ListItem.Property(base_addon_description)]</value>
-        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode) + !String.IsEmpty(Container(99950).ListItem.Property(base_plot))">$INFO[Container(99950).ListItem.Property(base_title),[B][COLOR=main_fg_100],[/COLOR][/B] ~ ]$INFO[Container(99950).ListItem.Property(base_plot)]</value>
+        <value condition="String.IsEqual(Container(99950).ListItem.Property(base_dbtype),episode) + !String.IsEmpty(Container(99950).ListItem.Property(base_plot))">$INFO[Container(99950).ListItem.Property(base_title),, ~ ]$INFO[Container(99950).ListItem.Property(base_plot)]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Property(base_plot))">$INFO[Container(99950).ListItem.Property(base_plot)]</value>
         <value condition="!String.IsEmpty(Container(99950).ListItem.Plot)">$INFO[Container(99950).ListItem.Plot]</value>
         <value>$VAR[Def_PlotDetails_Fallback]</value>
@@ -1234,7 +1226,7 @@
         <value condition="Window.IsVisible(1130)">$LOCALIZE[31019]</value>
         <value condition="Window.IsVisible(1131)">$LOCALIZE[31020]</value>
         <value condition="Window.IsVisible(1132)">$LOCALIZE[24001]</value>
-        <value condition="Window.IsVisible(1133)">$LOCALIZE[5]</value>
+        <value condition="Window.IsVisible(1105)">$LOCALIZE[31066]</value>
         <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
         <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[1036]</value>
         <value condition="$EXP[Exp_Window_IsHub] + !String.IsEmpty(Window.Property(Hub.Header))">$INFO[Window.Property(Hub.Header)]</value>

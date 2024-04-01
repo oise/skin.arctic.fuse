@@ -83,12 +83,61 @@
 
     </include>
 
+    <include name="Search_Filter_Edit">
+        <param name="id">9099</param>
+        <param name="onup">SetFocus(5098,99999,absolute)</param>
+        <param name="ondown">9002</param>
+        <param name="label">$LOCALIZE[137] $LOCALIZE[369]</param>
+        <definition>
+            <control type="image">
+                <texture colordiffuse="dialog_fg_12" border="40">common/menu.png</texture>
+                <visible>!Control.HasFocus($PARAM[id])</visible>
+            </control>
+            <control type="image">
+                <include>Texture_Menu_Highlight_H</include>
+                <visible>Control.HasFocus($PARAM[id])</visible>
+            </control>
+            <control type="edit" id="$PARAM[id]">
+                <description>Search</description>
+                <font>font_main</font>
+                <textcolor>dialog_fg_70</textcolor>
+                <focusedcolor>$VAR[ColorSelected]</focusedcolor>
+                <textoffsetx>40</textoffsetx>
+                <texturenofocus />
+                <texturefocus />
+                <top>30</top>
+                <height>40</height>
+                <align>center</align>
+                <onleft>$PARAM[id]</onleft>
+                <onright>$PARAM[id]</onright>
+                <onup>$PARAM[onup]</onup>
+                <ondown>$PARAM[ondown]</ondown>
+            </control>
+            <control type="label">
+                <align>center</align>
+                <height>40</height>
+                <font>font_hint_black</font>
+                <textcolor>dialog_fg_70</textcolor>
+                <visible>!Control.HasFocus($PARAM[id])</visible>
+                <label>$PARAM[label]</label>
+            </control>
+            <control type="label">
+                <align>center</align>
+                <height>40</height>
+                <font>font_hint_black</font>
+                <include>Color_SelectedText</include>
+                <visible>Control.HasFocus($PARAM[id])</visible>
+                <label>$PARAM[label]</label>
+            </control>
+        </definition>
+    </include>
+
     <include name="Search_Filter">
         <control type="button" id="9968">
             <onclick condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">SetFocus(68)</onclick>
             <onclick condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">PreviousMenu</onclick>
             <onleft>SetFocus(9502)</onleft>
-            <onright>SetFocus(9502)</onright>
+            <!-- <onright>SetFocus(9502)</onright> -->
             <onup>SetFocus(9502)</onup>
             <ondown>SetFocus(9502)</ondown>
             <texturenofocus />
@@ -120,33 +169,13 @@
                 <!-- Content -->
                 <include content="Dialog_Body">
 
-                    <control type="edit" id="9099">
-                        <description>Search</description>
-                        <font>font_main_black</font>
-                        <textcolor>dialog_fg_90</textcolor>
-                        <focusedcolor>$VAR[ColorSelected]</focusedcolor>
+                    <control type="group">
                         <top>20</top>
                         <left>20</left>
                         <right>20</right>
                         <height>80</height>
-                        <textoffsetx>40</textoffsetx>
-                        <align>left</align>
-                        <onup>SetProperty(SearchTerm,$INFO[Control.GetLabel(9099).index(1)])</onup>
-                        <onleft>9099</onleft>
-                        <onright>9099</onright>
-                        <!-- <onleft>SetProperty(SearchTerm,$INFO[Control.GetLabel(9099).index(1)])</onleft>
-                        <onleft>SetFocus(9002)</onleft>
-                        <onright>SetProperty(SearchTerm,$INFO[Control.GetLabel(9099).index(1)])</onright>
-                        <onright>SetFocus(9002)</onright> -->
-                        <ondown>SetProperty(SearchTerm,$INFO[Control.GetLabel(9099).index(1)])</ondown>
-                        <ondown>9002</ondown>
-                        <onup>SetFocus(5098,99999,absolute)</onup>
-                        <!-- <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
-                        <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
-                        <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
-                        <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback> -->
+                        <include>Search_Filter_Edit</include>
                     </control>
-
 
                     <control type="grouplist" id="89099">
                         <orientation>vertical</orientation>
@@ -158,7 +187,7 @@
                         <onup>9099</onup>
                         <ondown>SetFocus(5098,0,absolute)</ondown>
                         <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
-                        <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
+                        <!-- <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright> -->
                         <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
                         <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback>
                     </control>
@@ -186,7 +215,7 @@
                         <onup>9501</onup>
                         <ondown>9099</ondown>
                         <onleft condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onleft>
-                        <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright>
+                        <!-- <onright condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onright> -->
                         <onback condition="$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]">68</onback>
                         <onback condition="![$EXP[Search_View_HasItems] + !$EXP[Search_View_IsUpdating]]">68</onback>
                         <onclick>SetFocus(5099,$INFO[Container(5098).ListItem.CurrentItem],absolute)</onclick>
@@ -293,7 +322,7 @@
                         <param name="itemlayout_include">Layout_MenuList</param>
                         <param name="detailed">true</param>
                         <onleft>9501</onleft>
-                        <onright>9501</onright>
+                        <!-- <onright>9501</onright> -->
                         <onback>9501</onback>
                         <include>Dimension_Dialog_Body_Group</include>
                         <content>
@@ -411,7 +440,7 @@
             <texturenofocus />
             <texturefocus />
             <onleft>8000</onleft>
-            <onright>8000</onright>
+            <!-- <onright>8000</onright> -->
             <onup>8000</onup>
             <ondown>8000</ondown>
             <onback>8000</onback>
