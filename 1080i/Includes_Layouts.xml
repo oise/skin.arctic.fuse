@@ -2432,8 +2432,8 @@
                             <textcolor>$PARAM[textcolor]_70</textcolor>
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>left</align>
-                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
-                            <visible>!Window.IsVisible(Home)</visible>                            
+                            <!-- PVR012: visible tag added -->
+                            <visible>![Window.IsVisible(Home) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)]</visible>                           
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].StartTime]$INFO[$PARAM[listitem].EndTime, - ,]</label>
