@@ -2396,11 +2396,24 @@
                             <textcolor>$PARAM[textcolor]_90</textcolor>
                             <selectedcolor>$PARAM[textcolor]_90</selectedcolor>
                             <align>left</align>
-                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
+                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
+                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + !Window.IsVisible(Home)</visible>
                             <include content="Object_Visible" condition="Window.IsVisible(1120)">
                                 <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
                             </include>
                         </include>
+                        <!-- PVR012: START custom label for PVR Home Screen widgets -->
+                        <include content="Object_InfoCircle_Text_Top">
+                            <label>$INFO[$PARAM[listitem].ChannelName]</label>
+                            <textcolor>$PARAM[textcolor]_90</textcolor>
+                            <selectedcolor>$PARAM[textcolor]_90</selectedcolor>
+                            <align>left</align>
+                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + Window.IsVisible(Home)</visible>
+                            <include content="Object_Visible" condition="Window.IsVisible(1120)">
+                                <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
+                            </include>
+                        </include>
+                        <!-- PVR012: END custom label for :PVR Home Screen widgets -->
                         <include content="Object_InfoCircle_Text_Top">
                             <label>$INFO[$PARAM[listitem].Season,S,]$INFO[$PARAM[listitem].Episode,E,]</label>
                             <textcolor>$PARAM[textcolor]_90</textcolor>
@@ -2419,6 +2432,8 @@
                             <textcolor>$PARAM[textcolor]_70</textcolor>
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>left</align>
+                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
+                            <visible>!Window.IsVisible(Home)</visible>                            
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].StartTime]$INFO[$PARAM[listitem].EndTime, - ,]</label>
@@ -2427,6 +2442,8 @@
                             <align>right</align>
                             <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                             <visible>ListItem.InProgress</visible>
+                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
+                            <visible>!Window.IsVisible(Home)</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].Date]</label>
@@ -2491,7 +2508,8 @@
                     <param name="fade">true</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- PVR0012: <!-- PVR012:  + condition !Window.IsVisible(Home) added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
 
