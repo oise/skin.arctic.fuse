@@ -1,3 +1,17 @@
+<!-- MISC023: START Include "Home" -->
+<item>
+    <label>Home</label>
+    <icon>special://skin/extras/icons/home.png</icon>
+    <property name="showlabel">True</property>
+    <property name="path">ActivateWindow(Home)</property>
+    <property name="guid">{item_guid}</property>
+    <property name="widgets_setfocus">SetFocus(400)</property>
+    <property name="expression">none</property>
+    <onclick>ActivateWindow(Home)</onclick>
+    <visible>Skin.HasSetting(Hub.Home.DisableSubmenu)</visible>
+</item>
+<!-- MISC023: END Include "Home" -->
+
 <!-- View: Discover -->
 <item>
     <label>$LOCALIZE[31066]</label>
