@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <includes>
     <include name="View_MediaWindows_ID">
-        <views>50,51,52,502,512,522,55,500,56,506,516</views>
+        <views>50,51,52,502,512,522,55,500,56,516</views>
     </include>
 
     <include name="View_Row_Header">
@@ -87,8 +87,8 @@
         </include>
         <include content="Object_Hidden_Button">
             <param name="id">67</param>
-            <onfocus condition="Skin.String(Navigation.Global.OnDown,Explore)">Action(Down)</onfocus>
-            <include condition="Skin.String(Navigation.Global.OnDown,Explore)">Action_View_Explore_OnDown</include>
+            <onfocus>SetFocus($VAR[Action_View_ContentID])</onfocus>
+            <include condition="Skin.String(Navigation.Global.OnDown,Explore)">Action_View_Explore_OnFocus</include>
         </include>
     </include>
 
@@ -132,9 +132,8 @@
                     <include condition="$EXP[Exp_View_51_Include]">View_051_Landscape_Row</include>
                     <include condition="$EXP[Exp_View_52_Include]">View_052_Poster_Row</include>
                     <include condition="$EXP[Exp_View_56_Include]">View_056_MediaList</include>
-                    <include condition="$EXP[Exp_View_506_Include]">View_506_Square_MediaList</include>
                     <include condition="$EXP[Exp_View_516_Include]">View_516_Landscape_MediaList</include>
-                    <include condition="$EXP[Exp_View_500_Include]">View_500_Square_List</include>
+                    <include condition="$EXP[Exp_View_500_Include]">View_500_Square_MediaList</include>
 
                     <include content="Widget_Busy">
                         <param name="label">$VAR[Label_Section_Main]</param>
@@ -186,7 +185,7 @@
                             <include content="Info_Viewline">
                                 <param name="library_condition">false</param>
                                 <param name="label">$VAR[Label_NextMedia]</param>
-                                <param name="custom_condition">true</param>
+                                <param name="custom_icon_condition">true</param>
                                 <param name="custom_icon">$VAR[Image_NextMedia]</param>
                                 <top>0</top>
                                 <left>0</left>
@@ -223,12 +222,64 @@
     <include name="View_Furniture_Bottom_Group">
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
-            <visible>!Window.IsVisible(1171)</visible>
+            <include>Animation_Transition_InfoPanel_Hide</include>
             <control type="group">
-                <visible>![[Container.Scrolling + $EXP[Exp_FurnitureFooter_Left_IsVisible]] | !String.IsEmpty(Window.Property(MediaFilterBase)) | !String.IsEmpty(Window.Property(MediaFilterWall))]</visible>
-                <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
-                <animation effect="fade" start="0" end="100" delay="400" time="1" reversible="false">Visible</animation>
-                <include>$PARAM[include]</include>
+                <visible>!Window.IsVisible(1171)</visible>
+                <control type="group">
+                    <visible>![[Container.Scrolling + $EXP[Exp_FurnitureFooter_Left_IsVisible]] | !String.IsEmpty(Window.Property(MediaFilterBase)) | !String.IsEmpty(Window.Property(MediaFilterWall))]</visible>
+                    <animation effect="fade" start="100" end="0" delay="400" time="1" reversible="true">Hidden</animation>
+                    <animation effect="fade" start="0" end="100" delay="400" time="1" reversible="false">Visible</animation>
+                    <include>$PARAM[include]</include>
+                </control>
+            </control>
+        </control>
+    </include>
+
+    <include name="View_Furniture_Bottom_PageCount_Footer">
+        <control type="group">
+            <width>50</width>
+            <height>50</height>
+            <centertop>50%</centertop>
+            <include content="Info_FooterItemIcon">
+                <param name="icon">special://skin/extras/icons/_none.png</param>
+                <param name="centered">true</param>
+                <param name="size">50</param>
+            </include>
+            <control type="label">
+                <centerleft>50%</centerleft>
+                <centertop>50%</centertop>
+                <align>center</align>
+                <aligny>center</aligny>
+                <width>50</width>
+                <height>50</height>
+                <textcolor>main_bg_90</textcolor>
+                <font>font_mini_black</font>
+                <label>$INFO[ListItem.SortLetter]</label>
+            </control>
+        </control>
+        <control type="label">
+            <label>$LOCALIZE[31135] $INFO[Container.CurrentPage,[COLOR=main_fg_90][B],[/B][/COLOR] $LOCALIZE[20163] ]$INFO[Container.NumPages,[COLOR=main_fg_90][B],[/B][/COLOR]]</label>
+            <left>80</left>
+            <include>Defs_Label_FooterItem</include>
+        </control>
+    </include>
+
+    <include name="View_Furniture_Bottom_PageCount_Basic">
+        <control type="group">
+            <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
+            <control type="group">
+                <top>-15</top>
+                <height>35</height>
+                <include content="Info_Viewline">
+                    <param name="library_condition">false</param>
+                    <param name="label">$LOCALIZE[31135]$INFO[Container.CurrentPage, , $LOCALIZE[20163] ]$INFO[Container.NumPages]</param>
+                    <param name="custom_icon_condition">true</param>
+                    <param name="custom_icon">special://skin/extras/icons/kodi.png</param>
+                    <param name="custom_label_condition">true</param>
+                    <param name="custom_label">$INFO[ListItem.SortLetter]</param>
+                    <top>0</top>
+                    <left>0</left>
+                </include>
             </control>
         </control>
     </include>
@@ -240,6 +291,7 @@
         <control type="group">
             <include>Furniture_Bottom_Right</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
+            <include>Animation_Transition_InfoPanel_Hide</include>
             <control type="group">
                 <visible>!Window.IsVisible(1171)</visible>
                 <control type="group">
@@ -250,32 +302,8 @@
                     <centerbottom>100</centerbottom>
                     <left>view_side</left>
                     <right>view_pad</right>
-                    <control type="group">
-                        <width>50</width>
-                        <height>50</height>
-                        <centertop>50%</centertop>
-                        <include content="Info_FooterItemIcon">
-                            <param name="icon">special://skin/extras/icons/_none.png</param>
-                            <param name="centered">true</param>
-                            <param name="size">50</param>
-                        </include>
-                        <control type="label">
-                            <centerleft>50%</centerleft>
-                            <centertop>50%</centertop>
-                            <align>center</align>
-                            <aligny>center</aligny>
-                            <width>50</width>
-                            <height>50</height>
-                            <textcolor>main_bg_90</textcolor>
-                            <font>font_mini_black</font>
-                            <label>$INFO[ListItem.SortLetter]</label>
-                        </control>
-                    </control>
-                    <control type="label">
-                        <label>$LOCALIZE[31135] $INFO[Container.CurrentPage,[COLOR=main_fg_90][B],[/B][/COLOR] $LOCALIZE[20163] ]$INFO[Container.NumPages,[COLOR=main_fg_90][B],[/B][/COLOR]]</label>
-                        <left>80</left>
-                        <include>Defs_Label_FooterItem</include>
-                    </control>
+                    <include condition="[Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)]">View_Furniture_Bottom_PageCount_Footer</include>
+                    <include condition="![Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)]">View_Furniture_Bottom_PageCount_Basic</include>
                 </control>
             </control>
         </control>
@@ -378,8 +406,6 @@
             <include>View_Furniture_Edges</include>
             <include>View_Dialog_VideoPIP</include>
             <include>View_Dialog_Plot</include>
-            <include>TouchMode_Media_Zones</include>
-
         </definition>
     </include>
 </includes>

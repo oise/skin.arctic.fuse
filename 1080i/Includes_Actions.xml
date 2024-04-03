@@ -71,6 +71,10 @@
         <onload>RunScript(script.skinvariables,action=buildviews)</onload>
         <onload>ClearProperty(MediaFilterBase)</onload>
         <onload>ClearProperty(MediaFilterWall)</onload>
+
+        <onload condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_DontHide]">SetFocus(303,$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
+        <onload>ClearProperty(Home.MenuFocus,Home)</onload>
+
         <onunload>ClearProperty(MediaFilterBase)</onunload>
         <onunload>ClearProperty(MediaFilterWall)</onunload>
     </include>
@@ -127,7 +131,10 @@
     </include>
 
     <variable name="Action_Default_HomeFocus">
-        <value condition="!String.IsEmpty(Skin.String(Home.DefaultFocus)) + !Skin.String(Home.SideMenuCollapse,Always)">$INFO[Skin.String(Home.DefaultFocus)]</value>
+        <value condition="!$EXP[Exp_HomeMenu_DontHide]">1</value>
+        <value condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus))">$INFO[Window(Home).Property(Home.MenuFocus)]</value>
+        <value condition="!Window.IsVisible(Home)">1</value>
+        <value condition="!String.IsEmpty(Skin.String(Home.DefaultFocus))">$INFO[Skin.String(Home.DefaultFocus)]</value>
         <value>1</value>
     </variable>
 
@@ -152,6 +159,9 @@
         <onload condition="Skin.HasSetting(Hub.1109.DisableSubmenu)">SetProperty(Slide.WidgetContainer,True,1109)</onload>
 
         <include>Action_BuildShortcuts_OnLoad</include>
+
+        <onload condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_DontHide]">SetFocus(303,$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
+        <onload>ClearProperty(Home.MenuFocus,Home)</onload>
 
         <onunload>CancelAlarm(playtrailer,silent)</onunload>
     </include>
@@ -181,6 +191,7 @@
             <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">AlarmClock(refocus2,$PARAM[refocus],00:00,silent)</onback>
 
             <!-- Menu: Go to Menu -->
+            <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">SetProperty(List.ViewContainer,$PARAM[id])</onback>
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">$PARAM[grouplistid]</onback>
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">AlarmClock(refocus2,SetFocus($VAR[Action_Hubs_MenuID]),00:00,silent)</onback>
 
@@ -188,7 +199,8 @@
     </include>
 
     <include name="Action_Widget_Top">
-        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + Skin.String(Home.SideMenuCollapse,Library) + !String.IsEmpty(Container(303).ListItemNoWrap(-1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
+        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + $EXP[Exp_HomeMenu_DontHide] + !String.IsEmpty(Container(303).ListItemNoWrap(-1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
+        <param name="search_transition">$EXP[Exp_Window_IsClassicHub]</param>
         <param name="condition">true</param>
         <definition>
 
@@ -199,30 +211,41 @@
             <onup condition="$PARAM[condition] + $PARAM[move]">SetProperty(WidgetGroup.Movement,Up)</onup>
             <onup condition="$PARAM[condition] + $PARAM[move]">Control.Move(303,-1)</onup>
 
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + ![!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + ![!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]">SetFocus(303,1,absolute)</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + !$EXP[Exp_HomeMenu_DontHide]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + !$EXP[Exp_HomeMenu_DontHide]">SetFocus(303,1,absolute)</onup>
 
             <!-- Bump -->
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)] + !Skin.String(Navigation.Global.OnUp,Search)">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
-            <onup condition="$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)] + !Skin.String(Navigation.Global.OnUp,Search)">333</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + $EXP[Exp_HomeMenu_DontHide] + !Skin.String(Navigation.Global.OnUp,Search)">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
+            <onup condition="$PARAM[condition] + ![$PARAM[move]] + $EXP[Exp_HomeMenu_DontHide] + !Skin.String(Navigation.Global.OnUp,Search)">333</onup>
 
             <!-- Search -->
-            <include content="Home_Menu_List_OnUp_ActivateSearch" condition="Skin.String(Navigation.Global.OnUp,Search) + !$EXP[Exp_Window_IsClassicHub]">
+            <include content="Home_Menu_List_OnUp_ActivateSearch" condition="Skin.String(Navigation.Global.OnUp,Search) + ![$PARAM[search_transition]]">
                 <param name="property">InhibitTransition</param>
-                <param name="condition">$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]</param>
+                <param name="condition">$PARAM[condition] + ![$PARAM[move]] + $EXP[Exp_HomeMenu_DontHide]</param>
             </include>
-            <include content="Home_Menu_List_OnUp_ActivateSearch" condition="Skin.String(Navigation.Global.OnUp,Search) + $EXP[Exp_Window_IsClassicHub]">
+            <include content="Home_Menu_List_OnUp_ActivateSearch" condition="Skin.String(Navigation.Global.OnUp,Search) + $PARAM[search_transition]">
                 <param name="property">ReverseTransition</param>
-                <param name="condition">$PARAM[condition] + ![$PARAM[move]] + [!Skin.String(Home.SideMenuCollapse,Always) + Window.IsVisible(Home)]</param>
+                <param name="condition">$PARAM[condition] + ![$PARAM[move]] + $EXP[Exp_HomeMenu_DontHide]</param>
             </include>
 
+        </definition>
+    </include>
+
+    <include name="Action_View_Movement_OnUp">
+        <param name="id">50</param>
+        <definition>
+            <include content="Action_Widget_Top">
+                <param name="move">False</param>
+                <param name="id">$PARAM[id]</param>
+                <param name="search_transition">True</param>
+            </include>
         </definition>
     </include>
 
     <include name="Action_Widget_End">
         <param name="condition">true</param>
         <param name="bump_id">330</param>
-        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + Skin.String(Home.SideMenuCollapse,Library) + !String.IsEmpty(Container(303).ListItemNoWrap(1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
+        <param name="move">Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + $EXP[Exp_HomeMenu_DontHide] + !String.IsEmpty(Container(303).ListItemNoWrap(1).Property(guid)) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</param>
         <definition>
             <!-- EndRow Hack: Bump focus back up to widget first -->
             <ondown condition="$PARAM[condition] + !String.IsEmpty(Window.Property(EndRow.HasFocus))">Action(Up)</ondown>
@@ -282,6 +305,30 @@
         <onclick>Dialog.Close(1122,true)</onclick>
     </include>
 
+    <variable name="Action_Recommendations_SetFocusID">
+        <value condition="Control.IsVisible(5001)">5001</value>
+        <value condition="Control.IsVisible(5002)">5002</value>
+        <value condition="Control.IsVisible(5003)">5003</value>
+        <value condition="Control.IsVisible(5004)">5004</value>
+        <value condition="Control.IsVisible(5005)">5005</value>
+        <value condition="Control.IsVisible(5006)">5006</value>
+        <value condition="Control.IsVisible(5007)">5007</value>
+        <value condition="Control.IsVisible(5008)">5008</value>
+        <value condition="Control.IsVisible(5009)">5009</value>
+        <value condition="Control.IsVisible(5010)">5010</value>
+        <value condition="Control.IsVisible(5011)">5011</value>
+        <value condition="Control.IsVisible(5012)">5012</value>
+        <value condition="Control.IsVisible(5013)">5013</value>
+        <value condition="Control.IsVisible(5014)">5014</value>
+        <value condition="Control.IsVisible(5015)">5015</value>
+        <value condition="Control.IsVisible(5016)">5016</value>
+        <value condition="Control.IsVisible(5017)">5017</value>
+        <value condition="Control.IsVisible(5018)">5018</value>
+        <value condition="Control.IsVisible(5019)">5019</value>
+        <value condition="Control.IsVisible(5020)">5020</value>
+        <value>5000</value>
+    </variable>
+
     <include name="Action_HomeMenu_OnRightLeft">
         <param name="onlist">320</param>
         <param name="c_bump">[!String.IsEmpty(Window.Property(List.ViewContainer.Bump))]</param>
@@ -308,7 +355,8 @@
             <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Left)</onleft>
             <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Bump)</onleft>
 
-            <onright condition="$PARAM[c_view]">SetFocus($PARAM[i_view],0,absolute)</onright>
+            <onright condition="$PARAM[c_view] + !Skin.String(Navigation.OnBack,Menu)">SetFocus($PARAM[i_view],0,absolute)</onright>
+            <onright condition="$PARAM[c_view] + Skin.String(Navigation.OnBack,Menu)">SetFocus($PARAM[i_view])</onright>
             <onright condition="!$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</onright>
             <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + $PARAM[c_wosf]">$PARAM[i_wosf]</onright>
             <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + !$PARAM[c_wosf]">$PARAM[onlist]</onright>
@@ -447,6 +495,7 @@
         <param name="condition">True</param>
         <param name="window_id">1181</param>
         <definition>
+
             <ondown condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Title,$VAR[Label_Title_Container],$PARAM[window_id])</ondown>
             <ondown condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Query,$VAR[Path_Param_Query],$PARAM[window_id])</ondown>
             <ondown condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Type,$VAR[Path_Param_Type],$PARAM[window_id])</ondown>
@@ -465,6 +514,29 @@
         </definition>
     </include>
 
+    <include name="Action_View_Explore_OnFocus">
+        <param name="condition">True</param>
+        <param name="window_id">1181</param>
+        <definition>
+
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Title,$VAR[Label_Title_Container],$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Query,$VAR[Path_Param_Query],$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Type,$VAR[Path_Param_Type],$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Item_Year,$INFO[ListItem.Year],$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Genre_Title,$INFO[Container(99950).ListItem.Property(Genre.1.Name)]$INFO[Container(99950).ListItem.Property(Genre.2.Name), / ,],$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + [String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">SetProperty(Genre_Query,$INFO[Container(99950).ListItem.Property(Genre.1.TMDB_ID),&amp;with_separator=AND&amp;with_id=True&amp;with_genres=,]$INFO[Container(99950).ListItem.Property(Genre.2.TMDB_ID), / ,],$PARAM[window_id])</onfocus>
+
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Item_Title,$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Item_Query,$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Item_Type,$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Item_Year,$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Genre_Title,$PARAM[window_id])</onfocus>
+            <onfocus condition="$PARAM[condition] + ![String.IsEqual(ListItem.DBType,movie) | String.IsEqual(ListItem.DBType,tvshow) | String.IsEqual(ListItem.DBType,set) | String.IsEqual(ListItem.DBType,season) | String.IsEqual(ListItem.DBType,episode)]">ClearProperty(Genre_Query,$PARAM[window_id])</onfocus>
+
+            <onfocus condition="$PARAM[condition]">ActivateWindow($PARAM[window_id])</onfocus>
+        </definition>
+    </include>
+
     <variable name="Action_Var_Search_ToMediaFilter">
         <value condition="!Skin.HasSetting(Navigation.MediaFilterWall) | Skin.HasSetting(Views.DisableItemPeek)">Runscript(script.skinvariables,"run_executebuiltin=special://skin/shortcuts/builtins/skinvariables-mediafilter-setfocus.json",use_rules,id=$VAR[Action_Search_ContentID],focus_id=9502,clear_prop_one=Null,clear_prop_two=Null)</value>
         <value>Runscript(script.skinvariables,$VAR[MediaWall_Search_ScriptTypeDef],use_rules,id=$VAR[Action_Search_ContentID],use_mediafilter=True,win_prop=WallSlideIn,focus_id=9502,clear_prop_one=Null,clear_prop_two=Null)</value>
@@ -475,17 +547,13 @@
         <value>Runscript(script.skinvariables,$VAR[MediaWall_ScriptTypeDef],use_rules,id=$VAR[Action_View_ContentID],use_mediafilter=True,win_prop=WallSlideIn,focus_id=9012,clear_prop_one=Null,clear_prop_two=Null)</value>
     </variable>
 
-    <include name="Action_View_Movement_OnUp">
-        <onup>SetFocus(303,1,absolute)</onup>
-    </include>
+
 
     <include name="Action_View_Movement_OnDown">
         <param name="condition">true</param>
         <definition>
             <!-- Explore -->
-            <include content="Action_View_Explore_OnDown">
-                <param name="condition">[$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Explore)]</param>
-            </include>
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Explore)">SetFocus(67)</ondown>
 
             <!-- Filter -->
             <!-- MISC026: disable original "ondown" -->
@@ -532,7 +600,8 @@
     <include name="Action_View_Movement_OnLeft">
         <param name="onleft" />
         <param name="onbump">Skin.String(Navigation.OnLeftRight,Bump)</param>
-        <param name="onwrap">Skin.String(Navigation.OnLeftRight,Wrap)</param>
+        <param name="onwrap">[Skin.String(Navigation.OnLeftRight,Wrap) | [Skin.String(Navigation.OnLeftRight,Loop) + !Skin.HasSetting(Navigation.DisableOptionsOnLeft) + !$EXP[Exp_HomeMenu_DontHide]]]</param>
+        <!-- <param name="onwrap">Skin.String(Navigation.OnLeftRight,Wrap)</param> -->
         <param name="menuid">303</param>
         <definition>
             <onleft condition="![$PARAM[onwrap]] + $PARAM[onbump]">SetProperty(List.ViewContainer.Bump,True)</onleft>
@@ -679,12 +748,11 @@
         <onclick>Skin.Reset(gradientcolor.name)</onclick>
         <onclick>Skin.Reset(EnableMonochromeHighlight)</onclick>
         <onclick>Skin.Reset(InvertSelectedText)</onclick>
-        <onclick>Skin.Reset(Background.DialogImage)</onclick>
+        <onclick condition="!Skin.HasSetting(TMDbHelper.EnableBlur) | !String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.Reset(Background.DialogImage)</onclick>
+        <onclick condition="Skin.HasSetting(TMDbHelper.EnableBlur) + String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Adaptive)</onclick>
         <onclick>Skin.SetString(Background.Image,special://skin/extras/backgrounds/blur/purple_blur.jpg)</onclick>
-        <include content="Action_BuildTextures_Onclick_Preset">
-            <param name="window_id">$PARAM[window_id]</param>
-        </include>
         <onclick>RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground])</onclick>
+        <onclick>AlarmClock(buildtexture,runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id]),00:00,silent)</onclick>
     </include>
 
     <include name="Action_Scheme_Onclick_Aqua">
@@ -692,12 +760,11 @@
         <onclick>Skin.SetString(gradientcolor.name,ff00bfa5)</onclick>
         <onclick>Skin.Reset(EnableMonochromeHighlight)</onclick>
         <onclick>Skin.Reset(InvertSelectedText)</onclick>
-        <onclick>Skin.SetString(Background.DialogImage,Green)</onclick>
+        <onclick condition="!Skin.HasSetting(TMDbHelper.EnableBlur) | !String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Green)</onclick>
+        <onclick condition="Skin.HasSetting(TMDbHelper.EnableBlur) + String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Adaptive)</onclick>
         <onclick>Skin.SetString(Background.Image,special://skin/extras/backgrounds/blur/green_blur.jpg)</onclick>
-        <include content="Action_BuildTextures_Onclick_Preset">
-            <param name="window_id">$PARAM[window_id]</param>
-        </include>
         <onclick>RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground])</onclick>
+        <onclick>AlarmClock(buildtexture,runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id]),00:00,silent)</onclick>
     </include>
 
     <include name="Action_Scheme_Onclick_Sunset">
@@ -705,12 +772,11 @@
         <onclick>Skin.SetString(gradientcolor.name,ffe91e63)</onclick>
         <onclick>Skin.Reset(EnableMonochromeHighlight)</onclick>
         <onclick>Skin.Reset(InvertSelectedText)</onclick>
-        <onclick>Skin.SetString(Background.DialogImage,Blush)</onclick>
+        <onclick condition="!Skin.HasSetting(TMDbHelper.EnableBlur) | !String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Blush)</onclick>
+        <onclick condition="Skin.HasSetting(TMDbHelper.EnableBlur) + String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Adaptive)</onclick>
         <onclick>Skin.SetString(Background.Image,special://skin/extras/backgrounds/blur/pink_blur.jpg)</onclick>
-        <include content="Action_BuildTextures_Onclick_Preset">
-            <param name="window_id">$PARAM[window_id]</param>
-        </include>
         <onclick>RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground])</onclick>
+        <onclick>AlarmClock(buildtexture,runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id]),00:00,silent)</onclick>
     </include>
 
     <include name="Action_Scheme_Onclick_Slate">
@@ -718,12 +784,11 @@
         <onclick>Skin.SetString(gradientcolor.name,ff0091ea)</onclick>
         <onclick>Skin.SetBool(EnableMonochromeHighlight)</onclick>
         <onclick>Skin.Reset(InvertSelectedText)</onclick>
-        <onclick>Skin.SetString(Background.DialogImage,Slate)</onclick>
+        <onclick condition="!Skin.HasSetting(TMDbHelper.EnableBlur) | !String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Slate)</onclick>
+        <onclick condition="Skin.HasSetting(TMDbHelper.EnableBlur) + String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Adaptive)</onclick>
         <onclick>Skin.SetString(Background.Image,special://skin/extras/backgrounds/blur/slate_blur.jpg)</onclick>
-        <include content="Action_BuildTextures_Onclick_Preset">
-            <param name="window_id">$PARAM[window_id]</param>
-        </include>
         <onclick>RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground])</onclick>
+        <onclick>AlarmClock(buildtexture,runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id]),00:00,silent)</onclick>
     </include>
 
     <include name="Action_Scheme_Onclick_Midnight">
@@ -731,11 +796,10 @@
         <onclick>Skin.SetString(gradientcolor.name,ff5528a8)</onclick>
         <onclick>Skin.SetBool(EnableMonochromeHighlight)</onclick>
         <onclick>Skin.Reset(InvertSelectedText)</onclick>
-        <onclick>Skin.SetString(Background.DialogImage,Coal)</onclick>
+        <onclick condition="!Skin.HasSetting(TMDbHelper.EnableBlur) | !String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Coal)</onclick>
+        <onclick condition="Skin.HasSetting(TMDbHelper.EnableBlur) + String.IsEmpty(Skin.String(Background.ArtworkStyle))">Skin.SetString(Background.DialogImage,Adaptive)</onclick>
         <onclick>Skin.SetString(Background.Image,special://skin/extras/backgrounds/blur/coal_blur.jpg)</onclick>
-        <include content="Action_BuildTextures_Onclick_Preset">
-            <param name="window_id">$PARAM[window_id]</param>
-        </include>
         <onclick>RunScript(plugin.video.themoviedb.helper,blur_image=$VAR[Image_SimpleBackground])</onclick>
+        <onclick>AlarmClock(buildtexture,runscript($VAR[Action_Var_BuildTextures],reload=$PARAM[window_id]),00:00,silent)</onclick>
     </include>
 </includes>

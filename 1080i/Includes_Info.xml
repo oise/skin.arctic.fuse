@@ -3,18 +3,74 @@
 
     <include name="Info_Title_Label">
         <param name="label">$VAR[Label_Title_Container]</param>
-        <param name="wrapmultiline">true</param>
+        <param name="wrapmultiline">false</param>
+        <param name="visible">true</param>
+        <param name="width">info_plot_w</param>
+        <param name="height">100%</param>
         <definition>
             <control type="group">
                 <nested />
-                <width>info_plot_w</width>
+                <width>$PARAM[width]</width>
+                <height>$PARAM[height]</height>
                 <control type="label">
                     <wrapmultiline>$PARAM[wrapmultiline]</wrapmultiline>
                     <top>5</top>
                     <bottom>5</bottom>
                     <label>$PARAM[label]</label>
                     <textcolor>$PARAM[colordiffuse]_100</textcolor>
-                    <font>font_info_black_doublerow</font>
+                    <font>font_title_black</font>
+                    <right>-40</right>
+                </control>
+            </control>
+        </definition>
+    </include>
+
+    <include name="Info_Title_LogoLabel">
+        <param name="label">$VAR[Label_Title_Container]</param>
+        <param name="wrapmultiline">false</param>
+        <param name="visible">true</param>
+        <param name="width">info_plot_w</param>
+        <param name="height">100%</param>
+        <definition>
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <width>$PARAM[width]</width>
+                <height>$PARAM[height]</height>
+                <control type="group">
+                    <centertop>20</centertop>
+                    <height>40</height>
+                    <control type="image">
+                        <centertop>20</centertop>
+                        <height>32</height>
+                        <width>32</width>
+                        <bordersize>-18</bordersize>
+                        <texture colordiffuse="$VAR[ColorHighlight]">special://skin/extras/icons/kodi.png</texture>
+                    </control>
+                    <control type="image">
+                        <centertop>20</centertop>
+                        <height>32</height>
+                        <width>32</width>
+                        <bordersize>-18</bordersize>
+                        <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
+                        <animation effect="fade" end="33" condition="true">Conditional</animation>
+                    </control>
+                    <control type="label">
+                        <left>41</left>
+                        <centertop>21</centertop>
+                        <height>32</height>
+                        <textcolor>$PARAM[colordiffuse]_100</textcolor>
+                        <font>font_logo</font>
+                        <label>KODI</label>
+                    </control>
+                </control>
+                <control type="label">
+                    <wrapmultiline>$PARAM[wrapmultiline]</wrapmultiline>
+                    <height>88</height>
+                    <bottom>0</bottom>
+                    <aligny>center</aligny>
+                    <label>$PARAM[label]</label>
+                    <textcolor>$PARAM[colordiffuse]_100</textcolor>
+                    <font>font_title_black</font>
                     <right>-40</right>
                 </control>
             </control>
@@ -23,11 +79,11 @@
 
     <include name="Info_Title_Logo">
         <definition>
-            <include content="Info_Title_Label">
+            <include content="Info_Title_LogoLabel">
                 <param name="label">$PARAM[label]</param>
                 <param name="colordiffuse">$PARAM[colordiffuse]</param>
-                <height>132</height>
-                <visible>![$PARAM[mainlogo_visible]]</visible>
+                <param name="height">132</param>
+                <param name="visible">![$PARAM[mainlogo_visible]]</param>
             </include>
             <control type="image">
                 <height>132</height>
@@ -60,7 +116,7 @@
                         <param name="label">$PARAM[label]</param>
                         <param name="colordiffuse">$PARAM[colordiffuse]</param>
                         <param name="wrapmultiline">false</param>
-                        <height>42</height>
+                        <param name="height">42</param>
                     </include>
                     <!-- Other -->
                     <include content="Info_Title_Logo" condition="Skin.HasSetting(TMDbHelper.EnableCrop)">
@@ -772,7 +828,8 @@
         <param name="item_count">$VAR[Label_Info_ViewLine_NumItems]</param>
         <param name="item_updating">[[Container.IsUpdating + ![$EXP[Exp_View_502] | $EXP[Exp_View_512] | $EXP[Exp_View_522]]] | [$EXP[Exp_View_502] + Container(503).IsUpdating] | [$EXP[Exp_View_512] + Container(513).IsUpdating] | [$EXP[Exp_View_522] + Container(523).IsUpdating]]</param>
         <param name="library_condition">false</param>
-        <param name="custom_condition">false</param>
+        <param name="custom_icon_condition">false</param>
+        <param name="custom_label_condition">false</param>
         <definition>
 
             <control type="group">
@@ -826,9 +883,13 @@
                         <label>$PARAM[item_count]</label>
                     </include>
 
-                    <include content="Info_Viewline_Icon" condition="$PARAM[custom_condition]">
+                    <include content="Info_Viewline_Icon" condition="$PARAM[custom_icon_condition]">
                         <param name="icon_enabled">$PARAM[custom_icon]</param>
                         <param name="icon_disabled">$PARAM[custom_icon]</param>
+                    </include>
+
+                    <include content="Info_Viewline_Label" condition="$PARAM[custom_label_condition]">
+                        <label>$PARAM[custom_label]</label>
                     </include>
 
                     <orientation>horizontal</orientation>
@@ -1084,9 +1145,10 @@
         <param name="colordiffuse">main_fg</param>
         <param name="container" />
         <param name="starrating">false</param>
+        <param name="grouplistid">99951</param>
         <definition>
 
-            <control type="grouplist" id="99951">
+            <control type="grouplist" id="$PARAM[grouplistid]">
                 <hitrect x="0" y="0" w="0" h="0" />
                 <height>80</height>
                 <orientation>horizontal</orientation>
@@ -1360,27 +1422,33 @@
 
                 <nested />
             </control>
-
             <control type="grouplist">
                 <hitrect x="0" y="0" w="0" h="0" />
                 <height>80</height>
                 <orientation>horizontal</orientation>
                 <itemgap>10</itemgap>
 
-                <visible>Integer.IsEqual(Container(99951).NumItems,0)</visible>
+                <visible>Integer.IsEqual(Container($PARAM[grouplistid]).NumItems,0)</visible>
 
                 <control type="group">
                     <width>64</width>
                     <description>Bumper for info icon</description>
                 </control>
-                <include content="Info_Line_Item">
-                    <param name="label">$LOCALIZE[16018]</param>
+                <!-- <include content="Info_Line_Item">
+                    <param name="label">$INFO[Weather.Location]</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
+                    <visible>Weather.IsFetched</visible>
+                </include> -->
+                <include content="Info_Line_Item">
+                    <param name="label">$LOCALIZE[19055]</param>
+                    <param name="textcolor">$PARAM[colordiffuse]_70</param>
+                    <!-- <visible>!Weather.IsFetched</visible> -->
                 </include>
 
                 <nested />
 
             </control>
+
 
         </definition>
     </include>
@@ -3233,6 +3301,7 @@
                             <param name="colordiffuse">$PARAM[colordiffuse]</param>
                             <param name="container">$PARAM[container]</param>
                             <param name="starrating">$PARAM[starrating]</param>
+                            <param name="grouplistid">$PARAM[grouplistid]</param>
                             <centertop>37.5</centertop>
                             <visible>$PARAM[visible]</visible>
                         </include>
@@ -3251,9 +3320,9 @@
                     <include content="Info_Ratings" condition="$PARAM[ratings]">
                         <param name="$PARAM[container]">$PARAM[container]</param>
                         <include content="Object_Top" condition="!Skin.HasSetting(TMDbHelper.EnableCrop)">
-                            <param name="top">82</param>
+                            <param name="top">80</param>
                         </include>
-                        <top>2</top>
+                        <top>0</top>
                         <left>0</left>
                         <visible>$PARAM[details]</visible>
                         <include>$PARAM[details_include]</include>
