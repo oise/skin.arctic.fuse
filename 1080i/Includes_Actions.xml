@@ -131,7 +131,7 @@
     </include>
 
     <variable name="Action_Default_HomeFocus">
-        <value condition="!$EXP[Exp_HomeMenu_DontHide]">1</value>
+        <value condition="!$EXP[Exp_HomeMenu_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">1</value>
         <value condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus))">$INFO[Window(Home).Property(Home.MenuFocus)]</value>
         <value condition="!Window.IsVisible(Home)">1</value>
         <value condition="!String.IsEmpty(Skin.String(Home.DefaultFocus))">$INFO[Skin.String(Home.DefaultFocus)]</value>
@@ -268,9 +268,10 @@
 
             <!-- Filter -->
             <!-- MISC025: disable original "ondown" -->
-            <!-- ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown -->
+            <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">SetProperty(List.ViewContainer,$INFO[System.CurrentControlId])</ondown>
             <!-- MISC025: force "bump" if setting = "Filter" -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(330)</ondown>
+            <!-- <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">ActivateWindow(1105)</ondown> -->
 
             <!-- Bump -->
             <ondown condition="$PARAM[condition] + ![$PARAM[move]] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Bump)">SetProperty(List.ViewContainer,$INFO[System.CurrentControlId])</ondown>
