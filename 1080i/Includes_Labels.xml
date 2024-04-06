@@ -22,8 +22,8 @@
     <variable name="Label_NextMedia">
         <value condition="Skin.String(Navigation.Global.OnDown,Explore)">$LOCALIZE[31148]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Options)">$LOCALIZE[33063]</value>
+        <value condition="Skin.String(Navigation.Global.OnDown,Discover)">$LOCALIZE[31066]</value>
         <value condition="Skin.String(Navigation.Global.OnDown,Search) + !Skin.String(Navigation.Global.OnUp,Search)">$LOCALIZE[137]</value>
-        <!-- <value condition="Skin.String(Navigation.Global.OnDown,Filter) + !Window.IsMedia + !Window.IsVisible(1105)">$LOCALIZE[31066]</value> -->
         <value condition="Skin.String(Navigation.Global.OnDown,Filter) + [Window.IsMedia | Window.IsVisible(1105)]">$LOCALIZE[587]</value>
         <value>$VAR[Label_NextBump]</value>
     </variable>
@@ -258,6 +258,22 @@
         <value condition="String.IsEmpty(Window.Property(MediaFilter.SortHow)) + Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">$LOCALIZE[584]</value>
         <value condition="Container.SortDirection(Descending)">$LOCALIZE[585]</value>
         <value>$LOCALIZE[584]</value>
+    </variable>
+
+    <variable name="Label_Spotlight_Name">
+        <value condition="!String.IsEmpty(Container(300).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(300).ListItem.Property(spotlight_label))">$INFO[Container(300).ListItem.Property(spotlight_label)]</value>
+        <value condition="!String.IsEmpty(Container(370).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(370).ListItem.Property(spotlight_label))">$INFO[Container(370).ListItem.Property(spotlight_label)]</value>
+        <value condition="!String.IsEmpty(Container(303).ListItem.Property(spotlight_path)) + !String.IsEmpty(Container(303).ListItem.Property(spotlight_label))">$INFO[Container(303).ListItem.Property(spotlight_label)]</value>
+        <value condition="Window.IsVisible(Home) + !String.IsEmpty(Skin.String(Hub.Home.Spotlight.Label))">$INFO[Skin.String(Hub.Home.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1101) + !String.IsEmpty(Skin.String(Hub.1101.Spotlight.Label))">$INFO[Skin.String(Hub.1101.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1102) + !String.IsEmpty(Skin.String(Hub.1102.Spotlight.Label))">$INFO[Skin.String(Hub.1102.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1103) + !String.IsEmpty(Skin.String(Hub.1103.Spotlight.Label))">$INFO[Skin.String(Hub.1103.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1104) + !String.IsEmpty(Skin.String(Hub.1104.Spotlight.Label))">$INFO[Skin.String(Hub.1104.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1106) + !String.IsEmpty(Skin.String(Hub.1106.Spotlight.Label))">$INFO[Skin.String(Hub.1106.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1107) + !String.IsEmpty(Skin.String(Hub.1107.Spotlight.Label))">$INFO[Skin.String(Hub.1107.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1108) + !String.IsEmpty(Skin.String(Hub.1108.Spotlight.Label))">$INFO[Skin.String(Hub.1108.Spotlight.Label)]</value>
+        <value condition="Window.IsVisible(1109) + !String.IsEmpty(Skin.String(Hub.1109.Spotlight.Label))">$INFO[Skin.String(Hub.1109.Spotlight.Label)]</value>
+        <value>$LOCALIZE[31105]</value>
     </variable>
 
     <variable name="Label_Shortcut_HubSpotlight_Window_Path">
@@ -1202,7 +1218,6 @@
     </variable>
 
     <variable name="Label_Header_Main">
-        <!-- <value>$INFO[System.Time]</value> -->
         <value condition="$EXP[Exp_InfoDialogs] | [Window.IsVisible(1190) | Window.IsVisible(1191)]">$LOCALIZE[19033]</value>
         <value condition="$EXP[Exp_SettingsDialogs]">$VAR[Label_Header_Mini]</value>
         <value condition="Window.IsVisible(videoplaylist)">$LOCALIZE[559]</value>
@@ -1236,6 +1251,7 @@
         <value condition="$EXP[Exp_Window_IsHub] + !String.IsEmpty(Window.Property(Hub.Header))">$INFO[Window.Property(Hub.Header)]</value>
         <value condition="!String.IsEmpty(Skin.String(Home.Label))">$INFO[Skin.String(Home.Label)]</value>
         <value condition="Window.IsVisible(Home) + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + $EXP[Exp_HomeMenu_DontHide] + !String.IsEmpty(Container(303).ListItem.Label)">$INFO[Container(303).ListItem.Label]</value>
+        <value condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar) + !String.IsEmpty(Container(370).ListItem.Label)">$INFO[Container(370).ListItem.Label]</value>
         <value>$LOCALIZE[10000]</value>
     </variable>
 
@@ -1265,6 +1281,9 @@
         <value condition="Window.IsVisible(10025)">$LOCALIZE[14236]</value>
         <value condition="Window.IsVisible(10502)">$LOCALIZE[14237]</value>
         <value condition="Window.IsVisible(pictures)">$LOCALIZE[10002]</value>
+        <value condition="Window.IsVisible(favouritesbrowser)">$LOCALIZE[1036]</value>
+
+
         <value condition="!String.IsEmpty(Skin.String(Home.Label))">$INFO[Skin.String(Home.Label)]</value>
         <value condition="Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Label)">$INFO[Container(303).ListItem.Label]</value>
         <value>$LOCALIZE[10000]</value>
@@ -1389,7 +1408,7 @@
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle)) + !String.IsEqual(Window(Home).Property(TMDbHelper.ListItem.base_label),Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_tvshowtitle),, - ]$INFO[Window(Home).Property(TMDbHelper.ListItem.base_label)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_title))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_title)]</value>
         <value condition="!String.IsEmpty(Window(Home).Property(TMDbHelper.ListItem.base_label))">$INFO[Window(Home).Property(TMDbHelper.ListItem.base_label)]</value>
-        <value>$LOCALIZE[16018]</value>
+        <value>$LOCALIZE[10106]</value>
     </variable>
 
     <variable name="Label_WidgetTitle">
