@@ -21,6 +21,7 @@
                     <param name="item_condition">true</param>
                     <param name="item_count">$INFO[Container($PARAM[id]).NumItems]</param>
                     <param name="item_updating">[Container($PARAM[id]).IsUpdating | $PARAM[busy_visible]]</param>
+                    <param name="label_fallback">31282</param>
                     <top>20</top>
                     <left>0</left>
                     <visible>!Integer.IsEqual(Container($PARAM[id]).NumItems,0) | Container($PARAM[id]).IsUpdating | $PARAM[busy_visible]</visible>
@@ -31,6 +32,7 @@
                     <param name="item_condition">true</param>
                     <param name="item_count">$INFO[Container($PARAM[id]).NumItems]</param>
                     <param name="item_updating">[Container($PARAM[id]).IsUpdating | $PARAM[busy_visible]]</param>
+                    <param name="label_fallback">31282</param>
                     <!-- MISC003: add  text_color parameter -->
                     <param name="text_color">$VAR[ColorGradient]</param>
                     <top>20</top>
@@ -557,7 +559,7 @@
                 <param name="altvisible">$PARAM[altvisible]</param>
                 <param name="detailed">$PARAM[detailed]</param>
                 <param name="busy_isupdating">$PARAM[busy_isupdating]</param>
-                <param name="busy_visible">[Integer.IsEqual(Container($PARAM[id]).NumItems,0) | Integer.IsEqual(Container($PARAM[id]).NumItems,1)]</param>
+                <param name="busy_visible">[Integer.IsEqual(Container($PARAM[id]).NumItems,0)]</param>
                 <param name="transition_include">$PARAM[transition_include]</param>
                 <param name="transition_hidden">$PARAM[transition_hidden]</param>
                 <param name="shortstack_id">$PARAM[shortstack_id]</param>
@@ -664,8 +666,7 @@
         <definition>
             <include content="Categories_Selector">
                 <param name="id">$PARAM[id]</param>
-                <param name="grouplistid">$PARAM[groupid]</param>
-                <param name="window_id">home</param>
+                <param name="window_id">$PARAM[window_id]</param>
                 <param name="itemlayout_w">view_button_item_w</param>
                 <param name="offset_x">view_button_offset_x</param>
                 <param name="control">fixedlist</param>
@@ -699,8 +700,11 @@
                     <param name="backid">$PARAM[grouplistid]</param>
                 </include>
 
-                <onleft>$PARAM[id]</onleft>
-                <onright>$PARAM[id]</onright>
+                <onleft>332</onleft>
+                <onright>332</onright>
+
+                <!-- <onleft>$PARAM[id]</onleft>
+                <onright>$PARAM[id]</onright> -->
 
                 <include content="Animation_ConditionalFade">
                     <param name="condition">Window.IsVisible(1171)</param>

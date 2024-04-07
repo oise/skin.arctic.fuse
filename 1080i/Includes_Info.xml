@@ -830,6 +830,7 @@
         <param name="library_condition">false</param>
         <param name="custom_icon_condition">false</param>
         <param name="custom_label_condition">false</param>
+        <param name="label_fallback" />
         <definition>
 
             <control type="group">
@@ -844,7 +845,7 @@
                         <!-- MISC003: parameter changed from ColorHighlight -->
                         <param name="textcolor">$VAR[ColorGradient]</param>
                         </include>
-                        <label>$PARAM[label]</label>
+                        <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
                         <!-- PVR008: add  + !Window.IsVisible(10702) to visible tag-->
                         <visible>$PARAM[primary_visible] + !Window.IsVisible(10702)</visible>
                     </include>
@@ -902,7 +903,7 @@
                         <aligny>center</aligny>
                         <textcolor>$VAR[ColorGradient]</textcolor>
                         <font>font_main_black</font>
-                        <label>$PARAM[label]</label>
+                        <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
                         <width>auto</width>
                         <height>35</height>
                         <visible>$PARAM[primary_visible]</visible>
