@@ -16,7 +16,9 @@
 
     <variable name="Label_NextBump">
         <!-- <value>Kodi</value> -->
-        <value>Kodi$INFO[System.BuildVersionCode, v,]</value>
+        <!-- MISC025: Kodi Label changed -->
+        <!-- value>Kodi$INFO[System.BuildVersionCode, v,]</value -->
+        <value>KODI$INFO[System.BuildVersionShort, ,]</value>
     </variable>
 
     <variable name="Label_NextMedia">
