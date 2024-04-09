@@ -2267,6 +2267,7 @@
                     </include>
                 </control>
                 <control type="group">
+                    <!-- MISC028: Note - Square Layout -->
                     <visible>![$PARAM[variation]]</visible>
                     <top>$PARAM[item_h]</top>
                     <control type="textbox">
@@ -2280,7 +2281,10 @@
                     </control>
                 </control>
                 <control type="group">
-                    <visible>[$PARAM[variation]]</visible>
+                    <!-- MISC028: Note - Icon Layout -->
+                    <visible>![$PARAM[variation]]</visible>
+                    <!-- MISC028: Do not display Label on Home Page Widgets (Icon Layout) -->
+                    <visible>!Window.IsVisible(Home)</visible>
                     <top>$PARAM[item_h]</top>
                     <control type="label">
                         <top>17</top>
@@ -2326,13 +2330,13 @@
                             <textcolor>$PARAM[textcolor]_90</textcolor>
                             <selectedcolor>$PARAM[textcolor]_90</selectedcolor>
                             <align>left</align>
-                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
+                            <!-- MISC028: PVR widgets - "+ !Window.IsVisible(Home) added" -->
                             <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + !Window.IsVisible(Home)</visible>
                             <include content="Object_Visible" condition="Window.IsVisible(1120)">
                                 <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
                             </include>
                         </include>
-                        <!-- PVR012: START custom label for PVR Home Screen widgets -->
+                        <!-- MISC028: PVR widgets - START custom label for PVR Home Screen widgets -->
                         <include content="Object_InfoCircle_Text_Top">
                             <label>$INFO[$PARAM[listitem].ChannelName]</label>
                             <textcolor>$PARAM[textcolor]_90</textcolor>
@@ -2343,7 +2347,7 @@
                                 <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
                             </include>
                         </include>
-                        <!-- PVR012: END custom label for :PVR Home Screen widgets -->
+                        <!-- PVR012: PVR widgets - END custom label for PVR Home Screen widgets -->
                         <include content="Object_InfoCircle_Text_Top">
                             <label>$INFO[$PARAM[listitem].Season,S,]$INFO[$PARAM[listitem].Episode,E,]</label>
                             <textcolor>$PARAM[textcolor]_90</textcolor>
@@ -2359,8 +2363,16 @@
                             <textcolor>$PARAM[textcolor]_70</textcolor>
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>left</align>
-                            <!-- PVR012: visible tag added -->
-                            <visible>![Window.IsVisible(Home) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)]</visible>                           
+                            <!-- MISC028: PVR widgets - visible tag added -->
+                            <visible>![Window.IsVisible(Home) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)]</visible>
+                            <!-- MISC028: not visible for #604 (Live Player Stacked Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"604")</visible>
+                            <!-- MISC028: not visible for #3602 (VOD In-Progress Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"3602")</visible>
+                            <!-- MISC028: not visible for #5601 (Music Playlist Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"5601")</visible>
+                            <!-- MISC028: not visible for #5604 (Music Apps Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"5604")</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].StartTime]$INFO[$PARAM[listitem].EndTime, - ,]</label>
@@ -2369,7 +2381,7 @@
                             <align>right</align>
                             <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                             <visible>ListItem.InProgress</visible>
-                            <!-- PVR012:  + !Window.IsVisible(Home) added -->
+                            <!-- MISC028: PVR widgets - "+ !Window.IsVisible(Home) added" -->
                             <visible>!Window.IsVisible(Home)</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
