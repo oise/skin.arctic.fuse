@@ -2282,7 +2282,7 @@
                 </control>
                 <control type="group">
                     <!-- MISC028: Note - Icon Layout -->
-                    <visible>![$PARAM[variation]]</visible>
+                    <visible>[$PARAM[variation]]</visible>
                     <!-- MISC028: Do not display Label on Home Page Widgets (Icon Layout) -->
                     <visible>!Window.IsVisible(Home)</visible>
                     <top>$PARAM[item_h]</top>
