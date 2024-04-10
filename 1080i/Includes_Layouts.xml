@@ -2347,7 +2347,7 @@
                                 <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
                             </include>
                         </include>
-                        <!-- PVR012: PVR widgets - END custom label for PVR Home Screen widgets -->
+                        <!-- MISC028: PVR widgets - END custom label for PVR Home Screen widgets -->
                         <include content="Object_InfoCircle_Text_Top">
                             <label>$INFO[$PARAM[listitem].Season,S,]$INFO[$PARAM[listitem].Episode,E,]</label>
                             <textcolor>$PARAM[textcolor]_90</textcolor>
@@ -2369,6 +2369,12 @@
                             <visible>!String.IsEqual(System.CurrentControlID,"604")</visible>
                             <!-- MISC028: not visible for #3602 (VOD In-Progress Widget) -->
                             <visible>!String.IsEqual(System.CurrentControlID,"3602")</visible>
+                            <!-- MISC028: not visible for #4603 (Discover: BBCV iPlayer Most Popular Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4603")</visible>
+                            <!-- MISC028: not visible for #4604 (Discover: ITVX Our Top Picks Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4604")</visible>
+                            <!-- MISC028: not visible for #4605 (Discover: My5 Popular Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4605")</visible>
                             <!-- MISC028: not visible for #5601 (Music Playlist Widget) -->
                             <visible>!String.IsEqual(System.CurrentControlID,"5601")</visible>
                             <!-- MISC028: not visible for #5604 (Music Apps Widget) -->
