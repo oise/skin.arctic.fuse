@@ -329,6 +329,12 @@
                         <param name="include_five">true</param>
                         <param name="id">$PARAM[id]</param>
                         <param name="width">$PARAM[width]</param>
+                        <!-- MISC009: font changed (was font_mini) -->
+                        <param name="font">font_epg_group_switcher</param>
+                        <!-- MISC009: START custom colors added -->
+                        <param name="textcolor_fo">$VAR[ColorGradient]</param>
+                        <param name="textcolor_nf">main_fg_70</param>
+                        <!-- MISC009: END custom colors added -->
                     </include>
                 </control>
             </control>
