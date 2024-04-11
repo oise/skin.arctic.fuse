@@ -157,6 +157,7 @@
 
     <include name="Hub_Submenu_Group_Selector_Fake">
         <control type="group">
+            <left>-20</left>
             <centertop>60</centertop>
             <height>256</height>
             <include>Hub_Categories_FadeIn</include>
@@ -178,6 +179,9 @@
             <orientation>vertical</orientation>
             <include>Hub_WindowTransition_CategoriesSpotlight_OnWidgets</include>
             <include condition="!Skin.HasSetting(Navigation.EnableTopCategories) + !Skin.HasSetting(Views.DisableItemPeek)">Hub_Submenu_Group_Selector_Fake</include>
+            <include content="Animation_ConditionalFade" condition="Skin.HasSetting(Navigation.EnableTopCategories)">
+                <param name="condition">true</param>
+            </include>
 
             <nested />
 
@@ -597,6 +601,7 @@
 
     <include name="Hub_Categories_Definition_Selector_Fake">
         <control type="group">
+            <left>-20</left>
             <centertop>60</centertop>
             <height>256</height>
             <include content="Categories_Selector_Fake">
@@ -690,6 +695,9 @@
                     <left>160</left>
                     <height>hub_categorieswidget_h</height>
                     <top>hub_categorieswidget_t</top>
+                    <include content="Animation_ConditionalFade" condition="Skin.HasSetting(Navigation.EnableTopCategories)">
+                        <param name="condition">true</param>
+                    </include>
                     <include content="Hub_Categories_Definition">
                         <param name="window_id">$PARAM[window_id]</param>
                         <param name="categories">$PARAM[categories]</param>

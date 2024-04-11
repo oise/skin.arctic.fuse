@@ -1970,8 +1970,23 @@ msgctxt "#31418"
 msgid "Selector tray label"
 msgstr ""
 
+#: /1080i/SkinSettings.xml
+msgctxt "#31419"
+msgid "Use larger board style enclosed widgets"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31420"
+msgid "Apps"
+msgstr ""
+
 msgctxt "#31421"
 msgid "Choose submenu list"
+msgstr ""
+
+#: /1080i/SkinSettings.xml
+msgctxt "#31422"
+msgid "Categories style"
 msgstr ""
 
 #: /1080i/Includes_Labels.xml
