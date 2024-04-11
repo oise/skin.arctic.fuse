@@ -2296,7 +2296,8 @@
                     <param name="icon_diffuse">$PARAM[diffuse]</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
                 <include content="Object_Indicator" condition="!$PARAM[selected]">
@@ -2310,7 +2311,8 @@
                     <param name="listitem">$PARAM[listitem]</param>
                 </include>
 
-                <include content="Layout_Landscape_Labels" condition="!$PARAM[detailed]">
+                <!-- MISC028: No labels on Icon/Square Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Layout_Landscape_Labels" condition="!$PARAM[detailed] + !Window.IsVisible(Home)">
                     <param name="top">15</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
@@ -2354,8 +2356,21 @@
                             <textcolor>$PARAM[textcolor]_90</textcolor>
                             <selectedcolor>$PARAM[textcolor]_90</selectedcolor>
                             <align>left</align>
-                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
+                            <!-- MISC028: PVR widgets - "+ !Window.IsVisible(Home) added" -->
+                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + !Window.IsVisible(Home)</visible>
                         </include>
+                        <!-- MISC028: PVR widgets - START custom label for PVR Home Screen widgets -->
+                        <include content="Object_InfoCircle_Text_Top">
+                            <label>$INFO[$PARAM[listitem].ChannelName]</label>
+                            <textcolor>$PARAM[textcolor]_90</textcolor>
+                            <selectedcolor>$PARAM[textcolor]_90</selectedcolor>
+                            <align>left</align>
+                            <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel) + Window.IsVisible(Home)</visible>
+                            <include content="Object_Visible" condition="Window.IsVisible(1120)">
+                                <param name="visible">!String.StartsWith($PARAM[listitem].FolderPath,videodb://movies/videoversions/)</param>
+                            </include>
+                        </include>
+                        <!-- MISC028: PVR widgets - END custom label for PVR Home Screen widgets -->
                         <include content="Object_InfoCircle_Text_Top">
                             <label>$INFO[$PARAM[listitem].Season,S,]$INFO[$PARAM[listitem].Episode,E,]</label>
                             <include condition="$PARAM[selected]">Color_SelectedText</include>
@@ -2373,6 +2388,22 @@
                             <textcolor>$PARAM[textcolor]_70</textcolor>
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>left</align>
+                            <!-- MISC028: PVR widgets - visible tag added -->
+                            <visible>![Window.IsVisible(Home) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)]</visible>
+                            <!-- MISC028: not visible for #604 (Live Player Stacked Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"604")</visible>
+                            <!-- MISC028: not visible for #3602 (VOD In-Progress Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"3602")</visible>
+                            <!-- MISC028: not visible for #4603 (Discover: BBCV iPlayer Most Popular Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4603")</visible>
+                            <!-- MISC028: not visible for #4604 (Discover: ITVX Our Top Picks Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4604")</visible>
+                            <!-- MISC028: not visible for #4605 (Discover: My5 Popular Widget) -->                            
+                            <visible>!String.IsEqual(System.CurrentControlID,"4605")</visible>
+                            <!-- MISC028: not visible for #5601 (Music Playlist Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"5601")</visible>
+                            <!-- MISC028: not visible for #5604 (Music Apps Widget) -->
+                            <visible>!String.IsEqual(System.CurrentControlID,"5604")</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].StartTime]$INFO[$PARAM[listitem].EndTime, - ,]</label>
@@ -2382,6 +2413,8 @@
                             <align>right</align>
                             <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                             <visible>ListItem.InProgress</visible>
+                            <!-- MISC028: PVR widgets - "+ !Window.IsVisible(Home) added" -->
+                            <visible>!Window.IsVisible(Home)</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$INFO[$PARAM[listitem].Date]</label>
@@ -2472,7 +2505,8 @@
                         </control>
                     </control>
 
-                    <include content="Object_ProgressLine">
+                    <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                         <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                     </include>
 
@@ -2561,7 +2595,8 @@
                     <param name="fade">true</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
 
