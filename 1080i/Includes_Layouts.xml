@@ -723,13 +723,15 @@
                             <texture background="true" fallback="special://skin/extras/icons/shapes.png">$VAR[Image_Widget_Style]</texture>
                         </control>
                         <control type="label">
+                            <left>-20</left>
+                            <right>-20</right>
                             <height>40</height>
                             <font>font_tiny</font>
                             <bottom>4</bottom>
                             <include condition="$PARAM[selected]">Color_SelectedText</include>
                             <textcolor>$PARAM[textcolor]</textcolor>
                             <selectedcolor>$PARAM[textcolor]</selectedcolor>
-                            <label fallback="Default">$INFO[ListItem.Property(widget_style),[CAPITALIZE],[/CAPITALIZE]]</label>
+                            <label>$VAR[Label_Widget_Style]</label>
                             <align>center</align>
                         </control>
                     </control>
