@@ -1965,9 +1965,9 @@ msgctxt "#31417"
 msgid "Random Artists"
 msgstr ""
 
-#: /1080i/SkinSettings.xml
+#: /1080i/Includes_Views_Row.xml
 msgctxt "#31418"
-msgid "Selector tray label"
+msgid "Circle Row"
 msgstr ""
 
 #: /1080i/Includes_Labels.xml
@@ -2027,6 +2027,11 @@ msgstr ""
 #: /1080i/SkinSettings.xml
 msgctxt "#31430"
 msgid "Customise video OSD widgets"
+msgstr ""
+
+#: /1080i/Includes_Views_Row.xml
+msgctxt "#31431"
+msgid "Circle"
 msgstr ""
 
 #: /1080i/Includes_Items.xml
