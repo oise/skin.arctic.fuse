@@ -2299,7 +2299,8 @@
                 </control>
                 <control type="group">
                     <top>$PARAM[item_w]</top>
-                    <include content="Layout_Square_Labels">
+                    <!-- MISC028: No labels on Icon/Square Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Layout_Square_Labels" condition="!Window.IsVisible(Home)">
                         <param name="detailed">$PARAM[detailed]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="affix">$PARAM[affix]</param>
