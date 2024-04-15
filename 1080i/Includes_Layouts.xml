@@ -2282,7 +2282,8 @@
                         <param name="icon_diffuse">$PARAM[diffuse]</param>
                     </include>
 
-                    <include content="Object_ProgressLine">
+                    <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                         <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                     </include>
                     <include content="Object_Indicator" condition="!$PARAM[selected]">
@@ -2532,7 +2533,8 @@
                         </control>
                     </control>
 
-                    <include content="Object_ProgressLine">
+                    <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                    <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                         <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                     </include>
 
@@ -2621,7 +2623,8 @@
                     <param name="fade">true</param>
                 </include>
 
-                <include content="Object_ProgressLine">
+                <!-- MISC028: No progress line on Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
+                <include content="Object_ProgressLine" condition="!Window.IsVisible(Home)">
                     <param name="progress">$PARAM[listitem].$PARAM[progress]</param>
                 </include>
 
