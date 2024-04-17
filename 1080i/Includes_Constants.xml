@@ -62,10 +62,10 @@
     <constant name="infodialog_poster_h">680</constant>
 
 
-    <constant name="view_icon_item_w">170</constant>
-    <constant name="-view_icon_item_w">-170</constant>
-    <constant name="view_icon_itemlayout_w">210</constant>
-    <constant name="-view_icon_itemlayout_w">-210</constant>
+    <constant name="view_icon_item_w">146.67</constant>
+    <constant name="-view_icon_item_w">-146.67</constant>
+    <constant name="view_icon_itemlayout_w">186.67</constant>
+    <constant name="-view_icon_itemlayout_w">-186.67</constant>
     <constant name="view_icon_item_h">214</constant>
     <constant name="-view_icon_item_h">-214</constant>
     <constant name="view_icon_itemlayout_h">254</constant>
@@ -124,6 +124,12 @@
     <constant name="-view_button_offset_x">-40</constant>
     <constant name="view_button_left">-80</constant>
 
+    <constant name="view_apps_itemlayout_w">280</constant>
+    <constant name="-view_apps_itemlayout_w">-280</constant>
+    <constant name="view_apps_item_w">240</constant>
+    <constant name="-view_apps_item_w">-240</constant>
+    <constant name="view_apps_item_h">135</constant>
+    <constant name="-view_apps_item_h">-135</constant>
     <constant name="view_apps_movement">5</constant>
 
     <constant name="view_weatherforecast_itemlayout_w">280</constant>
@@ -173,9 +179,9 @@
     <constant name="hub_spotlight_fanart_t">400</constant>
     <constant name="hub_spotlight_t">460</constant>
     <constant name="hub_spotlight_h">40</constant>
-    <constant name="hub_categorieswidget_t">740</constant>
+    <constant name="hub_categorieswidget_t">660</constant>
     <constant name="hub_categorieswidget_h">320</constant>
-    <constant name="hub_submenuwidget_t">800</constant>
+    <constant name="hub_submenuwidget_t">740</constant>
     <constant name="hub_submenuwidget_h">240</constant>
 
     <constant name="hub_group_widgetup_s">-440</constant>
