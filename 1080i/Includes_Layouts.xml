@@ -2336,6 +2336,7 @@
      <include name="Layout_Info_Selector">
         <param name="selected">false</param>
         <param name="detailed">false</param>
+        <param name="focusedlayout">false</param>
         <definition>
             <control type="group">
                 <width>$PARAM[item_w]</width>
@@ -2429,7 +2430,6 @@
                             <param name="aspectratio">keep</param>
                         </include>
                     </control>
-
                     <control type="textbox">
                         <left>110</left>
                         <height>72</height>
