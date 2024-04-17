@@ -13,12 +13,14 @@
         <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),season_finale)">$LOCALIZE[31215]</value>
         <value condition="String.IsEqual(Window(Home).Property(ColorPicker_Type),mid_season_finale)">$LOCALIZE[31218]</value>
     </variable>
-
+      
     <variable name="Label_NextBump">
-        <!-- <value>Kodi</value> -->
-        <!-- MISC025: Kodi Label changed -->
-        <!-- value>Kodi$INFO[System.BuildVersionCode, v,]</value -->
-        <value>KODI$INFO[System.BuildVersionShort, ,]</value>
+         <!-- <value condition="Window.IsMedia">$LOCALIZE[31135]$INFO[Container.CurrentPage, , $LOCALIZE[20163] ]$INFO[Container.NumPages]</value> -->
+         <!-- MISC025: Kodi Label changed -->
+         <!-- value>Kodi$INFO[System.BuildVersionCode, v,]</value -->
+         <value>KODI$INFO[System.BuildVersionShort, ,]</value>
+    </variable>
+      
     </variable>
 
     <variable name="Label_NextMedia">
@@ -533,7 +535,6 @@
     </variable>
 
     <variable name="Label_Setting_CombinedStyle">
-        <value condition="$EXP[Exp_Views_UseAltCombined] + Skin.HasSetting(Views.AltCombined.Detailed)">$LOCALIZE[31137]</value>
         <value condition="$EXP[Exp_Views_UseAltCombined]">$LOCALIZE[31163]</value>
         <value>$LOCALIZE[31164]</value>
     </variable>
@@ -728,6 +729,7 @@
     </variable>
 
     <variable name="Label_VideoInfo_DetailsItem">
+        <value condition="!String.IsEmpty(ListItem.Property(sublabel))">$INFO[ListItem.Property(sublabel)]</value>
         <value condition="ListItem.IsCollection">$LOCALIZE[31236]</value>
         <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Property(totalepisodes)) + !String.IsEmpty(ListItem.Property(watchedepisodes))">$INFO[ListItem.Property(watchedepisodes),, $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes),, [LOWERCASE]$LOCALIZE[16102][/LOWERCASE]]</value>
         <value condition="String.IsEqual(ListItem.DBType,season) + !String.IsEmpty(ListItem.Episode)">$INFO[ListItem.Episode,, $LOCALIZE[20453]]</value>
@@ -1129,14 +1131,14 @@
 
     <variable name="Label_MediaList_Sub">
         <value condition="!String.IsEmpty(ListItem.Director)">$INFO[ListItem.Director,[COLOR=main_fg_30]$LOCALIZE[31478][/COLOR] ,]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(totalepisodes))">$INFO[ListItem.Property(watchedepisodes),[COLOR=main_fg_30]—[/COLOR] $LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes),, $LOCALIZE[20453]]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(totalepisodes))">$INFO[ListItem.Property(watchedepisodes),$LOCALIZE[16102] , $LOCALIZE[1443] ]$INFO[ListItem.Property(totalepisodes),, $LOCALIZE[20453]]</value>
         <value condition="!String.IsEmpty(ListItem.Artist) + !String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.Artist,[COLOR=main_fg_30]$LOCALIZE[31478][/COLOR] ,]</value>
         <value condition="!String.IsEmpty(ListItem.AlbumArtist) + !String.IsEqual(ListItem.DBType,artist)">$INFO[ListItem.AlbumArtist,[COLOR=main_fg_30]$LOCALIZE[31478][/COLOR] ,]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(Artist_Genre))">$INFO[ListItem.Property(Artist_Genre),[COLOR=main_fg_30]—[/COLOR] ,]</value>
-        <value condition="!String.IsEmpty(ListItem.Property(Artist_YearsActive))">$INFO[ListItem.Property(Artist_YearsActive),[COLOR=main_fg_30]—[/COLOR] ,]</value>
-        <value condition="!String.IsEmpty(ListItem.DBType)">$INFO[ListItem.DBType,[COLOR=main_fg_30]—[/COLOR] [CAPITALIZE],[/CAPITALIZE]]</value>
-        <value condition="ListItem.IsFolder">[COLOR=main_fg_30]—[/COLOR] $LOCALIZE[20334]</value>
-        <value>[COLOR=main_fg_30]—[/COLOR] $LOCALIZE[31025]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(Artist_Genre))">$INFO[ListItem.Property(Artist_Genre),,]</value>
+        <value condition="!String.IsEmpty(ListItem.Property(Artist_YearsActive))">$INFO[ListItem.Property(Artist_YearsActive),,]</value>
+        <value condition="!String.IsEmpty(ListItem.DBType)">$INFO[ListItem.DBType,[CAPITALIZE],[/CAPITALIZE]]</value>
+        <value condition="ListItem.IsFolder">$LOCALIZE[20334]</value>
+        <value>$LOCALIZE[31025]</value>
     </variable>
 
     <variable name="Label_MediaList_Rating">
@@ -1330,9 +1332,9 @@
         <value condition="Window.IsMedia + String.IsEqual(Container.FolderName,Skin Variables) + !String.IsEmpty(Window.Property(MediaFilter.BaseDir.Name))">$INFO[Window.Property(MediaFilter.BaseDir.Name)]</value>
 
         <!-- Combined View Labels -->
-        <value condition="Window.IsMedia + Control.IsVisible(502)">$INFO[Container(502).ListItem.Label]</value>
-        <value condition="Window.IsMedia + Control.IsVisible(512)">$INFO[Container(512).ListItem.Label]</value>
-        <value condition="Window.IsMedia + Control.IsVisible(522)">$INFO[Container(522).ListItem.Label]</value>
+        <value condition="Window.IsMedia + Control.IsVisible(502) + [!Control.HasFocus(502) | !$EXP[Exp_Views_UseAltCombined]]">$INFO[Container(502).ListItem.Label]</value>
+        <value condition="Window.IsMedia + Control.IsVisible(512) + [!Control.HasFocus(512) | !$EXP[Exp_Views_UseAltCombined]]">$INFO[Container(512).ListItem.Label]</value>
+        <value condition="Window.IsMedia + Control.IsVisible(522) + [!Control.HasFocus(522) | !$EXP[Exp_Views_UseAltCombined]]">$INFO[Container(522).ListItem.Label]</value>
 
         <!-- Playlist label -->
         <value condition="Window.IsVisible(videoplaylist)">$LOCALIZE[10025]</value>
@@ -1514,6 +1516,8 @@
         <value condition="String.IsEqual(ListItem.Property(widget_style),Sign)">$LOCALIZE[31424] (S)</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Ring)">$LOCALIZE[31431] (S)</value>
 
+        <value condition="String.IsEqual(ListItem.Property(widget_style),Placard)">$LOCALIZE[31424] (T)</value>
+
         <value condition="String.IsEqual(ListItem.Property(widget_style),Landscape)">$LOCALIZE[31045]</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Square)">$LOCALIZE[31320]</value>
         <value condition="String.IsEqual(ListItem.Property(widget_style),Board)">$LOCALIZE[31424]</value>
@@ -1544,6 +1548,8 @@
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Text)">$LOCALIZE[31419] (S)</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Sign)">$LOCALIZE[31424] (S)</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Ring)">$LOCALIZE[31431] (S)</value>
+
+        <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Placard)">$LOCALIZE[31424] (T)</value>
 
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Landscape)">$LOCALIZE[31045]</value>
         <value condition="String.IsEqual(Container(22001).ListItem.Property(widget_style),Square)">$LOCALIZE[31320]</value>
