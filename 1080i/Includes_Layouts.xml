@@ -2643,6 +2643,9 @@
                             <selectedcolor>$PARAM[textcolor]_70</selectedcolor>
                             <align>center</align>
                             <visible>String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
+                            <!-- MISC028: No subtext on Landscape Layout -->
+                            <!-- visible tag added (not video window) -->
+                            <visible>!Window.IsVisible(10025)</visible>
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$VAR[Label_Landscape_Lower$PARAM[affix]]$INFO[$PARAM[listitem].StartTime, • ,]$INFO[$PARAM[listitem].EndTime, - ,]</label>
@@ -2652,9 +2655,7 @@
                             <align>center</align>
                             <visible>!String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                             <visible>ListItem.InProgress</visible>
-                            <!-- MISC028: No subtext on Landscape Layout -->
-                            <!-- visible tag added (not video window) -->
-                            <visible>!Window.IsVisible(10025)</visible>
+                            
                         </include>
                         <include content="Object_InfoCircle_Text_Sub">
                             <label>$VAR[Label_Landscape_Lower$PARAM[affix]]$INFO[$PARAM[listitem].Date, • ,]</label>
