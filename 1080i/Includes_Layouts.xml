@@ -2198,15 +2198,17 @@
                         <visible>!String.IsEmpty($PARAM[listitem].Title) + !String.IsEmpty($PARAM[listitem].ChannelNumberLabel)</visible>
                     </include>
                 </control>
-
-                <control type="group">
+                
+                <!-- MISC028: No sub-text on Square Labels -->
+                <!-- MISC028: commented out -- >
+                <!-- control type="group">
                     <include content="Object_InfoCircle_Text_Sub">
                         <label>$VAR[Label_Landscape_Lower$PARAM[affix]]</label>
                         <textcolor>main_fg_70</textcolor>
                         <selectedcolor>main_fg_70</selectedcolor>
                         <align>center</align>
                     </include>
-                </control>
+                </control -->
             </control>
             <control type="textbox">
                 <top>17</top>
