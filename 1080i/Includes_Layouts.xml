@@ -2856,8 +2856,10 @@
                     <param name="affix">$PARAM[affix]</param>
                     <param name="listitem">$PARAM[listitem]</param>
                 </include>
-
-                <include content="Layout_Landscape_Labels" condition="![$PARAM[detailed]]">
+                
+                <!-- MISC028: No labels on Landscape Home Page widgets -->
+                <!-- MISC028: " + !Window.IsVisible(Home)"  added to condition -->
+                <include content="Layout_Landscape_Labels" condition="![$PARAM[detailed]] + !Window.IsVisible(Home)">
                     <param name="top">15</param>
                     <param name="item_h">$PARAM[item_h]</param>
                     <param name="affix">$PARAM[affix]</param>
