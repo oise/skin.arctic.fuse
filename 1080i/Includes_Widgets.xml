@@ -475,7 +475,7 @@
             <param name="content">Layout_Poster</param>
             <param name="icon_base_var">Image_Poster</param>
             <param name="itemlayout_w">view_poster_itemlayout_w</param>
-            <param name="item_w">view_poster_itemlayout_w</param>
+            <param name="item_w">view_poster_item_w</param>
             <param name="item_h">view_poster_item_h</param>
             <param name="prefix">transition_poster</param>
             <param name="overhang_visible">$PARAM[overhang_visible]</param>
@@ -754,7 +754,7 @@
 
                 <nested />
 
-                <left>180</left>
+                <left>160</left>
                 <height>160</height>
                 <top>-160</top>
 
