@@ -231,29 +231,14 @@
     <include name="View_Furniture_Bottom_Group_Content">
         <control type="group">
             <visible>$EXP[Exp_FurnitureFooter_Left_IsVisible]</visible>
-            <visible>[Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)]</visible>
-            <include content="Furniture_Bottom_Left">
-                <visible>![[$EXP[Exp_View_502] + Control.HasFocus(503)] | [$EXP[Exp_View_512] + Control.HasFocus(513)] | [$EXP[Exp_View_522] + Control.HasFocus(523)]]</visible>
-            </include>
-            <include content="Furniture_Bottom_Left">
-                <param name="container">Container(503).</param>
-                <visible>[$EXP[Exp_View_502] + Control.HasFocus(503)]</visible>
-            </include>
-            <include content="Furniture_Bottom_Left">
-                <param name="container">Container(513).</param>
-                <visible>[$EXP[Exp_View_512] + Control.HasFocus(513)]</visible>
-            </include>
-            <include content="Furniture_Bottom_Left">
-                <param name="container">Container(523).</param>
-                <visible>[$EXP[Exp_View_522] + Control.HasFocus(523)]</visible>
-            </include>
+            <include condition="Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)">Furniture_Bottom_Left</include>
         </control>
     </include>
 
     <include name="View_Furniture_Bottom_Group">
         <control type="group">
             <visible>!$EXP[Exp_InfoDialogs]</visible>
-            <include>Animation_Transition_InfoPanel_Hide</include>
+            <include condition="![Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)]">Animation_Transition_InfoPanel_Hide</include>
             <control type="group">
                 <visible>!Window.IsVisible(1171)</visible>
                 <control type="group">
@@ -266,34 +251,50 @@
         </control>
     </include>
 
-    <include name="View_Furniture_Bottom_PageCount_Footer">
+    <include name="View_Furniture_Bottom_PageCount_Footer_Default">
         <control type="group">
-            <width>50</width>
-            <height>50</height>
+            <left>80</left>
+            <height>80</height>
             <centertop>50%</centertop>
-            <include content="Info_FooterItemIcon">
-                <param name="icon">special://skin/extras/icons/kodi.png</param>
-                <param name="centered">true</param>
-                <param name="size">50</param>
-                <param name="bordersize">1</param>
+            <include content="Object_InfoCircle_Text_Top">
+                <width>auto</width>
+                <label fallback="571">$INFO[Container.Content,[CAPITALIZE],[/CAPITALIZE]]</label>
             </include>
-            <!-- <control type="label">
-                <centerleft>50%</centerleft>
-                <centertop>50%</centertop>
-                <align>center</align>
-                <aligny>center</aligny>
-                <width>50</width>
-                <height>50</height>
-                <textcolor>main_bg_90</textcolor>
-                <font>font_mini_black</font>
-                <label>$INFO[ListItem.SortLetter]</label>
-            </control> -->
+            <include content="Object_InfoCircle_Text_Sub">
+                <label>$INFO[Container.NumItems,[COLOR=main_fg_90][B],[/B][/COLOR] $LOCALIZE[31022]. ]$LOCALIZE[31135] $INFO[Container.CurrentPage,[COLOR=main_fg_90][B],[/B][/COLOR] $LOCALIZE[20163] ]$INFO[Container.NumPages,[COLOR=main_fg_90][B],[/B][/COLOR]]</label>
+                <width>auto</width>
+            </include>
         </control>
+    </include>
+
+    <include name="View_Furniture_Bottom_PageCount_Footer_Basic">
         <control type="label">
             <label>$LOCALIZE[31135] $INFO[Container.CurrentPage,[COLOR=main_fg_90][B],[/B][/COLOR] $LOCALIZE[20163] ]$INFO[Container.NumPages,[COLOR=main_fg_90][B],[/B][/COLOR]]</label>
             <left>80</left>
             <include>Defs_Label_FooterItem</include>
         </control>
+    </include>
+
+    <include name="View_Furniture_Bottom_PageCount_Footer">
+        <param name="visible">true</param>
+        <definition>
+            <control type="group">
+                <visible>$PARAM[visible]</visible>
+                <control type="group">
+                    <width>50</width>
+                    <height>50</height>
+                    <centertop>50%</centertop>
+                    <include content="Info_FooterItemIcon">
+                        <param name="icon">special://skin/extras/icons/kodi.png</param>
+                        <param name="centered">true</param>
+                        <param name="size">50</param>
+                        <param name="bordersize">1</param>
+                    </include>
+                </control>
+                <include condition="!Skin.String(Furniture.CodecStyle,Basic)">View_Furniture_Bottom_PageCount_Footer_Default</include>
+                <include condition="Skin.String(Furniture.CodecStyle,Basic)">View_Furniture_Bottom_PageCount_Footer_Basic</include>
+            </control>
+        </definition>
     </include>
 
     <include name="View_Furniture_Bottom_PageCount_Basic">
@@ -322,7 +323,7 @@
         <control type="group">
             <include>Furniture_Bottom_Right</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
-            <include>Animation_Transition_InfoPanel_Hide</include>
+            <include condition="![Skin.String(Furniture.BottomLeft.Enable,Library) | Skin.String(Furniture.BottomLeft.Enable,Always)]">Animation_Transition_InfoPanel_Hide</include>
             <control type="group">
                 <visible>!Window.IsVisible(1171)</visible>
                 <control type="group">
