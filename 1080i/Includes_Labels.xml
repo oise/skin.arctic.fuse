@@ -421,6 +421,13 @@
         <value>$LOCALIZE[20445]</value>
     </variable>
 
+    <variable name="Label_Setting_SpotlightStyle_Preselect">
+        <value condition="!$EXP[Exp_Hubs_Spotlight_IsEnabled]">3</value>
+        <value condition="!$EXP[Exp_Hubs_Spotlight_IsStatic]">2</value>
+        <value condition="!$EXP[Exp_Hubs_Spotlight_IsFanart]">0</value>
+        <value>1</value>
+    </variable>
+
     <variable name="Label_Setting_ColourPreset">
         <value condition="$EXP[Exp_ColourPreset_MiamiVaporwave]">$LOCALIZE[31140]</value>
         <value condition="$EXP[Exp_ColourPreset_AquaClassic]">$LOCALIZE[31138]</value>
