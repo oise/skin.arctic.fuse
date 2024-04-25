@@ -58,14 +58,15 @@
                         <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
                         <animation effect="fade" end="33" condition="true">Conditional</animation>
                     </control> -->
-                    <control type="label">
-                        <!-- <top>1</top> -->
-                        <!-- <left>50</left> -->
+                    <!-- MISC029: Remove "KODI" from  Info_Title_LogoLabel -->
+                    <! --control type="label">
+                        <!-- <top>1</top> 
+                        <!-- <left>50</left> 
                         <height>40</height>
                         <textcolor>$PARAM[colordiffuse]_100</textcolor>
                         <font>font_logo</font>
                         <label>KODI</label>
-                    </control>
+                    </control -->
                 </control>
                 <control type="label">
                     <wrapmultiline>$PARAM[wrapmultiline]</wrapmultiline>
