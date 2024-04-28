@@ -2297,8 +2297,7 @@
                 </control>
                 <control type="group">
                     <top>$PARAM[item_w]</top>
-                    <!-- MISC028: No labels on Icon/Square Home Page widgets - "  + condition !Window.IsVisible(Home)" added --> 
-                    <include content="Layout_Square_Labels" condition="!Window.IsVisible(Home)">
+                    <include content="Layout_Square_Labels" condition="![$PARAM[variation]]">
                         <param name="detailed">$PARAM[detailed]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="affix">$PARAM[affix]</param>
@@ -2314,7 +2313,7 @@
         <param name="selected">false</param>
         <param name="detailed">false</param>
         <param name="variation">false</param>
-        <param name="icon">$VAR[Image_Icon]</param>
+        <param name="icon">$VAR[Image_Circle]</param>
         <param name="listitem">ListItem</param>
         <param name="progress">Progress</param>
         <param name="textcolor">main_fg</param>
@@ -2342,6 +2341,7 @@
 
                     <include content="Object_SquareIcon">
                         <param name="diffuse">diffuse/$PARAM[diffuse].png</param>
+                        <param name="include_discart">true</param>
                         <param name="icon">$PARAM[icon]</param>
                         <param name="listitem">$PARAM[listitem]</param>
                         <param name="aspectratio">scale</param>
