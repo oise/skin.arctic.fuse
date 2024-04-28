@@ -216,8 +216,12 @@
     </include>
 
     <include name="Hub_Refocus_Buttons">
-        <include content="Object_Hidden_Button">
-            <param name="id">309</param>
+        <control type="button" id="309">
+            <visible allowhiddenfocus="true">false</visible>
+            <animation effect="fade" start="0" end="0" time="100" reversible="false">Focus</animation>
+            <include>Object_Hidden_Button_Definition</include>
+
+            <onfocus>ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch,1198)</onfocus>
             <onfocus condition="Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)">SetFocus(370,$VAR[Action_Default_HomeFocus],absolute)</onfocus>
             <onfocus condition="!Window.IsVisible(Home) | !Skin.String(Home.SideMenuCollapse,Topbar)">SetFocus(303,$VAR[Action_Default_HomeFocus],absolute)</onfocus>
 
@@ -229,7 +233,7 @@
             <onback>303</onback>
             <onback>SetFocus($VAR[Action_Hubs_MenuID])</onback>
 
-        </include>
+        </control>
 
         <include content="Object_Hidden_Button">
             <param name="id">308</param>
@@ -241,7 +245,7 @@
     <include name="Hub_Controls">
         <param name="fullscreen_content">$VAR[Path_Spotlight_Fallback_Content]</param>
         <param name="fullscreen_target">$VAR[Path_Spotlight_Fallback_Target]</param>
-        <param name="fullscreen_sortby">random</param>
+        <param name="fullscreen_sortby">$VAR[Path_Spotlight_Fallback_SortBy]</param>
         <param name="widgets_only">false</param>
         <param name="include">Hub_Standard</param>
         <definition>
@@ -287,7 +291,7 @@
                 </include>
                 <include content="Hub_Menu_Group" condition="![$PARAM[widgets_only]]">
                     <top>hub_widgets_grouplist_t</top>
-                    <bottom>hub_widgets_grouplist_b</bottom>
+                    <bottom>hub_group_widgetup_s</bottom>
                     <include>skinvariables-$PARAM[categories]-widgets-selector</include>
                 </include>
                 <include content="Hub_Widgets_Only" condition="$PARAM[widgets_only]">
@@ -395,7 +399,7 @@
             <include>$PARAM[widgets_include]</include>
             <include content="Hub_Menu_Group">
                 <top>hub_widgets_grouplist_t</top>
-                <bottom>hub_widgets_grouplist_b</bottom>
+                <bottom>hub_group_widgetup_s</bottom>
                 <include>$PARAM[widgets_include]-selector</include>
             </include>
         </include>
@@ -440,7 +444,7 @@
     </include>
 
     <include name="Hub_Widgets_Group_Furniture">
-        <param name="visible">[!Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !String.IsEmpty(Window.Property(TMDBHelper.WidgetContainer)) + !String.IsEmpty(Window.Property(Slide.WidgetContainer))]</param>
+        <param name="visible">[!$EXP[Exp_Hubs_Categories_SlideDown]]</param>
         <param name="include_conditionalfade">true</param>
         <definition>
             <control type="group">
