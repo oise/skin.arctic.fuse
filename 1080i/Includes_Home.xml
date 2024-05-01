@@ -2,7 +2,7 @@
 <includes>
 
     <include name="Home_Menu_Content">
-        <param name="condition">$EXP[Exp_HomeMenu_DontHide]</param>
+        <param name="condition">$EXP[Exp_HomeMenu_IsExpanded]</param>
         <definition>
             <include content="Object_ContentNested" condition="$PARAM[condition]">
                 <include>skinvariables-sidemenu-staticitems</include>
@@ -119,18 +119,19 @@
                     <width>view_side</width>
 
 
-                    <include content="Home_Menu_List_OnUp_Home" condition="!$EXP[Exp_HomeMenu_DontHide] + Window.IsVisible(Home)">
+                    <include content="Home_Menu_List_OnUp_Home" condition="!$EXP[Exp_HomeMenu_IsExpanded] + Window.IsVisible(Home)">
                         <param name="id">$PARAM[id]</param>
                     </include>
-                    <include content="Home_Menu_List_OnUp_Bump" condition="!$EXP[Exp_HomeMenu_DontHide] + !Window.IsVisible(Home)">
+                    <include content="Home_Menu_List_OnUp_Bump" condition="!$EXP[Exp_HomeMenu_IsExpanded] + !Window.IsVisible(Home)">
                         <param name="id">$PARAM[id]</param>
                     </include>
 
                     <include>Home_Menu_List_OnBackInfo</include>
                     <onfocus>ClearProperty(WidgetGroup.Movement)</onfocus>
+                    <onfocus>ClearProperty(SideMenu.CurrentItem)</onfocus>
 
-                    <onfocus condition="Window.IsVisible(Home) + !String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,True,1198)</onfocus>
-                    <onfocus condition="Window.IsVisible(Home) + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch,True,1198)</onfocus>
+                    <onfocus condition="Window.IsVisible(Home) + !String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock,True,1198)</onfocus>
+                    <onfocus condition="Window.IsVisible(Home) + String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus))">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,True,1198)</onfocus>
 
                     <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">SetProperty(List.ViewContainer,$INFO[Window.Property(List.ViewContainer.Prev)])</onfocus>
                     <onfocus condition="!String.IsEmpty(Window.Property(List.ViewContainer.Prev))">ClearProperty(List.ViewContainer.Prev)</onfocus>
@@ -138,7 +139,7 @@
                     <include content="Action_HomeMenu_OnRightLeft">
                         <param name="onlist">$PARAM[onlist]</param>
                     </include>
-                    <include content="Action_HomeMenu_OnDown" condition="!$EXP[Exp_HomeMenu_DontHide]">
+                    <include content="Action_HomeMenu_OnDown" condition="!$EXP[Exp_HomeMenu_IsExpanded]">
                         <param name="onlist">$PARAM[onlist]</param>
                     </include>
 
@@ -153,7 +154,7 @@
                     <include content="Home_Menu_List_ItemLayout" condition="!Skin.HasSetting(Hub.Home.DisableSubmenu)">
                         <param name="id">$PARAM[id]</param>
                         <param name="hidden_button">Home_Menu_List_HiddenButton_Alt</param>
-                        <param name="hidden_button_enabled">[Window.IsVisible(Home) + $EXP[Exp_HomeMenu_DontHide]]</param>
+                        <param name="hidden_button_enabled">[Window.IsVisible(Home) + $EXP[Exp_HomeMenu_IsExpanded]]</param>
                     </include>
 
                     <include>$PARAM[items_include]</include>
@@ -216,8 +217,8 @@
     </include>
 
     <include name="Home_Menu_List_ItemLayout">
-        <param name="layoutnf">[$EXP[Exp_HomeMenu_DontHide] + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + !Window.IsVisible(1172) + Window.IsVisible(Home) + [Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.WidgetSelector) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]]</param>
-        <param name="layoutfo">[$EXP[Exp_HomeMenu_DontHide] + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + !Window.IsVisible(1172) + Window.IsVisible(Home) + [[Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.WidgetSelector) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))] | !Skin.HasSetting(Hub.Home.DisableSubmenu) | Skin.HasSetting(Hub.Home.WidgetSelector) | Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)]]</param>
+        <param name="layoutnf">[$EXP[Exp_HomeMenu_IsExpanded] + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + !Window.IsVisible(1172) + Window.IsVisible(Home) + [Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.WidgetSelector) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))]]</param>
+        <param name="layoutfo">[$EXP[Exp_HomeMenu_IsExpanded] + !Skin.HasSetting(Home.SideMenu.DisableIndicator) + !Window.IsVisible(1172) + Window.IsVisible(Home) + [[Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.WidgetSelector) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups) + String.IsEqual(ListItem.Property(guid),Window.Property(SideMenu.CurrentGUID))] | !Skin.HasSetting(Hub.Home.DisableSubmenu) | Skin.HasSetting(Hub.Home.WidgetSelector) | Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)]]</param>
         <param name="altfocus">false</param>
         <definition>
             <itemlayout height="100" width="100">

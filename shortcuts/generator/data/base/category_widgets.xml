@@ -14,30 +14,16 @@
                     <value>SetFocus(300)</value>
                 </rule>
                 <rule>
-                    <condition>!Skin.HasSetting(Hub.{window_id}.WidgetSelector)</condition>
                     <condition>{window_id}==Home</condition>
-                    <condition>!Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)</condition>
-                    <value>SetFocus($VAR[Action_Hubs_MenuID],0,absolute)</value>
+                    <value>SetFocus($VAR[Action_Hubs_MenuID],$INFO[Window.Property(SideMenu.CurrentItem)],absolute)</value>
                 </rule>
                 <rule>
                     <condition>True</condition>
                     <value>SetFocus($VAR[Action_Hubs_MenuID])</value>
                 </rule>
             </rules>
-            <rules name="grouplist_first_id">
-                <rule>
-                    <condition>!Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</condition>
-                    <value>601</value>
-                </rule>
-                <rule>
-                    <condition>True</condition>
-                    <value>100601</value>
-                </rule>
-            </rules>
             <value name="grouplist_widgets_only">Skin.HasSetting(Hub.{window_id}.DisableSubmenu)</value>
             <value name="grouplist_visible">True</value>
-            <value name="grouplist_top_widget_id">497</value>
-            <value name="grouplist_bottom_widget_id">498</value>
             <value name="grouplist_furniture_widget_id">499</value>
             <value name="grouplist_id">400</value>
             <value name="grouplist_widgets_bump_id">401</value>
@@ -120,7 +106,11 @@
                         <template>generator/data/parts/basic_template.xmltemplate</template>
                         <value name="widget_category_visible">String.IsEqual(Container({sidemenu_id}).ListItem.Property(guid),{item_guid}) | [Skin.HasSetting(Hub.Home.DisableSubmenu) + !Skin.HasSetting(Hub.Home.WidgetSelector) + !Skin.HasSetting(Hub.Home.DisableMoveBetweenGroups)]</value>
                         <value name="grouplist_item_x">$MATH[{item_x} + 100]</value>
-                        <value name="widget_custom_onfocus"><![CDATA[<onfocus>SetProperty(SideMenu.CurrentGUID,{item_guid},{window_id})</onfocus>]]></value>
+                        <value name="widget_custom_onfocus"><![CDATA[
+                            <onfocus>SetProperty(SideMenu.CurrentGUID,{item_guid},{window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentName,{item_label},{window_id})</onfocus>
+                            <onfocus>SetProperty(SideMenu.CurrentItem,{item_x},{window_id})</onfocus>
+                        ]]></value>
                         <value name="includes_part">
                             <items mode="widgets" item="{item_x}" menu="{item_menu}">
                                 <item>

@@ -71,7 +71,7 @@
         <onload>ClearProperty(MediaFilterBase)</onload>
         <onload>ClearProperty(MediaFilterWall)</onload>
 
-        <onload condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_DontHide]">SetFocus(303,$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
+        <onload condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_IsExpanded]">SetFocus(303,$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
         <onload>ClearProperty(Home.MenuFocus,Home)</onload>
 
         <onunload>ClearProperty(MediaFilterBase)</onunload>
@@ -130,7 +130,7 @@
     </include>
 
     <variable name="Action_Default_HomeFocus">
-        <value condition="!$EXP[Exp_HomeMenu_DontHide] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">1</value>
+        <value condition="!$EXP[Exp_HomeMenu_IsExpanded] + ![Window.IsVisible(Home) + Skin.String(Home.SideMenuCollapse,Topbar)]">1</value>
         <value condition="!String.IsEmpty(Window(Home).Property(Home.MenuFocus))">$INFO[Window(Home).Property(Home.MenuFocus)]</value>
         <value condition="!Window.IsVisible(Home)">1</value>
         <value condition="!String.IsEmpty(Skin.String(Home.DefaultFocus))">$INFO[Skin.String(Home.DefaultFocus)]</value>
@@ -157,10 +157,11 @@
 
         <include>Action_BuildShortcuts_OnLoad</include>
 
-        <onload condition="!String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch)) + !String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_DontHide]">SetFocus($VAR[Action_Hubs_MenuID],$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
+        <onload condition="!String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnFocus)) + !String.IsEmpty(Window(Home).Property(Home.MenuFocus)) + $EXP[Exp_HomeMenu_IsExpanded]">SetFocus($VAR[Action_Hubs_MenuID],$INFO[Window(Home).Property(Home.MenuFocus)])</onload>
         <onload>ClearProperty(Home.MenuFocus,Home)</onload>
 
-        <onload condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnLaunch)) + Window.IsVisible(Home)">AlarmClock(refocuslaunch,SetFocus($VAR[Action_Hubs_MenuID],$VAR[Action_Default_HomeFocus],absolute),00:01,silent)</onload>
+        <onload condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp)) + Window.IsVisible(Home)">AlarmClock(refocuslaunch,SetFocus($VAR[Action_Hubs_MenuID],$VAR[Action_Default_HomeFocus],absolute),00:01,silent)</onload>
+        <onload condition="String.IsEmpty(Window(1198).Property(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp)) + Window.IsVisible(Home)">SetProperty(TMDbHelper.WidgetContainer.UpdateLock.OnStartUp,True,1198)</onload>
 
         <onunload>CancelAlarm(playtrailer,silent)</onunload>
     </include>
@@ -180,17 +181,19 @@
         <param name="enable">True</param>
         <definition>
 
+
             <!-- Previous: Return to First Item -->
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Previous) + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)">$PARAM[grouplistid]</onback>
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Previous) + !Integer.IsEqual(Container($PARAM[id]).CurrentItem,1)">SetFocus($PARAM[id],0,absolute)</onback>
 
             <!-- Parent: Return to Top Focus (Previous on First Item = Parent Back) -->
             <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">$PARAM[grouplistid]</onback>
-            <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)] + !Control.HasFocus($PARAM[topwidgetid])">AlarmClock(refocus1,SetFocus($PARAM[topwidgetid]),00:00,silent)</onback>
+            <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onback>
             <onback condition="$PARAM[enable] + [[Integer.IsEqual(Container($PARAM[id]).CurrentItem,1) + Skin.String(Navigation.OnBack,Previous)] | Skin.String(Navigation.OnBack,Parent)]">AlarmClock(refocus2,$PARAM[refocus],00:00,silent)</onback>
 
             <!-- Menu: Go to Menu -->
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">SetProperty(List.ViewContainer,$PARAM[id])</onback>
+            <!-- <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">ClearProperty(TMDbHelper.WidgetContainer.UpdateLock.OnFocus,1198)</onback> -->
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">$PARAM[grouplistid]</onback>
             <onback condition="$PARAM[enable] + Skin.String(Navigation.OnBack,Menu)">AlarmClock(refocus2,SetFocus($VAR[Action_Hubs_MenuID]),00:00,silent)</onback>
 
@@ -205,10 +208,10 @@
             <onup condition="$PARAM[condition]">SetProperty(List.ViewContainer,$NUMBER[$PARAM[id]])</onup>
 
             <!-- Menu -->
-            <onup condition="$PARAM[condition] + !$EXP[Exp_HomeMenu_DontHide]">SetFocus(303,1,absolute)</onup>
+            <onup condition="$PARAM[condition] + !$EXP[Exp_HomeMenu_IsExpanded]">SetFocus(303,1,absolute)</onup>
 
             <!-- Bump -->
-            <onup condition="$PARAM[condition] + $EXP[Exp_HomeMenu_DontHide]">333</onup>
+            <onup condition="$PARAM[condition] + $EXP[Exp_HomeMenu_IsExpanded]">333</onup>
 
         </definition>
     </include>
@@ -305,8 +308,6 @@
     <include name="Action_HomeMenu_OnDown">
         <param name="onlist">320</param>
         <param name="c_bump">[!String.IsEmpty(Window.Property(List.ViewContainer.Bump))]</param>
-        <param name="c_wosf">[Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Property(widgets_setfocus))]</param>
-        <param name="i_wosf">$INFO[Container(303).ListItem.Property(widgets_setfocus)]</param>
         <param name="c_left">[!String.IsEmpty(Window.Property(List.ViewContainer.Left))]</param>
         <param name="i_left">$INFO[Window.Property(List.ViewContainer.Left)]</param>
         <param name="c_view">[!String.IsEmpty(Window.Property(List.ViewContainer))]</param>
@@ -318,8 +319,7 @@
 
             <ondown condition="$PARAM[c_view]">SetFocus($PARAM[i_view])</ondown>
             <ondown condition="!$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</ondown>
-            <ondown condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + $PARAM[c_wosf]">$PARAM[i_wosf]</ondown>
-            <ondown condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + !$PARAM[c_wosf]">$PARAM[onlist]</ondown>
+            <ondown condition="!$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</ondown>
             <ondown>ClearProperty(List.ViewContainer)</ondown>
             <ondown>ClearProperty(List.ViewContainer.Left)</ondown>
             <ondown>ClearProperty(List.ViewContainer.Bump)</ondown>
@@ -330,8 +330,6 @@
     <include name="Action_HomeMenu_OnRightLeft">
         <param name="onlist">320</param>
         <param name="c_bump">[!String.IsEmpty(Window.Property(List.ViewContainer.Bump))]</param>
-        <param name="c_wosf">[Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Property(widgets_setfocus))]</param>
-        <param name="i_wosf">$INFO[Container(303).ListItem.Property(widgets_setfocus)]</param>
         <param name="c_left">[!String.IsEmpty(Window.Property(List.ViewContainer.Left))]</param>
         <param name="i_left">$INFO[Window.Property(List.ViewContainer.Left)]</param>
         <param name="c_view">[!String.IsEmpty(Window.Property(List.ViewContainer))]</param>
@@ -347,8 +345,7 @@
             <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + $PARAM[c_left]">SetFocus($PARAM[i_left],99999,absolute)</onleft>
             <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + $PARAM[c_view]">SetFocus($PARAM[i_view],99999,absolute)</onleft>
             <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + !$PARAM[c_tmdb] + $PARAM[c_wosf]">$PARAM[i_wosf]</onleft>
-            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + !$PARAM[c_tmdb] + !$PARAM[c_wosf]">$PARAM[onlist]</onleft>
+            <onleft condition="![$PARAM[c_menu]] + !$PARAM[c_bump] + !$PARAM[c_left] + !$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</onleft>
             <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer)</onleft>
             <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Left)</onleft>
             <onleft condition="![$PARAM[c_menu]]">ClearProperty(List.ViewContainer.Bump)</onleft>
@@ -356,8 +353,7 @@
             <onright condition="$PARAM[c_view] + !Skin.String(Navigation.OnBack,Menu)">SetFocus($PARAM[i_view],0,absolute)</onright>
             <onright condition="$PARAM[c_view] + Skin.String(Navigation.OnBack,Menu)">SetFocus($PARAM[i_view])</onright>
             <onright condition="!$PARAM[c_view] + $PARAM[c_tmdb]">SetFocus($PARAM[i_tmdb])</onright>
-            <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + $PARAM[c_wosf]">$PARAM[i_wosf]</onright>
-            <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb] + !$PARAM[c_wosf]">$PARAM[onlist]</onright>
+            <onright condition="!$PARAM[c_view] + !$PARAM[c_tmdb]">$PARAM[onlist]</onright>
             <onright>ClearProperty(List.ViewContainer)</onright>
             <onright>ClearProperty(List.ViewContainer.Left)</onright>
             <onright>ClearProperty(List.ViewContainer.Bump)</onright>
@@ -444,7 +440,7 @@
             <param name="condition">$PARAM[condition]</param>
         </include>
 
-        <onright condition="$PARAM[condition]">SetProperty(Episodes_Label,$INFO[ListItem.Property(watchedepisodes)]$INFO[ListItem.Property(totalepisodes), of ,] $LOCALIZE[16102],1122)</onright>
+        <onright condition="$PARAM[condition]">SetProperty(Episodes_Label,$INFO[ListItem.Property(watchedepisodes)]$INFO[ListItem.Property(totalepisodes), $LOCALIZE[1443] ,] $LOCALIZE[16102],1122)</onright>
 
         <onright condition="$PARAM[condition]">SetFocus(7001)</onright>
         <onright condition="$PARAM[condition]">ActivateWindow(1122)</onright>
@@ -565,6 +561,7 @@
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
 
             <!-- Search -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Search) + Window.IsVisible(1105)">SetProperty(CustomSearchTerm,$ESCINFO[Control.GetLabel(9099).index(1)],Home)</ondown>
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Search)">ActivateWindow(1185)</ondown>
 
             <!-- Bump -->
@@ -599,7 +596,7 @@
     <include name="Action_View_Movement_OnLeft">
         <param name="onleft" />
         <param name="onbump">[False]</param>
-        <param name="onwrap">[!$EXP[Exp_HomeMenu_DontHide]]</param>
+        <param name="onwrap">[!$EXP[Exp_HomeMenu_IsExpanded] | Skin.String(Navigation.OnBack,Menu)]</param>
         <param name="menuid">303</param>
         <definition>
             <onleft condition="![$PARAM[onwrap]] + $PARAM[onbump]">SetProperty(List.ViewContainer.Bump,True)</onleft>
@@ -616,8 +613,8 @@
 
     <include name="Action_View_Movement_OnRight">
         <param name="onleft" />
-        <param name="onbump">[!Skin.HasSetting(Navigation.DisableOptionsOnLeft) + $EXP[Exp_HomeMenu_DontHide]]</param>
-        <param name="onwrap">[!$EXP[Exp_HomeMenu_DontHide]]</param>
+        <param name="onbump">[!Skin.HasSetting(Navigation.DisableOptionsOnLeft) + ![!$EXP[Exp_HomeMenu_IsExpanded] | Skin.String(Navigation.OnBack,Menu)]]</param>
+        <param name="onwrap">[!$EXP[Exp_HomeMenu_IsExpanded] | Skin.String(Navigation.OnBack,Menu)]</param>
         <param name="menuid">303</param>
         <definition>
 
