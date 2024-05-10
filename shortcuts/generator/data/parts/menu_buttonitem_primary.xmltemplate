@@ -13,9 +13,21 @@
     <visible>![String.IsEmpty(Skin.String(SideMenu.CustomShortcut.Path)) | Skin.String(SideMenu.CustomShortcut.Path,noop)]</visible>
 </item>
 
+<!-- MISC023: Add "Home" to Static Side Menu -->
+<item>
+    <label>Home</label>
+    <icon>special://skin/extras/icons/home.png</icon>
+    <property name="showlabel">True</property>
+    <property name="path">ActivateWindow(Home)</property>
+    <property name="guid">{item_guid}</property>
+    <property name="widgets_setfocus">SetFocus(400)</property>
+    <property name="expression">none</property>
+    <onclick>ActivateWindow(Home)</onclick>
+</item>
 
 <!-- Exit: Close -->
-<item>
+<!-- MISC023: disable "Close" button -->
+<!-- item>
     <label>$LOCALIZE[15067]</label>
     <icon>special://skin/extras/icons/circle-xmark.png</icon>
     <property name="showlabel">True</property>
@@ -25,7 +37,7 @@
     <onclick>PreviousMenu</onclick>
     <visible>!Window.IsVisible(Home)</visible>
     <visible>[String.IsEmpty(Skin.String(SideMenu.CustomShortcut.Path)) | Skin.String(SideMenu.CustomShortcut.Path,noop)]</visible>
-</item>
+</item -->
 
 <!-- Exit: Home Pseudo Logout -->
 <item>
