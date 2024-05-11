@@ -44,7 +44,7 @@
                     <control type="group">
                         <control type="image">
                             <texture>shadows/shadowspot.png</texture>                       
-                            <left>1325</left>                   
+                            <left>1225</left>                   
                             <height>230</height> 
                             <top>-85</top>
                             <right>-15</right>                               
