@@ -43,14 +43,7 @@
                     </control>
                     <!-- MISC027: START Home page Top right clock -->
                     <control type="group">
-                        <control type="image">
-                            <texture>shadows/shadowspot.png</texture>                       
-                            <left>1225</left>                   
-                            <height>230</height> 
-                            <top>-85</top>
-                            <right>-15</right>                               
-                            <width>605</width>
-                        </control>
+                        
                         <include content="Furniture_Clock_Top_Right">
                             <param name="flipx">true</param>
                             <param name="topshadowcolor">main_bg_50</param>
@@ -639,8 +632,15 @@
         </definition>
     </include>
 	
-	<!-- MISC027: START Custom include for clock Top Right -->
-	<include name="Furniture_Clock_Top_Right">
+    <!-- MISC027: START Custom include for clock Top Right -->
+    <include name="Furniture_Clock_Top_Right">
+            <include content="Furniture_Clock_Top_Right_SideBar" condition="!Skin.String(Home.SideMenuCollapse,Topbar)">
+            </include>
+            <include content="Furniture_Clock_Top_Right_TopBar" condition="Skin.String(Home.SideMenuCollapse,Topbar)">
+            </include>
+    </include>
+    <!-- Side Bar -->
+	<include name="Furniture_Clock_Top_Right_SideBar">
         <param name="flipx">true</param>
         <param name="toplabel">$INFO[System.Time]</param>
         <param name="bottomlabel">$INFO[System.Date]</param>
@@ -651,13 +651,82 @@
         <param name="centerfont">font_mini</param>
         <definition>
             <control type="group">
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1225</left>                   
+                    <height>230</height> 
+                    <top>-85</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
                 <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <!-- MISC014: param changed from -20 -->
                     <param name="left">-100</param>
                 </include>
                 <include content="Object_Right" condition="$PARAM[flipx]">
-                    <!-- MISC014: param changed from -20 -->
                     <param name="right">-100</param>
+                </include>
+                <control type="group">
+                    <height>80</height>
+                    <centertop>50%</centertop>
+                    <include content="Object_Left" condition="!$PARAM[flipx]">
+                        <param name="left">203</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipx]">
+                        <param name="right">203</param>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Top">
+                        <label>$PARAM[toplabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[topfont]</font>
+                        <textcolor>$PARAM[topcolor]</textcolor>
+                        <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <label>$PARAM[bottomlabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[bottomfont]</font>
+                        <textcolor>$PARAM[bottomcolor]</textcolor>
+                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    <!-- Top Bar -->
+    <include name="Furniture_Clock_Top_Right_TopBar">
+        <param name="flipx">true</param>
+        <param name="toplabel">$INFO[System.Time]</param>
+        <param name="bottomlabel">$INFO[System.Date]</param>
+        <param name="topcolor">main_fg_90</param>
+        <param name="bottomcolor">main_fg_70</param>
+        <param name="topfont">font_mini_black</param>
+        <param name="bottomfont">font_tiny</param>
+        <param name="centerfont">font_mini</param>
+        <definition>
+            <control type="group">
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1325</left>                   
+                    <height>230</height> 
+                    <top>-85</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
+                <include content="Object_Left" condition="!$PARAM[flipx]">
+                    <param name="left">-203</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipx]">
+                    <param name="right">-203</param>
                 </include>
 
                 <control type="group">
@@ -693,11 +762,10 @@
                         <textcolor>$PARAM[bottomcolor]</textcolor>
                         <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
                     </include>
-
                 </control>
             </control>
         </definition>
     </include>
-	<!-- MISC027: START Custom include for clock Top Right -->
+    <!-- MISC027: START Custom include for clock Top Right -->
 
 </includes>
