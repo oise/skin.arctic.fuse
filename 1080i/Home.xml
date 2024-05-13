@@ -27,5 +27,10 @@
         <include>Hub_Widget_Splash</include>
 
         <!-- <include>Overlay_Window_DebugInfo</include> -->
-    </controls>
+    
+    <!-- MISC027: "Enable Clock" top right on Home Page -->
+    <include content="Furniture_Clock_Top_Right_TopBar_v2" condition="Skin.String(Home.SideMenuCollapse,Topbar)">
+    </include>
+    
+    </controls>  
 </window>

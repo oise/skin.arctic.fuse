@@ -636,8 +636,8 @@
     <include name="Furniture_Clock_Top_Right">
             <include content="Furniture_Clock_Top_Right_SideBar" condition="!Skin.String(Home.SideMenuCollapse,Topbar)">
             </include>
-            <include content="Furniture_Clock_Top_Right_TopBar" condition="Skin.String(Home.SideMenuCollapse,Topbar)">
-            </include>
+            <!--include content="Furniture_Clock_Top_Right_TopBar" condition="Skin.String(Home.SideMenuCollapse,Topbar)">
+            </include -->
     </include>
     <!-- Side Bar -->
 	<include name="Furniture_Clock_Top_Right_SideBar">
@@ -766,6 +766,74 @@
             </control>
         </definition>
     </include>
+    
+    <include name="Furniture_Clock_Top_Right_TopBar_v2">
+        <param name="flipx">true</param>
+        <param name="toplabel">$INFO[System.Time]</param>
+        <param name="bottomlabel">$INFO[System.Date]</param>
+        <param name="topcolor">main_fg_90</param>
+        <param name="bottomcolor">main_fg_70</param>
+        <param name="topfont">font_mini_black</param>
+        <param name="bottomfont">font_tiny</param>
+        <param name="centerfont">font_mini</param>
+        <definition>
+            <control type="group">
+            <!--top>0</top>
+            <left>0</left -->
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1425</left>                   
+                    <height>230</height> 
+                    <top>-10</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
+                <!-- include content="Object_Left" condition="!$PARAM[flipx]">
+                    <param name="left">-203</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipx]">
+                    <param name="right">-203</param>
+                </include -->
+
+                <control type="group">
+                    <height>80</height>
+                    <top>61</top>
+                    <!--centertop>50%</centertop -->
+                    <include content="Object_Left" condition="!$PARAM[flipx]">
+                        <param name="left">80</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipx]">
+                        <param name="right">80</param>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Top">
+                        <label>$PARAM[toplabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[topfont]</font>
+                        <textcolor>$PARAM[topcolor]</textcolor>
+                        <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <label>$PARAM[bottomlabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[bottomfont]</font>
+                        <textcolor>$PARAM[bottomcolor]</textcolor>
+                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    
     <!-- MISC027: START Custom include for clock Top Right -->
 
 </includes>
