@@ -5,6 +5,7 @@
 
     <include>Action_Blur_Onload</include>
 
+    <onload condition="String.IsEmpty(Window(Home).Property(CustomSearchTerm))">SetFocus(64)</onload>
     <onload condition="!String.IsEmpty(Window(Home).Property(CustomSearchTerm))">AlarmClock(refocus,RunScript(script.skinvariables,set_editcontrol=9099,window_id=1105,setfocus=64,text=$INFO[Window(Home).Property(CustomSearchTerm)]),00:01,silent)</onload>
     <onload>ClearProperty(CustomSearchTerm,Home)</onload>
 
@@ -29,7 +30,6 @@
             <include>Animation_View_SlideOver</include>
             <include>Animation_View_WindowChange</include>
             <visible>!$EXP[Exp_InfoDialogs]</visible>
-            <include>Animation_Transition_InfoPanel_Hide</include>
             <include content="Furniture_Top">
                 <param name="label">$VAR[Label_Setting_SearchStyle][CAPITALIZE]$INFO[Control.GetLabel(9099).index(1), [COLOR=main_fg_30]›[/COLOR] ,][/CAPITALIZE]</param>
             </include>
