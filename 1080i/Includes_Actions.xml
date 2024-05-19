@@ -247,7 +247,9 @@
         <definition>
             <include content="Action_Widget_Top">
                 <param name="id">$PARAM[id]</param>
+                <param name="condition">[Skin.String(Navigation.Global.OnDown,Options) | Skin.String(Navigation.Global.OnDown,Filter) | Skin.String(Navigation.Global.OnDown,Bump)]</param>
             </include>
+            <onup condition="![Skin.String(Navigation.Global.OnDown,Options) | Skin.String(Navigation.Global.OnDown,Filter) | Skin.String(Navigation.Global.OnDown,Bump)]">SetFocus(64)</onup>
         </definition>
     </include>
 
@@ -354,6 +356,9 @@
             <ondown>ClearProperty(List.ViewContainer.Left)</ondown>
             <ondown>ClearProperty(List.ViewContainer.Bump)</ondown>
 
+            <onleft condition="Skin.HasSetting(SideMenu.EnableSearchAndOptions)">ActivateWindow(1185)</onleft>
+            <onright condition="Skin.HasSetting(SideMenu.EnableSearchAndOptions)">ActivateWindow(1170)</onright>
+
         </definition>
     </include>
 
@@ -396,7 +401,6 @@
 
             <onup condition="Skin.HasSetting(SideMenu.EnableSearchAndOptions) + !Window.IsVisible(1185)">ActivateWindow(1185)</onup>
             <onup condition="Skin.HasSetting(SideMenu.EnableSearchAndOptions) + Window.IsVisible(1185)">SetFocus(9097)</onup>
-
             <ondown condition="Skin.HasSetting(SideMenu.EnableSearchAndOptions)">ActivateWindow(1170)</ondown>
 
         </definition>
