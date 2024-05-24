@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <window type="dialog" id="1170">
     <defaultcontrol>7000</defaultcontrol>
+    <onload>Dialog.Close(1171)</onload>
+    <onload>Dialog.Close(1172)</onload>
     <onload>AlarmClock(refocus,SetFocus(7021),00:00,silent)</onload>
     <include>Action_ButtonMenu_Onload</include>
     <controls>
@@ -45,7 +47,6 @@
                             <right>20</right>
                             <height>1</height>
                             <texture colordiffuse="dialog_fg_12">common/white.png</texture>
-                            <!-- <visible>String.IsEmpty(Window(Home).Property(Options.Menu.GUID))</visible> -->
                         </control>
 
                         <include content="List_DialogSelect">
