@@ -46,7 +46,7 @@
 	<expression name="Standard_Channel">Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,499)</expression>
 	<expression name="247_Channel">Integer.IsGreater(ListItem.ChannelNumberLabel,900)</expression>
     
-    <!-- New Avova Groups -->
+    <!-- New Anova Groups -->
     <expression name="Live_Football_Anova_EPL_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,501) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,520)]</expression>
     <expression name="Live_Football_Anova_EFLC_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,521) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,544)]</expression>
     <expression name="Live_Football_Anova_EFL1_Club">[Integer.IsGreaterOrEqual(ListItem.ChannelNumberLabel,545) + Integer.IsLessOrEqual(ListItem.ChannelNumberLabel,568)]</expression>
