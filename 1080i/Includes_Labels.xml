@@ -1261,8 +1261,12 @@
         <!-- <value condition="!Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(300).ListItem.Label) + !Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301) + !Integer.IsEqual(Window.Property(Slide.WidgetContainer),300)">$INFO[Container(300).ListItem.Label]</value> -->
         <!-- <value condition="!Skin.HasSetting(Home.SideMenu.DisableIndicator) + $EXP[Exp_HomeMenu_IsTopBar] + Integer.IsEqual(Window.Property(TMDBHelper.WidgetContainer),301)">$LOCALIZE[10000]</value> -->
        
-        <!-- MISC030: Use Side Menu Label instead of "Home" -->
-        <value condition="Window.IsVisible(Home) + Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Label)">HOME:  $INFO[Container(303).ListItem.Label]</value>
+        <!-- MISC030: START Use Side Menu Label instead of "Home" -->
+        <value condition="String.IsEqual(System.CurrentControlID,308)">HOME: OPTIONS</value>
+        <value condition="String.IsEqual(System.CurrentControlID,309) + !Skin.HasSetting(SideMenu.SwapSearchForDiscover)">HOME: SEARCH</value>
+        <value condition="String.IsEqual(System.CurrentControlID,309) + Skin.HasSetting(SideMenu.SwapSearchForDiscover)">HOME: DISCOVER</value>
+        <value condition="Skin.HasSetting(Hub.Home.DisableSubmenu) + !String.IsEmpty(Container(303).ListItem.Label)">HOME:  $INFO[Container(303).ListItem.Label]</value>
+        <!-- MISC030: END Use Side Menu Label instead of "Home" -->
         
         <value condition="[$EXP[Exp_Hubs_Spotlight_IsDisabled]]">$LOCALIZE[10000]</value>
         <value condition="!String.IsEmpty(Window.Property(SideMenu.CurrentName)) + !Skin.HasSetting(Home.SideMenu.DisableIndicator)">$INFO[Window.Property(SideMenu.CurrentName)]</value>
