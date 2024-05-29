@@ -19,12 +19,13 @@
                         <param name="label">$PARAM[label]</param>
                     </include>
                 </control>
-                <control type="group">
+                <!-- MISC031: disable Filter Alphabet Bar -->
+                <!-- control type="group">
                     <visible allowhiddenfocus="true">Control.HasFocus(19) | ControlGroup(9090).HasFocus() | Control.HasFocus(9992) | Control.HasFocus(9993) | !String.IsEmpty(Window.Property(MediaFilterBase)) | $EXP[Exp_FilterWall_IsActive]</visible>
                     <include content="Search_View_Edit">
                         <param name="editid">19</param>
                     </include>
-                </control>
+                </control -->
             </control>
         </definition>
     </include>
