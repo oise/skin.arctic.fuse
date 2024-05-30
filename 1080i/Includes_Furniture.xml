@@ -40,6 +40,16 @@
                     <param name="visible">!Skin.HasSetting(Furniture.EnableClock) + [Window.IsVisible(MyPVRGuide.xml) | Window.IsVisible(MyPVRChannels.xml) | $PARAM[clock]]</param>
                 </include>
             </control>
+            <!-- MISC027: START Home page Top right clock -->
+            <control type="group">                      
+                <include content="Furniture_Clock_Top_Right">
+                    <param name="flipx">true</param>
+                    <param name="topshadowcolor">main_bg_50</param>
+                    <param name="bottomshadowcolor">main_bg_50</param>
+                </include>                  
+                <visible>Window.IsVisible(Home) + Skin.HasSetting(Furniture.EnableClock)</visible>
+            </control>
+            <!-- MISC027: END Home page Top right clock -->
         </control>
     </include>
 
@@ -58,10 +68,14 @@
                 <include>Dimension_Furniture_Gutters</include>
                 <control type="group">
                     <visible>Skin.HasSetting(Furniture.DisableNowPlaying) | !Player.HasMedia</visible>
-                    <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]]">
+                    <!-- MISC024: Studio not shown on Home Page widgets (add  + !Window.IsVisible(Home) to condition -->
+                        <include content="Info_Studio" condition="![Skin.HasSetting(Furniture.EnableClock) | $EXP[Exp_Furniture_PVR]] + !Window.IsVisible(Home)">
                         <centertop>50%</centertop>
                     </include>
-                    <include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)">
+                    <!-- PVR008: condition extended with " | Window.IsVisible(10702)" -->
+                    <!-- MISC027: condition extended with " + !Window.IsVisible(Home)" -->
+                    <!-- include content="Furniture_Clock" condition="Skin.HasSetting(Furniture.EnableClock)" --> 
+                    <include content="Furniture_Clock" condition="[Skin.HasSetting(Furniture.EnableClock) + !Window.IsVisible(Home)] | Window.IsVisible(10702)">
                         <param name="flipx">true</param>
                         <param name="topshadowcolor">main_bg_50</param>
                         <param name="bottomshadowcolor">main_bg_50</param>
@@ -265,8 +279,22 @@
                 <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
                 <bottom>-30</bottom>
                 <height>50</height>
-                <visible>$PARAM[visible]</visible>
+                <!-- PVR008: do not display System Date top left on EPG -->
+                <visible>$PARAM[visible] + !Window.IsVisible(10702)</visible>
             </control>
+            <!-- PVR008: START display Program Start Date on Basic (Full Screen) EPG -->
+            <control type="label">
+                <aligny>center</aligny>
+                <width>auto</width>
+                <font>font_tiny_bold</font>
+                <label>$VAR[LabelProgramStartDate]</label>
+                <textcolor>$PARAM[textcolor]</textcolor>
+                <shadowcolor>$PARAM[shadowcolor]</shadowcolor>
+                <bottom>-30</bottom>
+                <height>50</height>
+                <visible>Window.IsVisible(10702) + !Skin.HasSetting(Views.UseHalfPVRGuide)</visible>
+            </control>
+            <!-- PVR008: END display Program Start Date on Basic (Full Screen) EPG -->
         </definition>
     </include>
 
@@ -573,13 +601,16 @@
         <definition>
             <control type="group">
                 <include content="Object_Left" condition="!$PARAM[flipx]">
-                    <param name="left">-20</param>
+                    <!-- MISC014: param changed from -20 -->
+                    <param name="left">-100</param>
                 </include>
                 <include content="Object_Right" condition="$PARAM[flipx]">
-                    <param name="right">-20</param>
+                    <!-- MISC014: param changed from -20 -->
+                    <param name="right">-100</param>
                 </include>
                 <control type="group">
-                    <centertop>50%</centertop>
+                    <!-- MISC014: analog clock disabled -->
+                    <!-- centertop>50%</centertop>
                     <height>50</height>
                     <width>50</width>
                     <include content="Object_Left" condition="!$PARAM[flipx]">
@@ -612,7 +643,7 @@
                             <height>8</height>
                             <texture colordiffuse="main_bg_100">common/circle.png</texture>
                         </control>
-                    </control>
+                    </control -->
 
                 </control>
                 <control type="group">
@@ -653,5 +684,206 @@
             </control>
         </definition>
     </include>
+    <!-- MISC027: START Custom include for clock Top Right -->
+    <include name="Furniture_Clock_Top_Right">
+            <include content="Furniture_Clock_Top_Right_SideBar" condition="!Skin.String(Home.SideMenuCollapse,Topbar)">
+            </include>
+            <!--include content="Furniture_Clock_Top_Right_TopBar" condition="Skin.String(Home.SideMenuCollapse,Topbar)">
+            </include -->
+    </include>
+    <!-- Side Bar -->
+	<include name="Furniture_Clock_Top_Right_SideBar">
+        <param name="flipx">true</param>
+        <param name="toplabel">$INFO[System.Time]</param>
+        <param name="bottomlabel">$INFO[System.Date]</param>
+        <param name="topcolor">main_fg_90</param>
+        <param name="bottomcolor">main_fg_70</param>
+        <param name="topfont">font_mini_black</param>
+        <param name="bottomfont">font_tiny</param>
+        <param name="centerfont">font_mini</param>
+        <definition>
+            <control type="group">
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1225</left>                   
+                    <height>230</height> 
+                    <top>-85</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
+                <include content="Object_Left" condition="!$PARAM[flipx]">
+                    <param name="left">-100</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipx]">
+                    <param name="right">-100</param>
+                </include>
+                <control type="group">
+                    <height>80</height>
+                    <centertop>50%</centertop>
+                    <include content="Object_Left" condition="!$PARAM[flipx]">
+                        <param name="left">203</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipx]">
+                        <param name="right">203</param>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Top">
+                        <label>$PARAM[toplabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[topfont]</font>
+                        <textcolor>$PARAM[topcolor]</textcolor>
+                        <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <label>$PARAM[bottomlabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[bottomfont]</font>
+                        <textcolor>$PARAM[bottomcolor]</textcolor>
+                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    <!-- Top Bar -->
+    <include name="Furniture_Clock_Top_Right_TopBar">
+        <param name="flipx">true</param>
+        <param name="toplabel">$INFO[System.Time]</param>
+        <param name="bottomlabel">$INFO[System.Date]</param>
+        <param name="topcolor">main_fg_90</param>
+        <param name="bottomcolor">main_fg_70</param>
+        <param name="topfont">font_mini_black</param>
+        <param name="bottomfont">font_tiny</param>
+        <param name="centerfont">font_mini</param>
+        <definition>
+            <control type="group">
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1325</left>                   
+                    <height>230</height> 
+                    <top>-85</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
+                <include content="Object_Left" condition="!$PARAM[flipx]">
+                    <param name="left">-203</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipx]">
+                    <param name="right">-203</param>
+                </include>
 
+                <control type="group">
+                    <height>80</height>
+                    <centertop>50%</centertop>
+                    <include content="Object_Left" condition="!$PARAM[flipx]">
+                        <param name="left">203</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipx]">
+                        <param name="right">203</param>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Top">
+                        <label>$PARAM[toplabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[topfont]</font>
+                        <textcolor>$PARAM[topcolor]</textcolor>
+                        <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <label>$PARAM[bottomlabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[bottomfont]</font>
+                        <textcolor>$PARAM[bottomcolor]</textcolor>
+                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>
+    
+    <include name="Furniture_Clock_Top_Right_TopBar_v2">
+        <param name="flipx">true</param>
+        <param name="toplabel">$INFO[System.Time]</param>
+        <param name="bottomlabel">$INFO[System.Date]</param>
+        <param name="topcolor">main_fg_90</param>
+        <param name="bottomcolor">main_fg_70</param>
+        <param name="topfont">font_mini_black</param>
+        <param name="bottomfont">font_tiny</param>
+        <param name="centerfont">font_mini</param>
+        <definition>
+            <control type="group">
+            <!--top>0</top>
+            <left>0</left -->
+                <control type="image">
+                    <texture>shadows/shadowspot.png</texture>                       
+                    <left>1425</left>                   
+                    <height>230</height> 
+                    <top>-10</top>
+                    <right>-15</right>                               
+                    <width>605</width>
+                </control>
+                <!-- include content="Object_Left" condition="!$PARAM[flipx]">
+                    <param name="left">-203</param>
+                </include>
+                <include content="Object_Right" condition="$PARAM[flipx]">
+                    <param name="right">-203</param>
+                </include -->
+
+                <control type="group">
+                    <height>80</height>
+                    <top>61</top>
+                    <!--centertop>50%</centertop -->
+                    <include content="Object_Left" condition="!$PARAM[flipx]">
+                        <param name="left">80</param>
+                    </include>
+                    <include content="Object_Right" condition="$PARAM[flipx]">
+                        <param name="right">80</param>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Top">
+                        <label>$PARAM[toplabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[topfont]</font>
+                        <textcolor>$PARAM[topcolor]</textcolor>
+                        <shadowcolor>$PARAM[topshadowcolor]</shadowcolor>
+                    </include>
+                    <include content="Object_InfoCircle_Text_Sub">
+                        <label>$PARAM[bottomlabel]</label>
+                        <include content="Object_Align" condition="!$PARAM[flipx]">
+                            <param name="align">left</param>
+                        </include>
+                        <include content="Object_Align" condition="$PARAM[flipx]">
+                            <param name="align">right</param>
+                        </include>
+                        <font>$PARAM[bottomfont]</font>
+                        <textcolor>$PARAM[bottomcolor]</textcolor>
+                        <shadowcolor>$PARAM[bottomshadowcolor]</shadowcolor>
+                    </include>
+                </control>
+            </control>
+        </definition>
+    </include>   
+    <!-- MISC027: END Custom include for clock Top Right -->
 </includes>
