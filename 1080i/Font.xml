@@ -262,7 +262,7 @@
         <font>
             <name>font_logo</name>
             <filename>Questrial-Regular.ttf</filename>
-            <size>30</size>
+            <size>24</size>
         </font>
         <font>
             <name>font_logo_large</name>
@@ -517,7 +517,7 @@
         <font>
             <name>font_logo</name>
             <filename>Questrial-Regular.ttf</filename>
-            <size>30</size>
+            <size>24</size>
         </font>
         <font>
             <name>font_logo_large</name>
@@ -803,7 +803,7 @@
         <font>
             <name>font_logo</name>
             <filename>Questrial-Regular.ttf</filename>
-            <size>30</size>
+            <size>24</size>
         </font>
         <font>
             <name>font_logo_large</name>
