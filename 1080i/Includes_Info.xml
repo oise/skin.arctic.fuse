@@ -53,28 +53,14 @@
                             <animation effect="fade" end="33" condition="true">Conditional</animation>
                         </control>
                     </control>
-<<<<<<< berkhornet.mod.v6
-                    <control type="image">
-                        <height>40</height>
-                        <width>40</width>
-                        <bordersize>-10</bordersize>
-                        <texture colordiffuse="$VAR[ColorGradient]">special://skin/extras/icons/kodi.png</texture>
-                        <animation effect="fade" end="33" condition="true">Conditional</animation>
-                    </control> -->
-                    <!-- MISC029: Remove "KODI" from  Info_Title_LogoLabel -->
-                    <! --control type="label">
-                        <!-- <top>1</top> 
-                        <!-- <left>50</left> 
-=======
                     <control type="label">
                         <top>1</top>
                         <left>36</left>
->>>>>>> temp
                         <height>40</height>
                         <textcolor>$PARAM[colordiffuse]_100</textcolor>
                         <font>font_logo</font>
                         <label>KODI</label>
-                    </control -->
+                    </control>
                 </control>
                 <control type="label">
                     <wrapmultiline>$PARAM[wrapmultiline]</wrapmultiline>
@@ -866,24 +852,11 @@
 
                     <include content="Info_Viewline_Label">
                         <include content="Object_TextColor" condition="!Skin.HasSetting(Furniture.ViewLineMonochrome)">
-                        <!-- MISC003: parameter changed from ColorHighlight -->
-                        <param name="textcolor">$VAR[ColorGradient]</param>
+                            <param name="textcolor">$VAR[ColorHighlight]</param>
                         </include>
                         <label fallback="$PARAM[label_fallback]">$PARAM[label]</label>
-                        <!-- PVR008: add  + !Window.IsVisible(10702) to visible tag-->
-                        <visible>$PARAM[primary_visible] + !Window.IsVisible(10702)</visible>
+                        <visible>$PARAM[primary_visible]</visible>
                     </include>
-                    
-                    <!-- PVR008: START display Program Start Date for Detailed EPG -->
-                    <include content="Info_Viewline_Label">                   
-                        <label>$PARAM[label]</label>
-                        <font>font_tiny_bold</font>
-                        <textcolor>main_fg_70</textcolor>
-                        <shadowcolor>main_bg_12</shadowcolor>
-                        <top>-8</top>
-                        <visible>$PARAM[primary_visible] + Window.IsVisible(10702)</visible>                    
-                    </include>
-                    <!-- PVR008: END display Program Start Date for Detailed EPG -->
 
                     <include content="Info_Viewline_Icon" condition="$PARAM[item_condition] + Skin.HasSetting(Furniture.EnableViewLineIcons)">
                         <param name="icon_enabled">special://skin/extras/icons/rotate.png</param>
@@ -932,8 +905,6 @@
                         <height>35</height>
                         <visible>$PARAM[primary_visible]</visible>
                         <animation effect="fade" end="33" condition="true">Conditional</animation>
-                        <!-- PVR008: add visible tag -->
-                        <visible>!Window.IsVisible(10702)</visible>
                     </control>
                     <orientation>horizontal</orientation>
                     <itemgap>12</itemgap>
@@ -1219,19 +1190,6 @@
                     <param name="visible_04">!String.IsEmpty(Container(99950).ListItem.Episode)</param>
                     <param name="textcolor">$PARAM[colordiffuse]_70</param>
                 </include>
-
-                <!-- MISC019: START Custom Infoline Episode Banners -->
-                <include content="Info_Line_Items">
-                    <include content="Info_Line_Visible_02">
-                        <param name="container">$PARAM[container]</param>
-                        <param name="dbtype_01">episode</param>
-                    </include>
-                    <param name="items_01">true</param>
-                    <param name="label_01">$VAR[Info_Line_Episode_Banner_Text]</param>
-                    <param name="visible_01">$EXP[Info_Line_Episode_Banner_Exists] + ![Window.IsVisible(Home) + System.AddonIsEnabled(script.trakt)]</param>
-                    <param name="textcolor">$VAR[Info_Line_Episode_Banner_Color]</param>
-                </include>
-                <!-- MISC019: END Custom Infoline Episode Banners -->
 
                 <!-- Year / Premiered -->
                 <include content="Info_Line_Items">
@@ -2415,8 +2373,7 @@
     </include>
 
     <variable name="Info_KodiLogo_Color">
-        <!-- PVR005: value changed from $VAR[ColorHighlight] -->
-        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">ff30adde</value>
+        <value condition="!Skin.String(Furniture.CodecStyle,Monochrome)">$VAR[ColorHighlight]</value>
         <value>main_fg_90</value>
     </variable>
 
@@ -2426,8 +2383,6 @@
         <definition>
             <include content="Info_FooterItemIcon">
                 <param name="icon">$PARAM[icon]</param>
-                <!-- PVR005: param icon-colordiffuse added -->
-                <param name="icon_colordiffuse">ff30adde</param>
                 <param name="centered">false</param>
                 <param name="size">50</param>
                 <param name="bordersize">$PARAM[bordersize]</param>
