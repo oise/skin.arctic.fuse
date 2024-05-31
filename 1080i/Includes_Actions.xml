@@ -262,7 +262,8 @@
     <include name="Action_View_Movement_OnUp">
         <param name="id">50</param>
         <definition>
-            <onup>SetFocus(9094)</onup>
+            <!-- MISC031: change focus to Bump (330), was 9094 -->
+            <onup>SetFocus(330)</onup>
         </definition>
     </include>
 
@@ -272,7 +273,10 @@
         <definition>
 
             <!-- Options -->
-            <ondown condition="$PARAM[condition] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>
+            <!-- MISC025: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown -->
+            <!-- MISC025: force "bump" if setting = "Options" -->
+            <ondown condition="$PARAM[condition] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Options)">SetFocus(330)</ondown>
 
             <!-- Filter -->
             <ondown condition="$PARAM[condition] + String.IsEmpty(Skin.String(Navigation.Hub.$PARAM[window_id].OnDown)) + Skin.String(Navigation.Global.OnDown,Filter)">SetProperty(List.ViewContainer,$INFO[System.CurrentControlId])</ondown>
@@ -643,7 +647,12 @@
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Explore)">SetFocus(67)</ondown>
 
             <!-- Filter -->
-            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown>
+            <!-- MISC026: disable original "ondown" -->
+            <!-- ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter)">SetFocus(64)</ondown -->
+            <!-- MISC026: Only Filter for media content -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + !String.IsEmpty(Container.Content)">SetFocus(64)</ondown>
+            <!-- MISC026: Otherwise Bump -->
+            <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Filter) + String.IsEmpty(Container.Content)">SetFocus(330)</ondown>
 
             <!-- Options -->
             <ondown condition="$PARAM[condition] + Skin.String(Navigation.Global.OnDown,Options)">ActivateWindow(1171)</ondown>

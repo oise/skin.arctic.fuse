@@ -134,7 +134,8 @@
 
                 <include content="Categories_Selector" condition="!Skin.HasSetting(Views.UseAltCombined.Detailed)">
                     <param name="id">$PARAM[id]2</param>
-                    <param name="font">font_mini</param>
+                    <!-- MISC009: Font changed from font_mini -->
+                    <param name="font">font_epg_group_switcher</param>
                     <param name="hitrect_x">0</param>
                     <param name="hitrect_y">0</param>
                     <param name="hitrect_w">1080</param>

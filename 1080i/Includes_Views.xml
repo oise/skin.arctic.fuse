@@ -19,12 +19,13 @@
                         <param name="label">$PARAM[label]</param>
                     </include>
                 </control>
-                <control type="group">
+                <!-- MISC031: disable Filter Alphabet Bar -->
+                <!-- control type="group">
                     <visible allowhiddenfocus="true">Control.HasFocus(19) | ControlGroup(9090).HasFocus() | Control.HasFocus(9992) | Control.HasFocus(9993) | !String.IsEmpty(Window.Property(MediaFilterBase)) | $EXP[Exp_FilterWall_IsActive]</visible>
                     <include content="Search_View_Edit">
                         <param name="editid">19</param>
                     </include>
-                </control>
+                </control -->
             </control>
         </definition>
     </include>
@@ -214,13 +215,17 @@
             <visible>$EXP[Exp_FurnitureFooter_Left_IsVisible]</visible>
             <visible>!Skin.String(Furniture.BottomLeft.Enable,Library)</visible>
             <visible>!Skin.String(Furniture.BottomLeft.Enable,Always)</visible>
+            <!-- MISC026: In Library, only show "Explore/Filter/Options" for media content -->
+            <visible>!String.IsEmpty(Container.Content)</visible>
             <animation effect="fade" start="100" end="30" condition="true">Conditional</animation>
             <control type="group">
                 <height>35</height>
                 <include content="Info_Viewline">
                     <param name="library_condition">false</param>
                     <param name="label">$VAR[Label_NextMedia]</param>
-                    <param name="custom_icon_condition">Skin.HasSetting(Furniture.EnableViewLineIcons)</param>
+                    <!-- MISC026: Force display of "Down Arrow"  -->
+                    <!-- param name="custom_icon_condition">Skin.HasSetting(Furniture.EnableViewLineIcons)</param -->
+                    <param name="custom_icon_condition">true</param>
                     <param name="custom_icon">$VAR[Image_NextMedia]</param>
                     <top>0</top>
                     <left>0</left>
