@@ -564,6 +564,10 @@
     <variable name="Label_Setting_SearchStyle">
         <value condition="Window.IsVisible(1185)">$LOCALIZE[137]</value>
         <value condition="Window.IsVisible(1105)">$LOCALIZE[31066]</value>
+        <!-- MISC031: START Display Video or Music Library header when Filter open -->
+        <value condition="String.IsEqual(System.CurrentControlID,9012) + String.StartsWith(Container.FolderPath,video)">Video Library</value>
+        <value condition="String.IsEqual(System.CurrentControlID,9012) + String.StartsWith(Container.FolderPath,music)">Music Library</value>
+        <!-- MISC031: END Display Video or Music Library header when Filter open -->
         <value>$LOCALIZE[587]</value>
     </variable>
 

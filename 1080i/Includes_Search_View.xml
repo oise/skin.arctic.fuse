@@ -131,7 +131,9 @@
                         <visible allowhiddenfocus="true">!Window.IsVisible(DialogKeyboard.xml)</visible>
                     </control>
                 </control>
-                <include content="Search_View_Alphabet">
+                <!-- MISC031: Remove Alphabet Bar from Filter View -- >
+                <!--include content="Search_View_Alphabet" -->
+                <include content="Search_View_Alphabet" condition="Window.IsVisible(1105) | Window.IsVisible(1185)">
                     <param name="editid">$PARAM[editid]</param>
                     <param name="ondown">$PARAM[ondown]</param>
                     <param name="rowone">$PARAM[rowone]</param>
