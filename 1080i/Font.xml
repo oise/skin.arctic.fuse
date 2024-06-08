@@ -33,8 +33,6 @@
             <!-- MISC018: Revert to Smaller Main Title Font -->
             <!-- MISC018: size was 74 -->
             <size>56</size>
-            <!-- MISC032: added linespacing -->
-            <linespacing>0.7</linespacing>
         </font>
 
         <!-- Black Fonts -->
@@ -308,6 +306,8 @@
             <!-- MISC018: Revert to Smaller Main Title Font -->
             <!-- MISC018: size was 74 -->
             <size>56</size>
+            <!-- MISC032: added linespacing -->
+            <linespacing>0.7</linespacing>
         </font>
 
         <!-- Black Fonts -->
