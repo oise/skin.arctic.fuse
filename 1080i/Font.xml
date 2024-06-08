@@ -446,10 +446,15 @@
             <size>35</size>
         </font>
         <font>
+            <font>
             <name>font_main_plot</name>
             <filename>Netflixsans-Regular.ttf</filename>
-            <linespacing>1.14</linespacing>
-            <size>30</size>
+            <!-- MISC032: changed to match font_mini_plot -->
+            <!-- MISC032: linespacing changed from 1.14 -->
+            <linespacing>1.24</linespacing>
+            <!-- MISC032: size changed from 30 -->
+            <size>26</size>
+        </font>
         </font>
         <font>
             <name>font_mini_plot</name>
