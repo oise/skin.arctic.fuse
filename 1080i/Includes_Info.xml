@@ -27,7 +27,8 @@
 
     <include name="Info_Title_LogoLabel">
         <param name="label">$VAR[Label_Title_Container]</param>
-        <param name="wrapmultiline">false</param>
+        <!-- MISC032: wrapmultiline changed from false -->
+        <param name="wrapmultiline">true</param>
         <param name="visible">true</param>
         <param name="width">info_plot_w</param>
         <param name="height">100%</param>
